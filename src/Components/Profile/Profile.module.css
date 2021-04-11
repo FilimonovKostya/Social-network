@@ -1,0 +1,14 @@
+
+.profile{
+    grid-area: p;
+    background-color: #FBEAFF;
+
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.profile img {
+    width: 100%;
+    height: 270px;
+
+}
