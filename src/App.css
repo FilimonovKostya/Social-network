@@ -4,7 +4,7 @@
           'h h'
           'n p'
 ;
-  grid-template-rows: 150px 500px;
+  grid-template-rows: 150px auto;
   grid-template-columns: 300px 1fr;
   grid-gap: 10px;
   width: 1440px;
@@ -19,3 +19,4 @@ li{
 a{
   text-decoration: none;
 }
+
