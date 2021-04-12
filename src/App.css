@@ -11,6 +11,13 @@
   margin: 20px auto;
 
 }
+.app-content{
+  grid-area: p;
+  background-color: #FBEAFF;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+}
 
 li{
   list-style: none;
