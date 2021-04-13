@@ -6,6 +6,7 @@ import MyPost from './MyPost/MyPost';
 const MyPosts = () => {
 
     type PostType = {
+        id: number
         message: string
         avatarImg: string
         likes: number
@@ -14,26 +15,28 @@ const MyPosts = () => {
         {
             message: 'Chose React or Vue ?',
             avatarImg: '',
-            likes: 2
+            likes: 2,
+            id: 1,
         },
         {
             message: 'React awesome library, in my opinion',
             avatarImg: '',
-            likes: 100
+            likes: 100,
+            id: 2,
         },
         {
             message: 'No, Vanila Js is the best framework',
             avatarImg: '',
-            likes: -20
+            likes: -20,
+            id: 3,
         },
-
     ]
+
+    const postsElements = posts.map((el) => <Post key={el.id} message={el.message} avatarImg={el.avatarImg} likes={el.likes}/>)
 
     return <div className={style.myPosts}>
         <MyPost/>
-        <Post message={'Chose React or Vue ?'} avatarImg={''} likes={2}/>
-        <Post message={'React awesome library, in my opinion'} avatarImg={''} likes={100}/>
-        <Post message={'No, Vanila Js is the best framework'} avatarImg={''} likes={-20}/>
+        {postsElements}
     </div>
 };
 

@@ -9,7 +9,7 @@ const Dialogs = () => {
         id: number
         name: string
     }
-    const dialogItems: DialogsItemsType[] = [
+    const dialogs: DialogsItemsType[] = [
         {
             id: 1,
             name: 'Batman'
@@ -33,20 +33,28 @@ const Dialogs = () => {
 
     ]
 
+    const dialogsItems = dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
+
+    type MessageItemType = {
+        id: number
+        message: string
+    }
+    const messages: MessageItemType[] = [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'Do you like React.JS ?'},
+        {id: 3, message: 'What do you think about Vue?'},
+        {id: 4, message: 'Do you heard about Vanila JS ?'},
+        {id: 5, message: 'React awesome!!'}
+    ]
+
+    const messagesItem = messages.map((el) => <MessageItem key={el.id} message={el.message}/>)
+
     return <div className={style.wrapper}>
         <div className={style.dialogs}>
-            <DialogItem id={1} name={'Batman'}/>
-            <DialogItem id={2} name={'Pavel Durov'}/>
-            <DialogItem id={3} name={'Ilon Mask'}/>
-            <DialogItem id={4} name={'Den Abramov'}/>
-            <DialogItem id={5} name={'Filimonov Kostya'}/>
+            {dialogsItems}
         </div>
         <div className={style.messages}>
-            <MessageItem message={'Hi'}/>
-            <MessageItem message={'Do you like React.JS ?'}/>
-            <MessageItem message={'What do you think about Vue?'}/>
-            <MessageItem message={'Do you heard about Vanila JS ?'}/>
-            <MessageItem message={'React awesome!!'}/>
+            {messagesItem}
         </div>
     </div>
 };
