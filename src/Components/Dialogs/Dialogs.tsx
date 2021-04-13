@@ -8,14 +8,14 @@ const Dialogs = () => {
             <p>Pavel Durov</p>
             <p>Ilon Mask</p>
             <p>Den Abramov</p>
+            <p>Filimonov Kostya</p>
         </div>
         <div className={style.messages}>
             <p>Hi</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem consequuntur dolor eos hic illo laborum modi optio pariatur quisquam
-                repellat?</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, nostrum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo in numquam odio quas?</p>
-            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Do you like React.JS ?</p>
+            <p>What do you think about Vue?</p>
+            <p>Do you heard about Vanila JS ?</p>
+            <p>React awesome!!</p>
         </div>
     </div>
 };

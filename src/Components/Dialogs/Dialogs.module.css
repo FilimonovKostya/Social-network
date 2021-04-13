@@ -1,0 +1,18 @@
+.wrapper{
+    display: flex;
+}
+
+.dialogs{
+    text-align: center;
+    width: 25%;
+    border-right: 1px solid
+}
+
+.dialogs p {
+
+}
+
+.messages{
+    padding-left: 10px;
+}
+
