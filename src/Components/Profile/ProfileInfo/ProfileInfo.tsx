@@ -3,7 +3,8 @@ import style from './ProfileInfo.module.css'
 
 const ProfileInfo = () => {
     return <>
-        <div><img className={style.backgroundImage}
+        <div>
+            <img className={style.backgroundImage}
                   src='https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fjosephliu%2Ffiles%2F2019%2F06%2F1-office-1516329_1920-1200x299.jpg'
                   alt="bg"/></div>
         <div className={style.wrapperPersonalInfo}>
