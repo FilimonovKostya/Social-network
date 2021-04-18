@@ -1,22 +1,47 @@
-.wrapper{
-    display: flex;
+.wrapper {
+
 }
 
-.dialogs{
+.dialogs {
     text-align: center;
     width: 25%;
     border-right: 1px solid;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
+    display: inline-block;
 }
 
 .dialogs a {
-
+    display: block;
+    padding: 10px;
 }
 
-.messages{
+.messages {
+    display: inline-block;
     padding-left: 10px;
 }
 
+.textArea{
+    text-align: center;
+}
+.textArea textarea {
+    box-sizing: border-box;
+    width: 43%;
+    padding: 13px 15px;
+    border-radius: 8px;
+    border: 2px solid #1a73e8;
+    outline: 0;
+    height: 100px;
+    resize: none;
+}
+
+.button {
+    border: 0.5rem solid rebeccapurple;
+    border-radius: 0.3rem;
+    background: rebeccapurple;
+    color: white;
+    margin-left: 14px;
+    transition: all ease .3s;
+    cursor: pointer;
+}
+.button:active{
+    border: 0.7rem solid rebeccapurple;
+}
