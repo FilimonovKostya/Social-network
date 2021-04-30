@@ -1,3 +1,5 @@
+import RenderEntireTree from "../renderEntireTree";
+
 export type PostType = {
     id: number
     message: string
@@ -74,10 +76,12 @@ export const addPostMessage = (postMessage: string) => {
     const objPostMessage: PostType = {message: postMessage, avatarImg: '', likes: 5, id: 4}
     state.profilePage.push(objPostMessage)
     console.log(state.profilePage)
+    RenderEntireTree(state)
 }
 
 export const addMessageDialog = (message: string) => {
     const objMessageItem: MessageItem = {id: 6, message}
     state.dialogsPage.messages.push(objMessageItem)
     console.log(state.dialogsPage.messages)
+    RenderEntireTree(state)
 }
