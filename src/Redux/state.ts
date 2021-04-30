@@ -70,3 +70,9 @@ export const state:State = {
         ]
     }
 }
+
+export const addPostMessage = (postMessage: string) => {
+    const objPostMessage:PostType = {message:postMessage, avatarImg: '' , likes:5 ,id:4}
+    state.profilePage.push(objPostMessage)
+    console.log(state.profilePage)
+}

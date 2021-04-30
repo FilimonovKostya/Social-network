@@ -6,13 +6,14 @@ import {PostType} from "../../../../Redux/state";
 
 type MyPostsPropsType = {
     posts: PostType[]
+    addPost:(postMessage:string) => void
 }
-const MyPosts = ({posts}:MyPostsPropsType) => {
+const MyPosts = ({posts, addPost}:MyPostsPropsType) => {
 
     const postsElements = posts.map((el) => <Post key={el.id} message={el.message} avatarImg={el.avatarImg} likes={el.likes}/>)
 
     return <div className={style.myPosts}>
-        <MyPost/>
+        <MyPost addPost={addPost}/>
         {postsElements}
     </div>
 };
