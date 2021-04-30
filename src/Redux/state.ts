@@ -74,17 +74,11 @@ export const state: State = {
     }
 }
 
-export const addPostMessage = (postMessage: string) => {
-    const objPostMessage: PostType = {message: postMessage, avatarImg: '', likes: 5, id: 4}
+export const addPostMessage = () => {
+    const objPostMessage: PostType = {message: state.newPostsText, avatarImg: '', likes: 5, id: 4}
     state.profilePage.push(objPostMessage)
+    state.newPostsText = ''
     console.log(state.profilePage)
-    RenderEntireTree(state)
-}
-
-export const addMessageDialog = (message: string) => {
-    const objMessageItem: MessageItem = {id: 6, message}
-    state.dialogsPage.messages.push(objMessageItem)
-    console.log(state.dialogsPage.messages)
     RenderEntireTree(state)
 }
 
@@ -93,3 +87,14 @@ export const onChangePostText = (postMessage:string) => {
     RenderEntireTree(state)
     console.log('onChangeMessage', state.newPostsText)
 }
+
+
+export const addMessageDialog = (message: string) => {
+    const objMessageItem: MessageItem = {id: 6, message}
+    state.dialogsPage.messages.push(objMessageItem)
+    console.log(state.dialogsPage.messages)
+    RenderEntireTree(state)
+}
+
+// @ts-ignore
+window.state = state

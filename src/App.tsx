@@ -12,7 +12,7 @@ import {State} from "./Redux/state";
 
 type StatePropsType = {
     state: State
-    addPost: (postMessage: string) => void
+    addPost: () => void
     addMessageDialog: (message: string) => void
     onChangePostText: (postMessage: string) => void
     newPostsText:string
