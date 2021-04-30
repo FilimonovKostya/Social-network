@@ -17,6 +17,7 @@ export type DialogsItems = {
 export type DialogsPage = {
     dialogs: DialogsItems[]
     messages: MessageItem[]
+    newDialogMessage:string
 }
 
 export type State = {
@@ -48,7 +49,8 @@ export const state: State = {
     ],
     newPostsText:'',
     dialogsPage: {
-        dialogs: [{
+        dialogs: [
+            {
             id: 1,
             name: 'Batman'
         }, {
@@ -70,7 +72,8 @@ export const state: State = {
             {id: 3, message: 'What do you think about Vue?'},
             {id: 4, message: 'Do you heard about Vanila JS ?'},
             {id: 5, message: 'React awesome!!'}
-        ]
+        ],
+        newDialogMessage:''
     }
 }
 
@@ -88,11 +91,16 @@ export const onChangePostText = (postMessage:string) => {
     console.log('onChangeMessage', state.newPostsText)
 }
 
-
-export const addMessageDialog = (message: string) => {
-    const objMessageItem: MessageItem = {id: 6, message}
+export const addMessageDialog = () => {
+    const objMessageItem: MessageItem = {id: 6, message:state.dialogsPage.newDialogMessage}
     state.dialogsPage.messages.push(objMessageItem)
+    state.dialogsPage.newDialogMessage = ''
     console.log(state.dialogsPage.messages)
+    RenderEntireTree(state)
+}
+
+export const onChangeDialogMessage = (message:string) => {
+    state.dialogsPage.newDialogMessage = message
     RenderEntireTree(state)
 }
 

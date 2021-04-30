@@ -13,20 +13,24 @@ import {State} from "./Redux/state";
 type StatePropsType = {
     state: State
     addPost: () => void
-    addMessageDialog: (message: string) => void
+    addMessageDialog: () => void
     onChangePostText: (postMessage: string) => void
-    newPostsText:string
+    newPostsText: string
+    onChangeDialogMessage: (message: string) => void
+    newMessageDialog: string
 }
 
-function App({state, addPost, addMessageDialog, onChangePostText, newPostsText}: StatePropsType) {
+function App({state, addPost, addMessageDialog, onChangePostText, newPostsText, onChangeDialogMessage, newMessageDialog}: StatePropsType) {
 
     return (
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
             <div className={'app-content'}>
-                <Route path={'/profile'} render={() => <Profile posts={state.profilePage} addPost={addPost} onChangePostText={onChangePostText} newPostsText={newPostsText}/>}/>
-                <Route path={'/dialogs'} render={() => <Dialogs dialogsData={state.dialogsPage} addMessageDialog={addMessageDialog}/>}/>
+                <Route path={'/profile'}
+                       render={() => <Profile posts={state.profilePage} addPost={addPost} onChangePostText={onChangePostText} newPostsText={newPostsText}/>}/>
+                <Route path={'/dialogs'} render={() => <Dialogs dialogsData={state.dialogsPage} addMessageDialog={addMessageDialog}
+                                                                onChangeDialogMessage={onChangeDialogMessage} newMessageDialog={newMessageDialog}/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
