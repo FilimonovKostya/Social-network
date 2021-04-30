@@ -22,6 +22,7 @@ export type DialogsPage = {
 export type State = {
     profilePage: PostType[]
     dialogsPage: DialogsPage
+    newPostsText:string
 }
 
 export const state: State = {
@@ -45,6 +46,7 @@ export const state: State = {
             id: 3,
         },
     ],
+    newPostsText:'',
     dialogsPage: {
         dialogs: [{
             id: 1,
@@ -84,4 +86,10 @@ export const addMessageDialog = (message: string) => {
     state.dialogsPage.messages.push(objMessageItem)
     console.log(state.dialogsPage.messages)
     RenderEntireTree(state)
+}
+
+export const onChangePostText = (postMessage:string) => {
+    state.newPostsText = postMessage
+    RenderEntireTree(state)
+    console.log('onChangeMessage', state.newPostsText)
 }

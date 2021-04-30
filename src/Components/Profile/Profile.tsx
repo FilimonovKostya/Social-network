@@ -7,11 +7,13 @@ import {PostType} from "../../Redux/state";
 type ProfilePropsType = {
     posts: PostType[]
     addPost:(postMessage:string) => void
+    onChangePostText: (postMessage: string) => void
+    newPostsText:string
 }
-const Profile = ({posts,addPost}:ProfilePropsType) => {
+const Profile = ({posts,addPost, onChangePostText, newPostsText}:ProfilePropsType) => {
     return <main className={style.profile}>
         <ProfileInfo/>
-        <MyPosts posts={posts} addPost={addPost}/>
+        <MyPosts posts={posts} addPost={addPost} onChangePostText={onChangePostText} newPostsText={newPostsText}/>
     </main>
 }
 
