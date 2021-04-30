@@ -1,4 +1,3 @@
-
 export type PostType = {
     id: number
     message: string
@@ -14,16 +13,16 @@ export type DialogsItems = {
     name: string
 }
 export type DialogsPage = {
-    dialogs:DialogsItems[]
-    messages:MessageItem[]
+    dialogs: DialogsItems[]
+    messages: MessageItem[]
 }
 
 export type State = {
     profilePage: PostType[]
-    dialogsPage:DialogsPage
+    dialogsPage: DialogsPage
 }
 
-export const state:State = {
+export const state: State = {
     profilePage: [
         {
             message: 'Chose React or Vue ?',
@@ -44,8 +43,8 @@ export const state:State = {
             id: 3,
         },
     ],
-    dialogsPage:{
-        dialogs:[{
+    dialogsPage: {
+        dialogs: [{
             id: 1,
             name: 'Batman'
         }, {
@@ -61,7 +60,7 @@ export const state:State = {
             id: 5,
             name: 'Filimonov Kostya'
         },],
-        messages:[
+        messages: [
             {id: 1, message: 'Hi'},
             {id: 2, message: 'Do you like React.JS ?'},
             {id: 3, message: 'What do you think about Vue?'},
@@ -72,7 +71,13 @@ export const state:State = {
 }
 
 export const addPostMessage = (postMessage: string) => {
-    const objPostMessage:PostType = {message:postMessage, avatarImg: '' , likes:5 ,id:4}
+    const objPostMessage: PostType = {message: postMessage, avatarImg: '', likes: 5, id: 4}
     state.profilePage.push(objPostMessage)
     console.log(state.profilePage)
+}
+
+export const addMessageDialog = (message: string) => {
+    const objMessageItem: MessageItem = {id: 6, message}
+    state.dialogsPage.messages.push(objMessageItem)
+    console.log(state.dialogsPage.messages)
 }

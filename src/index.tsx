@@ -4,12 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from "react-router-dom";
-import {addPostMessage, state} from './Redux/state';
+import {addMessageDialog, addPostMessage, state} from './Redux/state';
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App state={state} addPost={addPostMessage}/>
+            <App state={state} addPost={addPostMessage} addMessageDialog={addMessageDialog}/>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
