@@ -1,6 +1,6 @@
 import style from "./MyPost.module.css";
 import React, {ChangeEvent} from "react";
-import {ActionType} from "../../../../../Redux/store";
+import {ActionType, AddPostAC, ChangePostTextAC} from "../../../../../Redux/store";
 
 type MyPostPropsType = {
     dispatch: (action: ActionType) => void
@@ -8,8 +8,8 @@ type MyPostPropsType = {
 }
 const MyPost = ({dispatch, newPostsText}: MyPostPropsType) => {
 
-    const onAddPostMessage = () => dispatch({type: 'ADD-POST'})
-    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch({type: 'CHANGE-POST-TEXT', newPostMessage: e.currentTarget.value})
+    const onAddPostMessage = () => dispatch(AddPostAC())
+    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch(ChangePostTextAC(e.currentTarget.value))
 
     return <>
         <h4>My posts</h4>

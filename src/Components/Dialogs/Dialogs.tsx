@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import style from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
-import {ActionType, DialogsPage} from "../../Redux/store";
+import {ActionType, AddMessageAC, ChangeMessageAC, DialogsPage} from "../../Redux/store";
 
 type DialogsPropsType = {
     dialogsData: DialogsPage
@@ -13,8 +13,8 @@ const Dialogs = ({dialogsData, dispatch, newMessageDialog}: DialogsPropsType) =>
     const dialogsItems = dialogsData.dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
     const messagesItem = dialogsData.messages.map((el) => <MessageItem key={el.id} message={el.message}/>)
 
-    const onAddMessage = () => dispatch({type: 'ADD-MESSAGE'})
-    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch({type: 'CHANGE-MESSAGE-TEXT', message: e.currentTarget.value})
+    const onAddMessage = () => dispatch(AddMessageAC())
+    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch(ChangeMessageAC(e.currentTarget.value))
 
     return <div className={style.wrapper}>
         <div className={style.dialogs}>

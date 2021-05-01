@@ -42,6 +42,11 @@ type ChangeMessageActionType = {
     message: string
 }
 
+export const AddPostAC = (): AddPostActionType => ({type: 'ADD-POST'})
+export const ChangePostTextAC = (newPostMessage: string): ChangePostTextActionType => ({type: 'CHANGE-POST-TEXT', newPostMessage})
+export const AddMessageAC = (): AddMessageActionType => ({type: 'ADD-MESSAGE'})
+export const ChangeMessageAC = (message: string): ChangeMessageActionType => ({type: "CHANGE-MESSAGE-TEXT", message})
+
 export type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType
 
 type StoreType = {
