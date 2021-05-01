@@ -28,17 +28,18 @@ export type Store = {
 }
 
 type StoreType = {
-    state:Store
+    _state:Store
     renderEntireTree:() => void
     addPostMessage:() => void
     onChangePostText:(newPostMessage:string) => void
     addMessageDialog:() => void
     onChangeDialogMessage:(message:string) => void
     subscribe:(observer:() => void) => void
+    getState:() => Store
 }
 
 export const store:StoreType = {
-    state: {
+    _state: {
         profilePage:{
             posts: [
                 {
@@ -94,27 +95,33 @@ export const store:StoreType = {
         console.log('state was changed')
     },
     addPostMessage(){
-        const newPostMessage:PostType = {message: this.state.profilePage.newPostText, avatarImg:'', likes:5, id:4}
-        this.state.profilePage.posts.push(newPostMessage)
-        this.state.profilePage.newPostText = ''
+        const newPostMessage:PostType = {message: this._state.profilePage.newPostText, avatarImg:'', likes:5, id:4}
+        this._state.profilePage.posts.push(newPostMessage)
+        this._state.profilePage.newPostText = ''
         this.renderEntireTree()
     },
     onChangePostText(newPostMessage:string){
-        this.state.profilePage.newPostText = newPostMessage
+        this._state.profilePage.newPostText = newPostMessage
         this.renderEntireTree()
     },
     addMessageDialog(){
-        const newMessageItem: MessageItem = {id: 6, message:this.state.dialogsPage.newDialogMessage}
-        this.state.dialogsPage.messages.push(newMessageItem)
-        this.state.dialogsPage.newDialogMessage = ''
-        console.log(this.state.dialogsPage.messages)
+        const newMessageItem: MessageItem = {id: 6, message:this._state.dialogsPage.newDialogMessage}
+        this._state.dialogsPage.messages.push(newMessageItem)
+        this._state.dialogsPage.newDialogMessage = ''
+        console.log(this._state.dialogsPage.messages)
         this.renderEntireTree()
     },
     onChangeDialogMessage(message:string){
-        this.state.dialogsPage.newDialogMessage = message
+        this._state.dialogsPage.newDialogMessage = message
         this.renderEntireTree()
     },
     subscribe(observer:()=>void){
         this.renderEntireTree = observer
+    },
+    getState(){
+       return this._state
     }
 }
+
+// @ts-ignore
+window.store = store

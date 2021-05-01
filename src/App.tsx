@@ -11,7 +11,7 @@ import News from "./Components/News/News";
 import {Store} from "./Redux/store";
 
 type StatePropsType = {
-    state: Store
+    store: Store
     addPost: () => void
     addMessageDialog: () => void
     onChangePostText: (postMessage: string) => void
@@ -20,7 +20,7 @@ type StatePropsType = {
     newMessageDialog: string
 }
 
-function App({state, addPost, addMessageDialog, onChangePostText, newPostsText, onChangeDialogMessage, newMessageDialog}: StatePropsType) {
+function App({store, addPost, addMessageDialog, onChangePostText, newPostsText, onChangeDialogMessage, newMessageDialog}: StatePropsType) {
 
     return (
         <div className={'app-wrapper'}>
@@ -28,9 +28,9 @@ function App({state, addPost, addMessageDialog, onChangePostText, newPostsText, 
             <Navbar/>
             <div className={'app-content'}>
                 <Route path={'/profile'}
-                       render={() => <Profile posts={state.profilePage.posts} addPost={addPost} onChangePostText={onChangePostText}
+                       render={() => <Profile posts={store.profilePage.posts} addPost={addPost} onChangePostText={onChangePostText}
                                               newPostsText={newPostsText}/>}/>
-                <Route path={'/dialogs'} render={() => <Dialogs dialogsData={state.dialogsPage} addMessageDialog={addMessageDialog}
+                <Route path={'/dialogs'} render={() => <Dialogs dialogsData={store.dialogsPage} addMessageDialog={addMessageDialog}
                                                                 onChangeDialogMessage={onChangeDialogMessage} newMessageDialog={newMessageDialog}/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
