@@ -8,17 +8,16 @@ import {Route} from 'react-router-dom';
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
-import {ActionType, Store} from "./Redux/store";
+import { Store} from "./Redux/store";
 
 type StatePropsType = {
     store: Store
     newPostsText: string
     newMessageDialog: string
-    dispatch: (action: ActionType) => void
+    dispatch: (action: any) => void
 }
 
 function App({store, newPostsText, dispatch, newMessageDialog}: StatePropsType) {
-
     return (
         <div className={'app-wrapper'}>
             <Header/>

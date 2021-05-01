@@ -1,17 +1,7 @@
-export type PostType = {
-    id: number
-    message: string
-    avatarImg: string
-    likes: number
-}
-export type MessageItem = {
-    id: number
-    message: string
-}
-export type DialogsItems = {
-    id: number
-    name: string
-}
+import {AddPostActionType, ChangePostTextActionType, PostType, profileReducer} from "./profileReducer";
+import {AddMessageActionType, ChangeMessageActionType, DialogsItems, dialogsReducer, MessageItem} from "./dialogsReducer";
+
+
 export type DialogsPage = {
     dialogs: DialogsItems[]
     messages: MessageItem[]
@@ -27,34 +17,13 @@ export type Store = {
     dialogsPage: DialogsPage
 }
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-}
-type ChangePostTextActionType = {
-    type: 'CHANGE-POST-TEXT',
-    newPostMessage: string
-}
-type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-}
-type ChangeMessageActionType = {
-    type: 'CHANGE-MESSAGE-TEXT'
-    message: string
-}
-
-export const AddPostAC = (): AddPostActionType => ({type: 'ADD-POST'})
-export const ChangePostTextAC = (newPostMessage: string): ChangePostTextActionType => ({type: 'CHANGE-POST-TEXT', newPostMessage})
-export const AddMessageAC = (): AddMessageActionType => ({type: 'ADD-MESSAGE'})
-export const ChangeMessageAC = (message: string): ChangeMessageActionType => ({type: "CHANGE-MESSAGE-TEXT", message})
-
-export type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType
 
 type StoreType = {
     _state: Store
     renderEntireTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => Store
-    dispatch: (action: ActionType) => void
+    dispatch: (action: AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType) => void
 }
 
 export const store: StoreType = {
@@ -120,24 +89,8 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPostMessage: PostType = {message: this._state.profilePage.newPostText, avatarImg: '', likes: 5, id: 4}
-            this._state.profilePage.posts.push(newPostMessage)
-            this._state.profilePage.newPostText = ''
-            this.renderEntireTree()
-        } else if (action.type === 'CHANGE-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newPostMessage
-            this.renderEntireTree()
-        } else if (action.type === 'ADD-MESSAGE') {
-            const newMessageItem: MessageItem = {id: 6, message: this._state.dialogsPage.newDialogMessage}
-            this._state.dialogsPage.messages.push(newMessageItem)
-            this._state.dialogsPage.newDialogMessage = ''
-            console.log(this._state.dialogsPage.messages)
-            this.renderEntireTree()
-        } else if (action.type === 'CHANGE-MESSAGE-TEXT') {
-            this._state.dialogsPage.newDialogMessage = action.message
-            this.renderEntireTree()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
     }
 }
 

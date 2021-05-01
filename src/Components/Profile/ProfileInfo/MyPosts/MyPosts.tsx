@@ -2,11 +2,11 @@ import React from 'react';
 import style from "./MyPosts.module.css";
 import Post from "../Post/Post";
 import MyPost from './MyPost/MyPost';
-import {ActionType, PostType} from "../../../../Redux/store";
+import {PostType} from "../../../../Redux/profileReducer";
 
 type MyPostsPropsType = {
     posts: PostType[]
-    dispatch: (action: ActionType) => void
+    dispatch: (action: any) => void
     newPostsText:string
 }
 const MyPosts = ({posts, dispatch, newPostsText}:MyPostsPropsType) => {
