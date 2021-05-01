@@ -118,36 +118,3 @@ export const store:StoreType = {
         this.renderEntireTree = observer
     }
 }
-
-// export const addPostMessage = () => {
-//     const objPostMessage: PostType = {message: state.newPostsText, avatarImg: '', likes: 5, id: 4}
-//     state.profilePage.push(objPostMessage)
-//     state.newPostsText = ''
-//     console.log(state.profilePage)
-//     renderEntireTree()
-// }
-
-// export const onChangePostText = (postMessage:string) => {
-//     state.newPostsText = postMessage
-//     console.log('onChangeMessage', state.newPostsText)
-//     renderEntireTree()
-// }
-
-// export const addMessageDialog = () => {
-//     const objMessageItem: MessageItem = {id: 6, message:state.dialogsPage.newDialogMessage}
-//     state.dialogsPage.messages.push(objMessageItem)
-//     state.dialogsPage.newDialogMessage = ''
-//     console.log(state.dialogsPage.messages)
-//     renderEntireTree()
-// }
-
-// export const onChangeDialogMessage = (message:string) => {
-//     state.dialogsPage.newDialogMessage = message
-//     renderEntireTree()
-// }
-
-// export const subscribe = (observer:()=> void) => {
-//     renderEntireTree = observer
-// }
-
-
