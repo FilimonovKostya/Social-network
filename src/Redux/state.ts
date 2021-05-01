@@ -1,4 +1,6 @@
-import RenderEntireTree from "../renderEntireTree";
+let renderEntireTree = () => {
+    console.log('state was changed')
+}
 
 export type PostType = {
     id: number
@@ -82,13 +84,13 @@ export const addPostMessage = () => {
     state.profilePage.push(objPostMessage)
     state.newPostsText = ''
     console.log(state.profilePage)
-    RenderEntireTree(state)
+    renderEntireTree()
 }
 
 export const onChangePostText = (postMessage:string) => {
     state.newPostsText = postMessage
-    RenderEntireTree(state)
     console.log('onChangeMessage', state.newPostsText)
+    renderEntireTree()
 }
 
 export const addMessageDialog = () => {
@@ -96,12 +98,16 @@ export const addMessageDialog = () => {
     state.dialogsPage.messages.push(objMessageItem)
     state.dialogsPage.newDialogMessage = ''
     console.log(state.dialogsPage.messages)
-    RenderEntireTree(state)
+    renderEntireTree()
 }
 
 export const onChangeDialogMessage = (message:string) => {
     state.dialogsPage.newDialogMessage = message
-    RenderEntireTree(state)
+    renderEntireTree()
+}
+
+export const subscribe = (observer:()=> void) => {
+    renderEntireTree = observer
 }
 
 // @ts-ignore
