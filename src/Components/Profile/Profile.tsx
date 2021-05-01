@@ -6,14 +6,13 @@ import {PostType} from "../../Redux/store";
 
 type ProfilePropsType = {
     posts: PostType[]
-    addPost:() => void
-    onChangePostText: (postMessage: string) => void
+    dispatch: (action: any) => void
     newPostsText:string
 }
-const Profile = ({posts,addPost, onChangePostText, newPostsText}:ProfilePropsType) => {
+const Profile = ({posts,dispatch, newPostsText}:ProfilePropsType) => {
     return <main className={style.profile}>
         <ProfileInfo/>
-        <MyPosts posts={posts} addPost={addPost} onChangePostText={onChangePostText} newPostsText={newPostsText}/>
+        <MyPosts posts={posts} dispatch={dispatch} newPostsText={newPostsText}/>
     </main>
 }
 

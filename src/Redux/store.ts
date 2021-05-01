@@ -15,11 +15,11 @@ export type DialogsItems = {
 export type DialogsPage = {
     dialogs: DialogsItems[]
     messages: MessageItem[]
-    newDialogMessage:string
+    newDialogMessage: string
 }
 export type ProfilePage = {
-    posts:PostType[]
-    newPostText:string
+    posts: PostType[]
+    newPostText: string
 }
 
 export type Store = {
@@ -27,20 +27,19 @@ export type Store = {
     dialogsPage: DialogsPage
 }
 
+type Action = {}
+
 type StoreType = {
-    _state:Store
-    renderEntireTree:() => void
-    addPostMessage:() => void
-    onChangePostText:(newPostMessage:string) => void
-    addMessageDialog:() => void
-    onChangeDialogMessage:(message:string) => void
-    subscribe:(observer:() => void) => void
-    getState:() => Store
+    _state: Store
+    renderEntireTree: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => Store
+    dispatch: (action: any) => void
 }
 
-export const store:StoreType = {
+export const store: StoreType = {
     _state: {
-        profilePage:{
+        profilePage: {
             posts: [
                 {
                     message: 'Chose React or Vue ?',
@@ -61,7 +60,7 @@ export const store:StoreType = {
                     id: 3,
                 },
             ],
-            newPostText:''
+            newPostText: ''
         },
         dialogsPage: {
             dialogs: [
@@ -88,38 +87,37 @@ export const store:StoreType = {
                 {id: 4, message: 'Do you heard about Vanila JS ?'},
                 {id: 5, message: 'React awesome!!'}
             ],
-            newDialogMessage:''
+            newDialogMessage: ''
         },
     },
-    renderEntireTree(){
+    renderEntireTree() {
         console.log('state was changed')
     },
-    addPostMessage(){
-        const newPostMessage:PostType = {message: this._state.profilePage.newPostText, avatarImg:'', likes:5, id:4}
-        this._state.profilePage.posts.push(newPostMessage)
-        this._state.profilePage.newPostText = ''
-        this.renderEntireTree()
-    },
-    onChangePostText(newPostMessage:string){
-        this._state.profilePage.newPostText = newPostMessage
-        this.renderEntireTree()
-    },
-    addMessageDialog(){
-        const newMessageItem: MessageItem = {id: 6, message:this._state.dialogsPage.newDialogMessage}
-        this._state.dialogsPage.messages.push(newMessageItem)
-        this._state.dialogsPage.newDialogMessage = ''
-        console.log(this._state.dialogsPage.messages)
-        this.renderEntireTree()
-    },
-    onChangeDialogMessage(message:string){
-        this._state.dialogsPage.newDialogMessage = message
-        this.renderEntireTree()
-    },
-    subscribe(observer:()=>void){
+    subscribe(observer: () => void) {
         this.renderEntireTree = observer
     },
-    getState(){
-       return this._state
+    getState() {
+        return this._state
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPostMessage: PostType = {message: this._state.profilePage.newPostText, avatarImg: '', likes: 5, id: 4}
+            this._state.profilePage.posts.push(newPostMessage)
+            this._state.profilePage.newPostText = ''
+            this.renderEntireTree()
+        } else if (action.type === 'CHANGE-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newPostMessage
+            this.renderEntireTree()
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessageItem: MessageItem = {id: 6, message: this._state.dialogsPage.newDialogMessage}
+            this._state.dialogsPage.messages.push(newMessageItem)
+            this._state.dialogsPage.newDialogMessage = ''
+            console.log(this._state.dialogsPage.messages)
+            this.renderEntireTree()
+        } else if (action.type === 'CHANGE-MESSAGE-TEXT') {
+            this._state.dialogsPage.newDialogMessage = action.message
+            this.renderEntireTree()
+        }
     }
 }
 

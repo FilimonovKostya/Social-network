@@ -6,16 +6,15 @@ import {PostType} from "../../../../Redux/store";
 
 type MyPostsPropsType = {
     posts: PostType[]
-    addPost:() => void
-    onChangePostText: (postMessage: string) => void
+    dispatch: (action: any) => void
     newPostsText:string
 }
-const MyPosts = ({posts, addPost, onChangePostText, newPostsText}:MyPostsPropsType) => {
+const MyPosts = ({posts, dispatch, newPostsText}:MyPostsPropsType) => {
 
     const postsElements = posts.map((el) => <Post key={el.id} message={el.message} avatarImg={el.avatarImg} likes={el.likes}/>)
 
     return <div className={style.myPosts}>
-        <MyPost addPost={addPost} onChangePostText={onChangePostText} newPostsText={newPostsText}/>
+        <MyPost dispatch={dispatch} newPostsText={newPostsText}/>
         {postsElements}
     </div>
 };

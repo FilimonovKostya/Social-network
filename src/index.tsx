@@ -9,10 +9,9 @@ const renderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store.getState()} addPost={store.addPostMessage.bind(store)} addMessageDialog={store.addMessageDialog.bind(store)}
-                     onChangePostText={store.onChangePostText.bind(store)}
+                <App store={store.getState()} dispatch={store.dispatch.bind(store)}
                      newPostsText={store._state.profilePage.newPostText} newMessageDialog={store._state.dialogsPage.newDialogMessage}
-                     onChangeDialogMessage={store.onChangeDialogMessage.bind(store)}/>
+                />
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

@@ -6,16 +6,15 @@ import {DialogsPage} from "../../Redux/store";
 
 type DialogsPropsType = {
     dialogsData: DialogsPage
-    addMessageDialog: () => void
-    onChangeDialogMessage: (message: string) => void
-    newMessageDialog:string
+    dispatch: (action: any) => void
+    newMessageDialog: string
 }
-const Dialogs = ({dialogsData, addMessageDialog, onChangeDialogMessage, newMessageDialog}: DialogsPropsType) => {
+const Dialogs = ({dialogsData, dispatch, newMessageDialog}: DialogsPropsType) => {
     const dialogsItems = dialogsData.dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
     const messagesItem = dialogsData.messages.map((el) => <MessageItem key={el.id} message={el.message}/>)
 
-    const onAddMessage = () => addMessageDialog()
-    const onChangeMessage = (e:ChangeEvent<HTMLTextAreaElement>) => onChangeDialogMessage(e.currentTarget.value)
+    const onAddMessage = () => dispatch({type: 'ADD-MESSAGE'})
+    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch({type: 'CHANGE-MESSAGE-TEXT', message: e.currentTarget.value})
 
     return <div className={style.wrapper}>
         <div className={style.dialogs}>
