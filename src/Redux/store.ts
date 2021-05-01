@@ -27,14 +27,29 @@ export type Store = {
     dialogsPage: DialogsPage
 }
 
-type Action = {}
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type ChangePostTextActionType = {
+    type: 'CHANGE-POST-TEXT',
+    newPostMessage: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+}
+type ChangeMessageActionType = {
+    type: 'CHANGE-MESSAGE-TEXT'
+    message: string
+}
+
+export type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType
 
 type StoreType = {
     _state: Store
     renderEntireTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => Store
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const store: StoreType = {
