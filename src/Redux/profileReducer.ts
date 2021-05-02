@@ -46,21 +46,20 @@ const initialState: InitialStateType = {
     newPostText: ''
 }
 
-export const profileReducer = (state = initialState, action: ActionType):InitialStateType => {
+export const profileReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case 'ADD-POST': {
-            const copyState = {...state}
+        case 'ADD-POST':
             const newPostMessage: PostType = {message: state.newPostText, avatarImg: '', likes: 5, id: 4}
-            copyState.posts = [...state.posts]
-            copyState.posts.push(newPostMessage)
-            copyState.newPostText = ''
-            return copyState
-        }
-        case 'CHANGE-POST-TEXT': {
-            const copyState = {...state}
-            copyState.newPostText = action.newPostMessage
-            return copyState
-        }
+            return {
+                ...state,
+                posts: [...state.posts, newPostMessage],
+                newPostText: ''
+            }
+        case 'CHANGE-POST-TEXT':
+            return {
+                ...state,
+                newPostText: action.newPostMessage
+            }
         default:
             return state
     }
