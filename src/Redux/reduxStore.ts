@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, Store} from "redux";
 import {dialogsReducer} from "./dialogsReducer";
 import {profileReducer} from "./profileReducer";
 
@@ -9,5 +9,5 @@ const rootReducers = combineReducers({
 
 type ReduxStoreType = ReturnType<typeof combineReducers>
 
-export const reduxStore = createStore(rootReducers)
+export const reduxStore:Store & ReduxStoreType = createStore(rootReducers)
 
