@@ -11,9 +11,8 @@ const renderEntireTree = (state:Store) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store.getState()} dispatch={store.dispatch.bind(store)}
-                     newPostsText={state.profilePage.newPostText} newMessageDialog={state.dialogsPage.newDialogMessage}
-                />
+                <App store={store} dispatch={store.dispatch.bind(store)}
+                     newPostsText={state.profilePage.newPostText}/>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
