@@ -9,5 +9,5 @@ const rootReducers = combineReducers({
 
 type ReduxStoreType = ReturnType<typeof combineReducers>
 
-export const reduxStore:ReduxStoreType = createStore(rootReducers)
+export const reduxStore = createStore(rootReducers)
 
