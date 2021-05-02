@@ -3,10 +3,11 @@ import style from "./MyPosts.module.css";
 import Post from "../Post/Post";
 import MyPost from './MyPost/MyPost';
 import {PostType} from "../../../../Redux/profileReducer";
+import {CommonTypeAction} from "../../../../Redux/store";
 
 type MyPostsPropsType = {
     posts: PostType[]
-    dispatch: (action: any) => void
+    dispatch: (action: CommonTypeAction) => void
     newPostsText:string
 }
 const MyPosts = ({posts, dispatch, newPostsText}:MyPostsPropsType) => {

@@ -3,10 +3,11 @@ import style from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./ProfileInfo/MyPosts/MyPosts";
 import {PostType} from "../../Redux/profileReducer";
+import {CommonTypeAction} from "../../Redux/store";
 
 type ProfilePropsType = {
     posts: PostType[]
-    dispatch: (action: any) => void
+    dispatch: (action: CommonTypeAction) => void
     newPostsText:string
 }
 const Profile = ({posts,dispatch, newPostsText}:ProfilePropsType) => {

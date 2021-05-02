@@ -8,13 +8,13 @@ import {Route} from 'react-router-dom';
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
-import { Store} from "./Redux/store";
+import {CommonTypeAction, Store} from "./Redux/store";
 
 type StatePropsType = {
     store: Store
     newPostsText: string
     newMessageDialog: string
-    dispatch: (action: any) => void
+    dispatch: (action: CommonTypeAction) => void
 }
 
 function App({store, newPostsText, dispatch, newMessageDialog}: StatePropsType) {

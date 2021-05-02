@@ -17,13 +17,14 @@ export type Store = {
     dialogsPage: DialogsPage
 }
 
+export type CommonTypeAction = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType
 
 type StoreType = {
     _state: Store
     renderEntireTree: () => void
     subscribe: (observer: () => void) => void
     getState: () => Store
-    dispatch: (action: AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType) => void
+    dispatch: (action: CommonTypeAction) => void
 }
 
 export const store: StoreType = {
@@ -91,6 +92,7 @@ export const store: StoreType = {
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this.renderEntireTree()
     }
 }
 
