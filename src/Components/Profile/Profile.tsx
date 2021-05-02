@@ -1,19 +1,16 @@
 import React from "react";
 import style from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPosts from "./ProfileInfo/MyPosts/MyPosts";
-import {PostType} from "../../Redux/profileReducer";
-import {CommonTypeAction} from "../../Redux/store";
+import {StoreType} from "../../Redux/store";
+import MyPostsContainer from "./ProfileInfo/MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
-    posts: PostType[]
-    dispatch: (action: CommonTypeAction) => void
-    newPostsText:string
+    store: StoreType
 }
-const Profile = ({posts,dispatch, newPostsText}:ProfilePropsType) => {
+const Profile = ({store}: ProfilePropsType) => {
     return <main className={style.profile}>
         <ProfileInfo/>
-        <MyPosts posts={posts} dispatch={dispatch} newPostsText={newPostsText}/>
+        <MyPostsContainer store={store}/>
     </main>
 }
 

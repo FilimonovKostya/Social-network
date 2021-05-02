@@ -1,16 +1,15 @@
 import style from "./MyPost.module.css";
 import React, {ChangeEvent} from "react";
-import {AddPostAC, ChangePostTextAC} from "../../../../../Redux/profileReducer";
-import {CommonTypeAction} from "../../../../../Redux/store";
 
 type MyPostPropsType = {
-    dispatch: (action: CommonTypeAction) => void
+    addPostMessage: () => void
+    changeText: (text: string) => void
     newPostsText: string
 }
-const MyPost = ({dispatch, newPostsText}: MyPostPropsType) => {
+const MyPost = ({addPostMessage, changeText, newPostsText}: MyPostPropsType) => {
 
-    const onAddPostMessage = () => dispatch(AddPostAC())
-    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch(ChangePostTextAC(e.currentTarget.value))
+    const onAddPostMessage = () => addPostMessage()
+    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => changeText(e.currentTarget.value)
 
     return <>
         <h4>My posts</h4>

@@ -16,15 +16,14 @@ type StatePropsType = {
     dispatch: (action: CommonTypeAction) => void
 }
 
-function App({store, newPostsText, dispatch}: StatePropsType) {
+function App({store}: StatePropsType) {
     return (
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
             <div className={'app-content'}>
                 <Route path={'/profile'}
-                       render={() => <Profile posts={store.getState().profilePage.posts} dispatch={dispatch}
-                                              newPostsText={newPostsText}/>}/>
+                       render={() => <Profile store={store}/>}/>
                 <Route path={'/dialogs'} render={() => <DialogsContainer store={store}/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
