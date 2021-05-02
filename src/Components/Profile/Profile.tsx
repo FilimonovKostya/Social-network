@@ -1,16 +1,18 @@
 import React from "react";
 import style from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {StoreType} from "../../Redux/store";
 import MyPostsContainer from "./ProfileInfo/MyPosts/MyPostsContainer";
+import {StoreContext} from "../../StoreContext";
 
-type ProfilePropsType = {
-    store: StoreType
-}
-const Profile = ({store}: ProfilePropsType) => {
+
+const Profile = () => {
     return <main className={style.profile}>
         <ProfileInfo/>
-        <MyPostsContainer store={store}/>
+        <StoreContext.Consumer>
+            {(store) => {
+                return <MyPostsContainer store={store}/>
+            }}
+        </StoreContext.Consumer>
     </main>
 }
 

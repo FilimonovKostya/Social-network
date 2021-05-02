@@ -3,29 +3,28 @@ import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import {Store, store} from "./Redux/store";
-import {reduxStore} from "./Redux/reduxStore";
+import {store} from "./Redux/store";
+import {StoreContext} from "./StoreContext";
 
 
-const renderEntireTree = (state:Store) => {
+const renderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store} dispatch={store.dispatch.bind(store)}
-                     newPostsText={state.profilePage.newPostText}/>
+                <StoreContext.Provider value={store}>
+                    <App/>
+                </StoreContext.Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
 
-renderEntireTree(reduxStore.getState())
+renderEntireTree()
 store.subscribe(() => {
-    let state = store.getState()
-    renderEntireTree(state)
-})
 
-console.log(reduxStore.getState())
+    renderEntireTree()
+})
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

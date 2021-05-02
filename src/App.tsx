@@ -7,24 +7,17 @@ import {Route} from 'react-router-dom';
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
-import {CommonTypeAction, StoreType} from "./Redux/store";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
-type StatePropsType = {
-    store: StoreType
-    newPostsText: string
-    dispatch: (action: CommonTypeAction) => void
-}
 
-function App({store}: StatePropsType) {
+function App() {
     return (
         <div className={'app-wrapper'}>
             <Header/>
             <Navbar/>
             <div className={'app-content'}>
-                <Route path={'/profile'}
-                       render={() => <Profile store={store}/>}/>
-                <Route path={'/dialogs'} render={() => <DialogsContainer store={store}/>}/>
+                <Route path={'/profile'} render={() => <Profile/>}/>
+                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
