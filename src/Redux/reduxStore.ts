@@ -7,7 +7,7 @@ const rootReducers = combineReducers({
     profilePage: profileReducer
 })
 
-type ReduxStoreType = ReturnType<typeof combineReducers>
+export type ReduxStoreType = ReturnType<typeof combineReducers>
 
 export const reduxStore:Store & ReduxStoreType = createStore(rootReducers)
 
