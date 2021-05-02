@@ -25,7 +25,7 @@ export type ChangeMessageActionType = {
 
 type ActionType = AddMessageActionType | ChangeMessageActionType | AddPostActionType | ChangePostTextActionType
 
-const initialState:InitialStateType = {
+const initialState: InitialStateType = {
     dialogs: [
         {
             id: 1,
@@ -53,16 +53,21 @@ const initialState:InitialStateType = {
     newDialogMessage: ''
 }
 
-export const dialogsReducer = (state = initialState, action: ActionType):InitialStateType => {
+export const dialogsReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case 'ADD-MESSAGE':
-            const newMessageItem: MessageItem = {id: 6, message: state.newDialogMessage}
-            state.messages.push(newMessageItem)
-            state.newDialogMessage = ''
-            return state
-        case 'CHANGE-MESSAGE-TEXT':
-            state.newDialogMessage = action.message
-            return state
+        case 'ADD-MESSAGE': {
+            const copyState = {...state}
+            const newMessageItem: MessageItem = {id: 6, message: copyState.newDialogMessage}
+            copyState.messages = [...state.messages]
+            copyState.messages.push(newMessageItem)
+            copyState.newDialogMessage = ''
+            return copyState
+        }
+        case 'CHANGE-MESSAGE-TEXT': {
+            const copyState = {...state}
+            copyState.newDialogMessage = action.message
+            return copyState
+        }
         default:
             return state
     }
