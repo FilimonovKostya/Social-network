@@ -19,9 +19,9 @@ export type Store = {
 
 export type CommonTypeAction = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType
 
-type StoreType = {
+export type StoreType = {
     _state: Store
-    renderEntireTree: () => void
+    renderEntireTree: (store:Store) => void
     subscribe: (observer: () => void) => void
     getState: () => Store
     dispatch: (action: CommonTypeAction) => void
@@ -80,7 +80,7 @@ export const store: StoreType = {
             newDialogMessage: ''
         },
     },
-    renderEntireTree() {
+    renderEntireTree(store:Store) {
         console.log('state was changed')
     },
     subscribe(observer: () => void) {
@@ -92,7 +92,7 @@ export const store: StoreType = {
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this.renderEntireTree()
+        this.renderEntireTree(this._state)
     }
 }
 

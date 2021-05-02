@@ -3,14 +3,15 @@ import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import {store} from "./Redux/store";
+import {Store, store} from "./Redux/store";
 
-const renderEntireTree = () => {
+
+const renderEntireTree = (state:Store) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <App store={store.getState()} dispatch={store.dispatch.bind(store)}
-                     newPostsText={store._state.profilePage.newPostText} newMessageDialog={store._state.dialogsPage.newDialogMessage}
+                     newPostsText={state.profilePage.newPostText} newMessageDialog={state.dialogsPage.newDialogMessage}
                 />
             </BrowserRouter>
         </React.StrictMode>,
@@ -18,8 +19,11 @@ const renderEntireTree = () => {
     );
 }
 
-renderEntireTree()
-store.subscribe(renderEntireTree)
+renderEntireTree(store.getState())
+store.subscribe(() => {
+    let state = store.getState()
+    renderEntireTree(state)
+})
 
 
 // If you want your app to work offline and load faster, you can change
