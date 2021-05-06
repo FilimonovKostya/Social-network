@@ -1,3 +1,5 @@
+import {act} from "react-dom/test-utils";
+
 export type UsersType = {
     id: number
     status: string,
@@ -21,9 +23,7 @@ const initialState: UsersType[] = [
 const usersReducer = (state = initialState, action: ActionType): UsersType[] => {
     switch (action.type) {
         case "FOLLOW": {
-            const copyState = [...state]
-            const findUser = copyState.filter(user => user.id === action.userId)
-            return [...copyState, ...findUser]
+            return [...state].filter(f => f.id === action.userId)
         }
         case "UN-FOLLOW": {
             const copyState = [...state]
