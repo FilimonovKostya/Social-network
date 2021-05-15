@@ -22,17 +22,10 @@ const initialState: UsersType[] = [
 export const usersReducer = (state = initialState, action: ActionType): UsersType[] => {
     switch (action.type) {
         case "FOLLOW": {
-            const copyState = [...state]
-            const user = copyState.find(f=> f.id === action.userId)
-            if(user){
-                user.follow = false
-            }
-            return  copyState
+          return state.filter(el => el.id === action.userId ? el.follow = true : el)
         }
         case "UN-FOLLOW": {
-            const copyState = [...state]
-            const findUser = copyState.filter(user => user.id === action.userId)
-            return [...copyState, ...findUser]
+            return state.filter(el => el.id === action.userId ? el.follow = false : el)
         }
         default:
             return state
