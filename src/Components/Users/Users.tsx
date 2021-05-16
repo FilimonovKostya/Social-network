@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {UsersType} from "../../Redux/usersReducer";
 import style from './Users.module.css'
+import axios from "axios";
 
 type UsersPropsType = {
     users: UsersType[]
@@ -11,27 +12,30 @@ type UsersPropsType = {
 
 const Users = ({users, follow, unFollow, setUsers}: UsersPropsType) => {
 
-    if (users.length === 0) {
-        setUsers([
-                {id: 1, name: 'Dimych Kuzeberdin', location: {city: 'Mogilev', country: 'Belarus'}, status: 'I am a Boss', follow: true},
-                {id: 2, name: 'Vasya Abdula', location: {city: 'Moscow', country: 'Russia'}, status: 'I am a Batman', follow: true},
-                {id: 3, name: 'Ivanov Petrov', location: {city: 'Kiev', country: 'Ukraine'}, status: 'I am a React Developer', follow: true},
-            ]
-        )
-    }
+    useEffect(() => {
+        if (users.length === 0) {
+            axios.get<{ items: UsersType[] }>('https://social-network.samuraijs.com/api/1.0/users')
+                .then((response) => {
+                    setUsers(response.data.items)
+                    console.log(response.data.items)
+                })
+        }
+    }, [users])
 
-
+    debugger
     return <div className={style.container}>
         {
             users.map(el => <>
-                <div className={style.avatarIcon}><img src="https://sputnik.kg/images/101808/13/1018081344.jpg" alt=""/>
+                <div className={style.avatarIcon}><img
+                    src={el.photos.large != null ? el.photos.large : 'https://toppng.com/uploads/preview/batman-icon-jira-avatar-11562897771zvwv8r510z.png'}
+                    alt=""/>
                     <div className={style.info}>
                         <p>{el.name}</p>
                         <p>{el.status}</p>
                     </div>
                 </div>
                 <div className={style.btn}>
-                    {el.follow ?  <button onClick={() => follow(el.id)}> Follow</button> :  <button onClick={() => unFollow(el.id)}> un follow</button>}
+                    {el.followed ? <button onClick={() => follow(el.id)}> Follow</button> : <button onClick={() => unFollow(el.id)}> un follow</button>}
                 </div>
             </>)
         }

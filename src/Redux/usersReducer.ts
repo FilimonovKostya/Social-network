@@ -1,9 +1,14 @@
 export type UsersType = {
-    id: number
-    status: string,
-    name: string
-    location: { city: string, country: string },
-    follow: boolean
+    name: string,
+    id: number,
+    uniqueUrlName: null | string,
+    photos: {
+        small: null | string,
+        large: null | string,
+    },
+    status: string | null,
+    followed: boolean
+
 }
 
 export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
@@ -19,7 +24,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
             const copyState = [...state]
             const item = copyState.find(el => el.id === action.userId)
             if (item) {
-                item.follow = false
+                item.followed = false
             }
             return copyState
         }
@@ -27,7 +32,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
             const copyState = [...state]
             const item = copyState.find(el => el.id === action.userId)
             if (item) {
-                item.follow = true
+                item.followed = true
             }
             return copyState
         }
