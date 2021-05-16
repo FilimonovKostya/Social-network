@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.avatarIcon{
+    display: flex;
+}
+
+.avatarIcon img{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    padding: 2px;
+    border: 1px solid crimson;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.info{
+
+}
+
+.btn{
+    text-align: center;
+    margin-left: 13px;
+}
