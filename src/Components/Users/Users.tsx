@@ -20,13 +20,12 @@ const Users = ({users, follow, unFollow, setUsers}: UsersPropsType) => {
                     console.log(response.data.items)
                 })
         }
-    }, [users])
+    }, [users,setUsers])
 
-    debugger
     return <div className={style.container}>
         {
             users.map(el => <>
-                <div className={style.avatarIcon}><img
+                <div className={style.avatarIcon} key={el.id}><img
                     src={el.photos.large != null ? el.photos.large : 'https://toppng.com/uploads/preview/batman-icon-jira-avatar-11562897771zvwv8r510z.png'}
                     alt=""/>
                     <div className={style.info}>
