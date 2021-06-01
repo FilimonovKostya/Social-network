@@ -13,14 +13,13 @@ type UsersPropsType = {
 const Users = ({users, follow, unFollow, setUsers}: UsersPropsType) => {
 
     useEffect(() => {
-        if (users.length === 0) {
+
             axios.get<{ items: UsersType[] }>('https://social-network.samuraijs.com/api/1.0/users')
                 .then((response) => {
                     setUsers(response.data.items)
                     console.log(response.data.items)
                 })
-        }
-    }, [users,setUsers])
+    }, [])
 
     return <div className={style.container}>
         {
