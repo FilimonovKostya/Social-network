@@ -12,6 +12,11 @@
 
 .pagination span {
     padding: 7px;
+    cursor: pointer;
+}
+
+.active{
+    font-weight: bold;
 }
 
 .avatarIcon{

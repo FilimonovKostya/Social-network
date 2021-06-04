@@ -40,7 +40,12 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
     }, [currentPage, totalCount])
 
     return <div className={style.container}>
-        <div className={style.pagination}> {pagination.map((el, index) => <span key={el} onClick={() => setCurrentPageAC(el)}>{el}</span>)} </div>
+        <div className={style.pagination}> {
+            pagination.map((el, index) => <span className={el === currentPage ? style.active : ''}
+                                                key={el}
+                                                onClick={() => setCurrentPageAC(el)}>{el}</span>)
+        }
+        </div>
         {
             items.map(el => <>
                 <div className={style.avatarIcon} key={el.id}><img
