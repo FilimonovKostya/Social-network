@@ -13,24 +13,21 @@ type UsersPropsType = {
     setUsers: (users: ItemsType[]) => void
     setCurrentPageAC: (currentPage: number) => void
     setTotalCountAC: (totalCount: number) => void
+    pageSize: number
+    setPageSize: (pageSize: number) => void
 }
 
-const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC}: UsersPropsType) => {
-    const [pagination, setPagination] = useState<number[]>([])
+const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC, pageSize , setPageSize}: UsersPropsType) => {
+    const pages = []
 
     useEffect(() => {
 
-        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${20}`)
+        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then((response) => {
-                const pages = []
-                setTotalCountAC(Math.ceil(response.data.totalCount / 20))
-
-                for (let i = 1; i <= totalCount; i++) {
-                    pages.push(i)
-                }
+                setTotalCountAC(Math.ceil(response.data.totalCount / pageSize))
 
                 setCurrentPageAC(currentPage)
-                setPagination(pages)
+                setPageSize(pageSize)
                 setUsers(response.data.items)
 
             })
@@ -39,9 +36,14 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
             })
     }, [currentPage, totalCount])
 
+    for (let i = 1; i <= totalCount; i++) {
+        pages.push(i)
+    }
+
+
     return <div className={style.container}>
         <div className={style.pagination}> {
-            pagination.map((el, index) => <span className={el === currentPage ? style.active : ''}
+            pages.map((el, index) => <span className={el === currentPage ? style.active : ''}
                                                 key={el}
                                                 onClick={() => setCurrentPageAC(el)}>{el}</span>)
         }
