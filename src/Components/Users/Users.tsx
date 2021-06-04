@@ -14,20 +14,14 @@ type UsersPropsType = {
     setCurrentPageAC: (currentPage: number) => void
     setTotalCountAC: (totalCount: number) => void
     pageSize: number
-    setPageSize: (pageSize: number) => void
 }
 
-const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC, pageSize , setPageSize}: UsersPropsType) => {
-    const pages = []
+const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC, pageSize}: UsersPropsType) => {
 
     useEffect(() => {
-
         axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then((response) => {
                 setTotalCountAC(Math.ceil(response.data.totalCount / pageSize))
-
-                setCurrentPageAC(currentPage)
-                setPageSize(pageSize)
                 setUsers(response.data.items)
 
             })
@@ -36,16 +30,18 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
             })
     }, [currentPage, totalCount])
 
+
+    const pages = []
+
     for (let i = 1; i <= totalCount; i++) {
         pages.push(i)
     }
 
-
     return <div className={style.container}>
         <div className={style.pagination}> {
             pages.map((el, index) => <span className={el === currentPage ? style.active : ''}
-                                                key={el}
-                                                onClick={() => setCurrentPageAC(el)}>{el}</span>)
+                                           key={el}
+                                           onClick={() => setCurrentPageAC(el)}>{el}</span>)
         }
         </div>
         {

@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followAC, ItemsType, setCurrentPageAC, setPageSize, setTotalCountAC, setUsersAC, unFollowAC} from "../../Redux/usersReducer";
+import {followAC, ItemsType, setCurrentPageAC, setTotalCountAC, setUsersAC, unFollowAC} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import {Dispatch} from "redux";
 
@@ -26,7 +26,6 @@ type mapDispatchToPropsType = {
     setUsers: (users: ItemsType[]) => void
     setCurrentPageAC: (currentPage: number) => void
     setTotalCountAC: (totalCount: number) => void
-    setPageSize: (pageSize: number) => void
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
@@ -45,9 +44,6 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         setTotalCountAC(totalCount) {
             dispatch(setTotalCountAC(totalCount))
         },
-        setPageSize(pageSize) {
-            dispatch(setPageSize(pageSize))
-        }
     }
 }
 
