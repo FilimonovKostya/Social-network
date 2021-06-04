@@ -5,6 +5,15 @@
     margin: 10px;
 }
 
+.pagination{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pagination span {
+    padding: 7px;
+}
+
 .avatarIcon{
     display: flex;
 }

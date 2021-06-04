@@ -11,32 +11,36 @@ type UsersPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setUsers: (users: ItemsType[]) => void
+    setCurrentPageAC: (currentPage: number) => void
+    setTotalCountAC: (totalCount: number) => void
 }
 
-const Users = ({items, follow, unFollow, setUsers, currentPage, error , totalCount}: UsersPropsType) => {
-    const [pagination, setPagination] = useState([1,2,3])
-    const [counterPagination, setCounterPagination] = useState(1)
+const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC}: UsersPropsType) => {
+    const [pagination, setPagination] = useState<number[]>([])
 
     useEffect(() => {
-        debugger
-        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${counterPagination}`)
-            .then((response) => {
-                console.log('res', response.data)
-                setUsers(response.data.items)
-                console.log(response.data)
-                let pages = []
 
-                for (let i = 1; i <= response.data.items.length; i++) {
-                    pages[i] = i
-                    console.log({i})
+        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${20}`)
+            .then((response) => {
+                const pages = []
+                setTotalCountAC(Math.ceil(response.data.totalCount / 20))
+
+                for (let i = 1; i <= totalCount; i++) {
+                    pages.push(i)
                 }
-                console.log(pages)
+
+                setCurrentPageAC(currentPage)
                 setPagination(pages)
+                setUsers(response.data.items)
+
             })
-    }, [])
+            .catch((error) => {
+                console.log('error', error)
+            })
+    }, [currentPage, totalCount])
 
     return <div className={style.container}>
-        {/*{pagination.map((el, index) => <span key={index} onClick={() => setCounterPagination(index)}>{el}</span>)}*/}
+        <div className={style.pagination}> {pagination.map((el, index) => <span key={el} onClick={() => setCurrentPageAC(el)}>{el}</span>)} </div>
         {
             items.map(el => <>
                 <div className={style.avatarIcon} key={el.id}><img
