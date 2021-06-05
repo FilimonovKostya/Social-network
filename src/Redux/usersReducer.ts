@@ -33,24 +33,29 @@ type ActionType =
 const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20}
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
+    debugger
     switch (action.type) {
-        case "FOLLOW": {
-            const copyState = {...state}
-            const item = copyState.items.find(el => el.id === action.userId)
-            if (item) {
-                item.followed = false
+        case "FOLLOW":
+            return {
+                ...state,
+                items: state.items.map(el => {
+                    if (el.id === action.userId) {
+                        return {...el, followed: true}
+                    }
+                    return el
+                })
             }
-            return copyState
-        }
 
-        case "UN-FOLLOW": {
-            const copyState = {...state}
-            const item = copyState.items.find(el => el.id === action.userId)
-            if (item) {
-                item.followed = true
+        case "UN-FOLLOW":
+            return {
+                ...state,
+                items: state.items.map(el => {
+                    if (el.id === action.userId) {
+                        return {...el, followed: false}
+                    }
+                    return el
+                })
             }
-            return copyState
-        }
 
         case "SET-USERS":
             return {...state, items: [...action.users, ...state.items]}

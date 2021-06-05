@@ -18,21 +18,7 @@ type UsersPropsType = {
 
 const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC, pageSize}: UsersPropsType) => {
 
-    useEffect(() => {
-        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
-            .then((response) => {
-                setTotalCountAC(Math.ceil(response.data.totalCount / pageSize))
-                setUsers(response.data.items)
-
-            })
-            .catch((error) => {
-                console.log('error', error)
-            })
-    }, [currentPage, totalCount])
-
-
     const pages = []
-
     for (let i = 1; i <= totalCount; i++) {
         pages.push(i)
     }
@@ -55,7 +41,7 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
                     </div>
                 </div>
                 <div className={style.btn}>
-                    {el.followed ? <button onClick={() => follow(el.id)}> Follow</button> : <button onClick={() => unFollow(el.id)}> un follow</button>}
+                    {el.followed ? <button onClick={() => unFollow(el.id)}> Follow</button> : <button onClick={() => follow(el.id)}> un follow</button>}
                 </div>
             </>)
         }
