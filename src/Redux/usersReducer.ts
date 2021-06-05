@@ -15,6 +15,7 @@ export type UsersType = {
     pageSize: number
     totalCount: number
     error: string[] | null
+    isLoading: boolean
 }
 
 export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
@@ -22,6 +23,7 @@ export const unFollowAC = (userId: number) => ({type: 'UN-FOLLOW', userId} as co
 export const setUsersAC = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
 export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
+export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
 
 type ActionType =
     ReturnType<typeof followAC>
@@ -29,8 +31,9 @@ type ActionType =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
+    | ReturnType<typeof setLoading>
 
-const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20}
+const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false}
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
     debugger
@@ -65,6 +68,9 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
 
         case "SET-TOTAL-COUNT":
             return {...state, totalCount: action.totalCount}
+
+        case "SET-LOADING-STATUS":
+            return {...state, isLoading: action.isLoading}
 
         default:
             return state

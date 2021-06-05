@@ -1,29 +1,32 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followAC, ItemsType, setCurrentPageAC, setTotalCountAC, setUsersAC, unFollowAC, UsersType} from "../../Redux/usersReducer";
+import {followAC, ItemsType, setCurrentPageAC, setLoading, setTotalCountAC, setUsersAC, unFollowAC, UsersType} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import {Dispatch} from "redux";
-import {useEffect} from "react";
 import axios from "axios";
+import Preloader from "../Preloader/Preloader";
 
-const UsersAPIContainer = ({currentPage, setTotalCountAC, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPageAC}: UsersAPIContainerPropsType) => {
+const UsersAPIContainer = ({currentPage, setTotalCountAC, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPageAC, setLoading, isLoading}: UsersAPIContainerPropsType) => {
     useEffect(() => {
+        setLoading(true)
         axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then((response) => {
                 setTotalCountAC(Math.ceil(response.data.totalCount / pageSize))
                 setUsers(response.data.items)
-
+                setLoading(false)
             })
             .catch((error) => {
                 console.log('error', error)
             })
     }, [currentPage, totalCount])
 
-    return <Users items={items} currentPage={currentPage}
-                  totalCount={totalCount} error={error}
-                  follow={follow} unFollow={unFollow} setUsers={setUsers}
-                  setCurrentPageAC={setCurrentPageAC} setTotalCountAC={setTotalCountAC} pageSize={pageSize}/>
+    return isLoading
+        ? <Preloader/>
+        : <Users items={items} currentPage={currentPage}
+                 totalCount={totalCount} error={error}
+                 follow={follow} unFollow={unFollow} setUsers={setUsers}
+                 setCurrentPageAC={setCurrentPageAC} setTotalCountAC={setTotalCountAC} pageSize={pageSize}/>
 }
 
 type mapStateToPropsType = {
@@ -32,6 +35,7 @@ type mapStateToPropsType = {
     totalCount: number
     pageSize: number
     error: string[] | null
+    isLoading: boolean
 }
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
@@ -39,7 +43,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         currentPage: state.usersPage.currentPage,
         totalCount: state.usersPage.totalCount,
         error: state.usersPage.error,
-        pageSize: state.usersPage.pageSize
+        pageSize: state.usersPage.pageSize,
+        isLoading: state.usersPage.isLoading
     }
 }
 
@@ -49,6 +54,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: ItemsType[]) => void
     setCurrentPageAC: (currentPage: number) => void
     setTotalCountAC: (totalCount: number) => void
+    setLoading: (isLoading: boolean) => void
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
@@ -68,11 +74,13 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         setTotalCountAC(totalCount) {
             dispatch(setTotalCountAC(totalCount))
         },
+        setLoading(isLoading) {
+            dispatch(setLoading(isLoading))
+        }
     }
 }
 
 type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
