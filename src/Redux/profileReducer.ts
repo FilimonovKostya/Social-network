@@ -7,20 +7,49 @@ export type PostType = {
     likes: number
 }
 
+export type UserProfileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: null | string,
+        website: null | string,
+        vk: null | string,
+        twitter: null | string,
+        instagram: null | string,
+        youtube: null | string,
+        github: null | string,
+        mainLink: null | string
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
+}
+
 type InitialStateType = {
     posts: PostType[]
     newPostText: string
+    userProfile: UserProfileType | null
 }
 
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
+
 export type ChangePostTextActionType = {
     type: 'CHANGE-POST-TEXT',
     newPostMessage: string
 }
 
-type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType
+export type SetUserProfileActionType = {
+    type: 'SET-USER-PROFILE',
+    userProfile: UserProfileType
+}
+
+type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType | SetUserProfileActionType
 
 const initialState: InitialStateType = {
     posts: [
@@ -43,11 +72,13 @@ const initialState: InitialStateType = {
             id: 3,
         },
     ],
-    newPostText: ''
+    newPostText: '',
+    userProfile: null
 }
 
 export const profileReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
+
         case 'ADD-POST':
             const newPostMessage: PostType = {message: state.newPostText, avatarImg: '', likes: 5, id: 4}
             return {
@@ -55,11 +86,19 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
                 posts: [...state.posts, newPostMessage],
                 newPostText: ''
             }
+
         case 'CHANGE-POST-TEXT':
             return {
                 ...state,
                 newPostText: action.newPostMessage
             }
+
+        case "SET-USER-PROFILE":
+            return {
+                ...state,
+                userProfile: action.userProfile
+            }
+
         default:
             return state
     }
@@ -67,3 +106,4 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
 
 export const AddPostAC = (): AddPostActionType => ({type: 'ADD-POST'})
 export const ChangePostTextAC = (newPostMessage: string): ChangePostTextActionType => ({type: 'CHANGE-POST-TEXT', newPostMessage})
+export const SetUserProfile = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})

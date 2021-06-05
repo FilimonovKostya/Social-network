@@ -36,7 +36,6 @@ type ActionType =
 const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false}
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
-    debugger
     switch (action.type) {
         case "FOLLOW":
             return {

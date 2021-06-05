@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ItemsType, UsersType} from "../../Redux/usersReducer";
 import style from './Users.module.css'
 import axios from "axios";
+import {NavLink} from 'react-router-dom';
 
 type UsersPropsType = {
     items: ItemsType[]
@@ -32,9 +33,9 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
         </div>
         {
             items.map(el => <>
-                <div className={style.avatarIcon} key={el.id}><img
+                <div className={style.avatarIcon} key={el.id}><NavLink to={'profile/2'}> <img
                     src={el.photos.large != null ? el.photos.large : 'https://toppng.com/uploads/preview/batman-icon-jira-avatar-11562897771zvwv8r510z.png'}
-                    alt=""/>
+                    alt=""/> </NavLink>
                     <div className={style.info}>
                         <p>{el.name}</p>
                         <p>{el.status}</p>
