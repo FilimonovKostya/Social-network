@@ -11,12 +11,12 @@ type UsersPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setUsers: (users: ItemsType[]) => void
-    setCurrentPageAC: (currentPage: number) => void
-    setTotalCountAC: (totalCount: number) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalCount: (totalCount: number) => void
     pageSize: number
 }
 
-const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPageAC, setTotalCountAC, pageSize}: UsersPropsType) => {
+const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPage, setTotalCount, pageSize}: UsersPropsType) => {
 
     const pages = []
     for (let i = 1; i <= totalCount; i++) {
@@ -27,7 +27,7 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
         <div className={style.pagination}> {
             pages.map((el, index) => <span className={el === currentPage ? style.active : ''}
                                            key={el}
-                                           onClick={() => setCurrentPageAC(el)}>{el}</span>)
+                                           onClick={() => setCurrentPage(el)}>{el}</span>)
         }
         </div>
         {

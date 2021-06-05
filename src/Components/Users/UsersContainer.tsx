@@ -1,18 +1,17 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followAC, ItemsType, setCurrentPageAC, setLoading, setTotalCountAC, setUsersAC, unFollowAC, UsersType} from "../../Redux/usersReducer";
+import {follow, ItemsType, setCurrentPage, setLoading, setTotalCount, setUsers, unFollow, UsersType} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
-import {Dispatch} from "redux";
 import axios from "axios";
 import Preloader from "../Preloader/Preloader";
 
-const UsersAPIContainer = ({currentPage, setTotalCountAC, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPageAC, setLoading, isLoading}: UsersAPIContainerPropsType) => {
+const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading}: UsersAPIContainerPropsType) => {
     useEffect(() => {
         setLoading(true)
         axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then((response) => {
-                setTotalCountAC(Math.ceil(response.data.totalCount / pageSize))
+                setTotalCount(Math.ceil(response.data.totalCount / pageSize))
                 setUsers(response.data.items)
                 setLoading(false)
             })
@@ -26,7 +25,7 @@ const UsersAPIContainer = ({currentPage, setTotalCountAC, pageSize, totalCount, 
         : <Users items={items} currentPage={currentPage}
                  totalCount={totalCount} error={error}
                  follow={follow} unFollow={unFollow} setUsers={setUsers}
-                 setCurrentPageAC={setCurrentPageAC} setTotalCountAC={setTotalCountAC} pageSize={pageSize}/>
+                 setCurrentPage={setCurrentPage} setTotalCount={setTotalCount} pageSize={pageSize}/>
 }
 
 type mapStateToPropsType = {
@@ -52,35 +51,12 @@ type mapDispatchToPropsType = {
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setUsers: (users: ItemsType[]) => void
-    setCurrentPageAC: (currentPage: number) => void
-    setTotalCountAC: (totalCount: number) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalCount: (totalCount: number) => void
     setLoading: (isLoading: boolean) => void
-}
-
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        follow(userId) {
-            dispatch(followAC(userId))
-        },
-        unFollow(userId) {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers(users) {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPageAC(currentPage) {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalCountAC(totalCount) {
-            dispatch(setTotalCountAC(totalCount))
-        },
-        setLoading(isLoading) {
-            dispatch(setLoading(isLoading))
-        }
-    }
 }
 
 type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
+export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoading})(UsersAPIContainer)

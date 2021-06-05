@@ -18,19 +18,19 @@ export type UsersType = {
     isLoading: boolean
 }
 
-export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
-export const unFollowAC = (userId: number) => ({type: 'UN-FOLLOW', userId} as const)
-export const setUsersAC = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
-export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
-export const setTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
+export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unFollow = (userId: number) => ({type: 'UN-FOLLOW', userId} as const)
+export const setUsers = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalCount = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
 export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
 
 type ActionType =
-    ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalCountAC>
+    ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalCount>
     | ReturnType<typeof setLoading>
 
 const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false}
