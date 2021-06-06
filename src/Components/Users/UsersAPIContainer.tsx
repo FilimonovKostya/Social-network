@@ -36,6 +36,7 @@ type mapStateToPropsType = {
     error: string[] | null
     isLoading: boolean
 }
+
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         items: state.usersPage.items,

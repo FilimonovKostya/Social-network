@@ -33,7 +33,7 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
         </div>
         {
             items.map(el => <>
-                <div className={style.avatarIcon} key={el.id}><NavLink to={'profile/2'}> <img
+                <div className={style.avatarIcon} key={el.id}><NavLink to={`profile/${el.id}`}> <img
                     src={el.photos.large != null ? el.photos.large : 'https://toppng.com/uploads/preview/batman-icon-jira-avatar-11562897771zvwv8r510z.png'}
                     alt=""/> </NavLink>
                     <div className={style.info}>
