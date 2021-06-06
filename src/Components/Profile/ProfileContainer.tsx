@@ -10,8 +10,10 @@ import {RouteComponentProps} from "react-router";
 
 const ProfileContainer: React.FC<PropsType> = ({userProfile, SetUserProfile, match}) => {
 
+    let userId = !match.params.userId ? match.params.userId = '2' : match.params.userId
+
     useEffect(() => {
-        axios.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${match.params.userId}`)
+        axios.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then((res) => {
                 console.log('res', res)
                 SetUserProfile(res.data)
