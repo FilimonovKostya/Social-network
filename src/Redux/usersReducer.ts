@@ -60,7 +60,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
             }
 
         case "SET-USERS":
-            return {...state, items: [...action.users, ...state.items]}
+            return {...state, items: [ ...action.users, ...state.items]}
 
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.currentPage}

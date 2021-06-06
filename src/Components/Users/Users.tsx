@@ -42,7 +42,36 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
                     </div>
                 </div>
                 <div className={style.btn}>
-                    {el.followed ? <button onClick={() => unFollow(el.id)}> Follow</button> : <button onClick={() => follow(el.id)}> un follow</button>}
+                    {
+                        el.followed
+                            ? <button onClick={() => {
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
+                                    headers: {
+                                        'API-KEY': 'a918abd3-e56d-4f51-9680-86b073810b9f',
+                                    },
+                                    withCredentials: true
+                                })
+                                    .then((res) => {
+                                        console.log('res unfollow', res)
+                                        unFollow(el.id)
+                                    })
+                                    .catch(err => console.log('err', err))
+
+                            }}> un follow</button>
+                            : <button onClick={() => {
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
+                                    headers: {
+                                        'API-KEY': 'a918abd3-e56d-4f51-9680-86b073810b9f',
+                                    },
+                                    withCredentials: true
+                                })
+                                    .then((res) => {
+                                        console.log('res follow', res)
+                                        follow(el.id)
+                                    })
+
+                            }}> Follow</button>
+                    }
                 </div>
             </>)
         }

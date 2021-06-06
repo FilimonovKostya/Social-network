@@ -9,7 +9,11 @@ import Preloader from "../Preloader/Preloader";
 const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading}: UsersAPIContainerPropsType) => {
     useEffect(() => {
         setLoading(true)
-        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {
+            headers: {
+                'API-KEY': 'a918abd3-e56d-4f51-9680-86b073810b9f'
+            }
+        })
             .then((response) => {
                 setTotalCount(Math.ceil(response.data.totalCount / pageSize))
                 setUsers(response.data.items)
