@@ -12,13 +12,10 @@ type UsersPropsType = {
     error: string[] | null
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    setUsers: (users: ItemsType[]) => void
     setCurrentPage: (currentPage: number) => void
-    setTotalCount: (totalCount: number) => void
-    pageSize: number
 }
 
-const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCount, setCurrentPage, setTotalCount, pageSize}: UsersPropsType) => {
+const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage}: UsersPropsType) => {
 
     const pages = []
     for (let i = 1; i <= totalCount; i++) {

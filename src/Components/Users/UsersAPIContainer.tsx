@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {follow, ItemsType, setCurrentPage, setLoading, setTotalCount, setUsers, unFollow, UsersType} from "../../Redux/usersReducer";
+import {follow, ItemsType, setCurrentPage, setLoading, setTotalCount, setUsers, unFollow} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import Preloader from "../Preloader/Preloader";
 import {API} from "../../Api/api";
@@ -9,7 +9,7 @@ import {API} from "../../Api/api";
 const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading}: UsersAPIContainerPropsType) => {
     useEffect(() => {
         setLoading(true)
-            API.getUsers(currentPage, pageSize)
+        API.getUsers(currentPage, pageSize)
             .then((response) => {
                 setTotalCount(Math.ceil(response.totalCount / pageSize))
                 setUsers(response.items)
@@ -24,8 +24,8 @@ const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, se
         ? <Preloader/>
         : <Users items={items} currentPage={currentPage}
                  totalCount={totalCount} error={error}
-                 follow={follow} unFollow={unFollow} setUsers={setUsers}
-                 setCurrentPage={setCurrentPage} setTotalCount={setTotalCount} pageSize={pageSize}/>
+                 follow={follow} unFollow={unFollow}
+                 setCurrentPage={setCurrentPage}/>
 }
 
 type mapStateToPropsType = {
