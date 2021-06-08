@@ -3,6 +3,7 @@ import {ItemsType, UsersType} from "../../Redux/usersReducer";
 import style from './Users.module.css'
 import axios from "axios";
 import {NavLink} from 'react-router-dom';
+import {API} from '../../Api/api';
 
 type UsersPropsType = {
     items: ItemsType[]
@@ -44,33 +45,8 @@ const Users = ({items, follow, unFollow, setUsers, currentPage, error, totalCoun
                 <div className={style.btn}>
                     {
                         el.followed
-                            ? <button onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {
-                                    headers: {
-                                        'API-KEY': 'a918abd3-e56d-4f51-9680-86b073810b9f',
-                                    },
-                                    withCredentials: true
-                                })
-                                    .then((res) => {
-                                        console.log('res unfollow', res)
-                                        unFollow(el.id)
-                                    })
-                                    .catch(err => console.log('err', err))
-
-                            }}> un follow</button>
-                            : <button onClick={() => {
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${el.id}`, {}, {
-                                    headers: {
-                                        'API-KEY': 'a918abd3-e56d-4f51-9680-86b073810b9f',
-                                    },
-                                    withCredentials: true
-                                })
-                                    .then((res) => {
-                                        console.log('res follow', res)
-                                        follow(el.id)
-                                    })
-
-                            }}> Follow</button>
+                            ? <button onClick={() => API.unFollow(el.id).then(() => unFollow(el.id))}> un follow</button>
+                            : <button onClick={() => API.follow(el.id).then(() => follow(el.id))}> Follow</button>
                     }
                 </div>
             </>)

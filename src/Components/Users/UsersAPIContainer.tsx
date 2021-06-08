@@ -3,20 +3,16 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {follow, ItemsType, setCurrentPage, setLoading, setTotalCount, setUsers, unFollow, UsersType} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
-import axios from "axios";
 import Preloader from "../Preloader/Preloader";
+import {API} from "../../Api/api";
 
 const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading}: UsersAPIContainerPropsType) => {
     useEffect(() => {
         setLoading(true)
-        axios.get<UsersType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {
-            headers: {
-                'API-KEY': 'a918abd3-e56d-4f51-9680-86b073810b9f'
-            }
-        })
+            API.getUsers(currentPage, pageSize)
             .then((response) => {
-                setTotalCount(Math.ceil(response.data.totalCount / pageSize))
-                setUsers(response.data.items)
+                setTotalCount(Math.ceil(response.totalCount / pageSize))
+                setUsers(response.items)
                 setLoading(false)
             })
             .catch((error) => {
