@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ItemsType, UsersType} from "../../Redux/usersReducer";
+import {ItemsType, setDisabledButton, UsersType} from "../../Redux/usersReducer";
 import style from './Users.module.css'
 import axios from "axios";
 import {NavLink} from 'react-router-dom';
@@ -9,13 +9,14 @@ type UsersPropsType = {
     items: ItemsType[]
     currentPage: number
     totalCount: number
-    error: string[] | null
     follow: (userId: number) => void
     unFollow: (userId: number) => void
     setCurrentPage: (currentPage: number) => void
+    isDisabled: boolean
+    setDisabledButton:(isDisabled: boolean) => void
 }
 
-const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage}: UsersPropsType) => {
+const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage, isDisabled, setDisabledButton}: UsersPropsType) => {
 
     const pages = []
     for (let i = 1; i <= totalCount; i++) {
@@ -42,8 +43,20 @@ const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage
                 <div className={style.btn}>
                     {
                         el.followed
-                            ? <button onClick={() => API.unFollow(el.id).then(() => unFollow(el.id))}> un follow</button>
-                            : <button onClick={() => API.follow(el.id).then(() => follow(el.id))}> Follow</button>
+                            ? <button disabled={isDisabled} onClick={() => {
+                                setDisabledButton(true)
+                                API.unFollow(el.id).then(() =>{
+                                    setDisabledButton(false)
+                                    unFollow(el.id)
+                                })
+                            }}> un follow</button>
+                            : <button disabled={isDisabled}  onClick={() => {
+                                setDisabledButton(true)
+                                API.follow(el.id).then(() =>{
+                                    setDisabledButton(false)
+                                    unFollow(el.id)
+                                })
+                            }}> Follow</button>
                     }
                 </div>
             </>)

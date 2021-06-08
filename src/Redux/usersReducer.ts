@@ -16,6 +16,7 @@ export type UsersType = {
     totalCount: number
     error: string[] | null
     isLoading: boolean
+    isDisabled: boolean
 }
 
 export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
@@ -24,6 +25,7 @@ export const setUsers = (users: ItemsType[]) => ({type: 'SET-USERS', users} as c
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const setTotalCount = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
 export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
+export const setDisabledButton = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
 
 type ActionType =
     ReturnType<typeof follow>
@@ -32,8 +34,9 @@ type ActionType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalCount>
     | ReturnType<typeof setLoading>
+    | ReturnType<typeof setDisabledButton>
 
-const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false}
+const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false, isDisabled: false}
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
     switch (action.type) {
@@ -60,7 +63,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
             }
 
         case "SET-USERS":
-            return {...state, items: [ ...action.users, ...state.items]}
+            return {...state, items: [...action.users, ...state.items]}
 
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.currentPage}
@@ -70,6 +73,12 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
 
         case "SET-LOADING-STATUS":
             return {...state, isLoading: action.isLoading}
+
+        case "SET-DISABLED-STATUS":
+            return {
+                ...state,
+                isDisabled: action.isDisabled
+            }
 
         default:
             return state

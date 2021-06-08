@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {follow, ItemsType, setCurrentPage, setLoading, setTotalCount, setUsers, unFollow} from "../../Redux/usersReducer";
+import {follow, ItemsType, setCurrentPage, setDisabledButton, setLoading, setTotalCount, setUsers, unFollow} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import Preloader from "../Preloader/Preloader";
 import {API} from "../../Api/api";
 
-const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading}: UsersAPIContainerPropsType) => {
+const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading, isDisabled, setDisabledButton}: UsersAPIContainerPropsType) => {
     useEffect(() => {
         setLoading(true)
         API.getUsers(currentPage, pageSize)
@@ -14,6 +14,7 @@ const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, se
                 setTotalCount(Math.ceil(response.totalCount / pageSize))
                 setUsers(response.items)
                 setLoading(false)
+                setDisabledButton(false)
             })
             .catch((error) => {
                 console.log('error', error)
@@ -23,8 +24,10 @@ const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, se
     return isLoading
         ? <Preloader/>
         : <Users items={items} currentPage={currentPage}
-                 totalCount={totalCount} error={error}
+                 totalCount={totalCount}
                  follow={follow} unFollow={unFollow}
+                 isDisabled={isDisabled}
+                 setDisabledButton={setDisabledButton}
                  setCurrentPage={setCurrentPage}/>
 }
 
@@ -35,6 +38,7 @@ type mapStateToPropsType = {
     pageSize: number
     error: string[] | null
     isLoading: boolean
+    isDisabled: boolean
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -44,7 +48,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         totalCount: state.usersPage.totalCount,
         error: state.usersPage.error,
         pageSize: state.usersPage.pageSize,
-        isLoading: state.usersPage.isLoading
+        isLoading: state.usersPage.isLoading,
+        isDisabled: state.usersPage.isDisabled,
     }
 }
 
@@ -55,9 +60,10 @@ type mapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalCount: (totalCount: number) => void
     setLoading: (isLoading: boolean) => void
+    setDisabledButton: (isDisabled: boolean) => void
 }
 
 type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 
-export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoading})(UsersAPIContainer)
+export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoading, setDisabledButton})(UsersAPIContainer)
