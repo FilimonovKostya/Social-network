@@ -1,30 +1,32 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {follow, ItemsType, setCurrentPage, setDisabledButton, setLoading, setTotalCount, setUsers, unFollow} from "../../Redux/usersReducer";
+import {
+    follow,
+    followTC,
+    getUsersTC,
+    ItemsType,
+    setCurrentPage,
+    setDisabledButton,
+    setLoading,
+    setTotalCount,
+    setUsers,
+    unFollow, unFollowTC
+} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import Preloader from "../Preloader/Preloader";
-import {API} from "../../Api/api";
 
-const UsersAPIContainer = ({currentPage, setTotalCount, pageSize, totalCount, setUsers, items, error, follow, unFollow, setCurrentPage, setLoading, isLoading, isDisabled, setDisabledButton}: UsersAPIContainerPropsType) => {
+const UsersAPIContainer = ({currentPage, getUsersTC, pageSize, totalCount, items, follow, unFollow, setCurrentPage, isLoading, isDisabled, setDisabledButton, followTC, unFollowTC}: UsersAPIContainerPropsType) => {
     useEffect(() => {
-        setLoading(true)
-        API.getUsers(currentPage, pageSize)
-            .then((response) => {
-                setTotalCount(Math.ceil(response.totalCount / pageSize))
-                setUsers(response.items)
-                setLoading(false)
-                setDisabledButton(false)
-            })
-            .catch((error) => {
-                console.log('error', error)
-            })
-    }, [currentPage, totalCount])
+        getUsersTC(currentPage, pageSize)
+    }, [currentPage, pageSize])
 
     return isLoading
         ? <Preloader/>
         : <Users items={items} currentPage={currentPage}
                  totalCount={totalCount}
+                 unFollowTC={unFollowTC}
+                 followTC={followTC}
                  follow={follow} unFollow={unFollow}
                  isDisabled={isDisabled}
                  setDisabledButton={setDisabledButton}
@@ -61,9 +63,23 @@ type mapDispatchToPropsType = {
     setTotalCount: (totalCount: number) => void
     setLoading: (isLoading: boolean) => void
     setDisabledButton: (isDisabled: boolean) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (id: number) => void
+    unFollowTC: (id: number) => void
 }
 
 type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 
-export default connect(mapStateToProps, {follow, unFollow, setUsers, setCurrentPage, setTotalCount, setLoading, setDisabledButton})(UsersAPIContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalCount,
+    setLoading,
+    setDisabledButton,
+    getUsersTC,
+    followTC,
+    unFollowTC
+})(UsersAPIContainer)

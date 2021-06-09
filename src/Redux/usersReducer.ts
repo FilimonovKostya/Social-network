@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {API} from "../Api/api";
+
 export type ItemsType = {
     name: string
     id: number
@@ -27,6 +30,43 @@ export const setTotalCount = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', 
 export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
 export const setDisabledButton = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
 
+//Thunks
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setLoading(true))
+        API.getUsers(currentPage, pageSize)
+            .then((response) => {
+                dispatch(setTotalCount(Math.ceil(response.totalCount / pageSize)))
+                dispatch(setUsers(response.items))
+                dispatch(setLoading(false))
+                dispatch(setDisabledButton(false))
+            })
+            .catch((err) => {
+                console.log('Err', err)
+            })
+    }
+}
+
+export const unFollowTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setDisabledButton(true))
+        API.unFollow(id).then(() => {
+            dispatch(setDisabledButton(false))
+            dispatch(unFollow(id))
+        })
+    }
+}
+
+export const followTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setDisabledButton(true))
+        API.unFollow(id).then(() => {
+            dispatch(setDisabledButton(false))
+            dispatch(follow(id))
+        })
+    }
+}
+
 type ActionType =
     ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
@@ -45,7 +85,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
                 ...state,
                 items: state.items.map(el => {
                     if (el.id === action.userId) {
-                        return {...el, followed: true}
+                        return {...el, followed: false}
                     }
                     return el
                 })
@@ -56,7 +96,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
                 ...state,
                 items: state.items.map(el => {
                     if (el.id === action.userId) {
-                        return {...el, followed: false}
+                        return {...el, followed: true}
                     }
                     return el
                 })

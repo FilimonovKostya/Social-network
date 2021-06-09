@@ -13,10 +13,12 @@ type UsersPropsType = {
     unFollow: (userId: number) => void
     setCurrentPage: (currentPage: number) => void
     isDisabled: boolean
-    setDisabledButton:(isDisabled: boolean) => void
+    setDisabledButton: (isDisabled: boolean) => void
+    followTC: (id: number) => void
+    unFollowTC: (id: number) => void
 }
 
-const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage, isDisabled, setDisabledButton}: UsersPropsType) => {
+const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage, isDisabled, setDisabledButton, followTC, unFollowTC}: UsersPropsType) => {
 
     const pages = []
     for (let i = 1; i <= totalCount; i++) {
@@ -43,20 +45,8 @@ const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage
                 <div className={style.btn}>
                     {
                         el.followed
-                            ? <button disabled={isDisabled} onClick={() => {
-                                setDisabledButton(true)
-                                API.unFollow(el.id).then(() =>{
-                                    setDisabledButton(false)
-                                    unFollow(el.id)
-                                })
-                            }}> un follow</button>
-                            : <button disabled={isDisabled}  onClick={() => {
-                                setDisabledButton(true)
-                                API.follow(el.id).then(() =>{
-                                    setDisabledButton(false)
-                                    unFollow(el.id)
-                                })
-                            }}> Follow</button>
+                            ? <button disabled={isDisabled} onClick={() => followTC(el.id)}> un follow</button>
+                            : <button disabled={isDisabled} onClick={() => unFollowTC(el.id)}> Follow</button>
                     }
                 </div>
             </>)
