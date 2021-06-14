@@ -1,4 +1,6 @@
 import {AddMessageActionType, ChangeMessageActionType} from "./dialogsReducer";
+import {Dispatch} from "redux";
+import {API} from "../Api/api";
 
 export type PostType = {
     id: number
@@ -107,3 +109,10 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
 export const AddPostAC = (): AddPostActionType => ({type: 'ADD-POST'})
 export const ChangePostTextAC = (newPostMessage: string): ChangePostTextActionType => ({type: 'CHANGE-POST-TEXT', newPostMessage})
 export const SetUserProfile = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
+
+export const getUsersTC = (userId:string) => (dispatch: Dispatch) => {
+    API.setUsers(userId)
+        .then(res => {
+            dispatch(SetUserProfile(res))
+        })
+}

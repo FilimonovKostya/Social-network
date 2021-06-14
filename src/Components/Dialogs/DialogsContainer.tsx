@@ -8,12 +8,14 @@ import {AppStateType} from "../../Redux/reduxStore";
 type mapStateToPropsType = {
     newMessageDialog: string
     dialogsData: DialogPageStateType
+    auth:boolean
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         newMessageDialog: state.dialogsPage.newDialogMessage,
-        dialogsData: state.dialogsPage
+        dialogsData: state.dialogsPage,
+        auth: state.auth.isAuth
     }
 }
 

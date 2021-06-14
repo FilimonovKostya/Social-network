@@ -36,7 +36,8 @@ export const setLoginData = (data:{id: number, email:string, login:string }) => 
 export const getAuthDataTC = () => (dispatch: Dispatch) => {
     API.getAuth()
         .then( res => {
-
-            dispatch(setLoginData(res.data))
+            if(res.data.resultCode === 0 ){
+                dispatch(setLoginData(res.data.data))
+            }
         })
 }

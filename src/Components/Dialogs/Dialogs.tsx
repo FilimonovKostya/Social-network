@@ -3,14 +3,21 @@ import style from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 import {DialogPageStateType} from "../../Redux/dialogsReducer";
+import { Redirect } from 'react-router-dom';
 
 type DialogsPropsType = {
     dialogsData: DialogPageStateType
     addMessage: () => void
     changeMessage: (message: string) => void
     newMessageDialog: string
+    auth: boolean
 }
-const Dialogs = ({dialogsData, newMessageDialog, addMessage, changeMessage}: DialogsPropsType) => {
+const Dialogs = ({dialogsData, newMessageDialog, addMessage, changeMessage, auth}: DialogsPropsType) => {
+
+    console.log('dia auth', auth)
+
+    if(!auth) return <Redirect to={'/login'} />
+
     const dialogsItems = dialogsData.dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
     const messagesItem = dialogsData.messages.map((el) => <MessageItem key={el.id} message={el.message}/>)
 

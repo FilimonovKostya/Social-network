@@ -31,7 +31,7 @@ export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', 
 export const setDisabledButton = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
 
 //Thunks
-export const getUsersTC = (currentPage: number, pageSize: number) => {
+export const getUsersPageTC = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setLoading(true))
         API.getUsers(currentPage, pageSize)

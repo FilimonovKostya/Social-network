@@ -1,5 +1,6 @@
 import axios from "axios";
 import {UsersType} from "../Redux/usersReducer";
+import {UserProfileType} from "../Redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -14,16 +15,19 @@ export const API = {
         return instance.get<UsersType>(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
-    follow(id:number){
+    setUsers(userId: string) {
+       return  instance.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+            .then((res) => res.data)
+    },
+    follow(id: number) {
         return instance.post(`follow/${id}`)
             .then(response => response.data)
     },
-    unFollow(id:number){
+    unFollow(id: number) {
         return instance.delete(`follow/${id}`)
             .then(response => response.data)
     },
-    getAuth(){
+    getAuth() {
         return instance.get('auth/me')
-            .then(response => response.data)
     }
 }

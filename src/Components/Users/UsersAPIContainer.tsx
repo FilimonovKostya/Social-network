@@ -4,7 +4,7 @@ import Users from "./Users";
 import {
     follow,
     followTC,
-    getUsersTC,
+    getUsersPageTC,
     ItemsType,
     setCurrentPage,
     setDisabledButton,
@@ -79,7 +79,7 @@ export default connect(mapStateToProps, {
     setTotalCount,
     setLoading,
     setDisabledButton,
-    getUsersTC,
+    getUsersTC: getUsersPageTC,
     followTC,
     unFollowTC
 })(UsersAPIContainer)

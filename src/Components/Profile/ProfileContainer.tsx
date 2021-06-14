@@ -1,37 +1,34 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import axios from "axios";
-import {SetUserProfile, UserProfileType} from "../../Redux/profileReducer";
+import {getUsersTC, UserProfileType} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/reduxStore";
-import {withRouter} from "react-router-dom";
+import {withRouter, Redirect} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 
 
-const ProfileContainer: React.FC<PropsType> = ({userProfile, SetUserProfile, match}) => {
+const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, match, auth}) => {
 
     let userId = !match.params.userId ? match.params.userId = '2' : match.params.userId
 
     useEffect(() => {
-        axios.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then((res) => {
-                console.log('res', res)
-                SetUserProfile(res.data)
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
+        getUsersTC(userId)
     }, [])
 
-    return (<Profile userProfile={userProfile}/>)
+    console.log('Auytg', auth)
+
+    if(!auth) return <Redirect to={'/login'} />
+
+    return <Profile userProfile={userProfile}/>
 }
 
 type MapStateToPropsType = {
     userProfile: UserProfileType | null
+    auth: boolean
 }
 
 type MapDispatchToPropsType = {
-    SetUserProfile: (userProfile: UserProfileType) => void
+    getUsersTC: (userId: string) => void
 }
 
 type ParamsType = {
@@ -43,11 +40,12 @@ type PropsType = RouteComponentProps<ParamsType> & CommonType
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        userProfile: state.profilePage.userProfile
+        userProfile: state.profilePage.userProfile,
+        auth: state.auth.isAuth
     }
 }
 
 const WithUrlRouterContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {SetUserProfile})(WithUrlRouterContainerComponent)
+export default connect(mapStateToProps, {getUsersTC})(WithUrlRouterContainerComponent)
 
