@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {API} from "../Api/api";
+
 export type InitialStateType = {
     isAuth: boolean
     resultCode: number
@@ -28,4 +31,12 @@ export const authReducer = (state = initialState, action: ActionType): InitialSt
     }
 }
 
-export const setLoginData = (data:{id: number, email:string, login:string }) => ({type: 'SET-LOGIN', data})
+export const setLoginData = (data:{id: number, email:string, login:string }) => ({type: 'SET-LOGIN', data} as const)
+
+export const getAuthDataTC = () => (dispatch: Dispatch) => {
+    API.getAuth()
+        .then( res => {
+
+            dispatch(setLoginData(res.data))
+        })
+}
