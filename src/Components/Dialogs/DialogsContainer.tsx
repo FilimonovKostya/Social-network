@@ -3,6 +3,7 @@ import {AddMessageAC, AddMessageActionType, ChangeMessageAC, ChangeMessageAction
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../Redux/reduxStore";
+import WithAuthRedirect from "../../Hoc/WithAuthRedirect";
 
 
 type mapStateToPropsType = {
@@ -34,6 +35,6 @@ const mapDispatchToProps = (dispatch: Dispatch<AddMessageActionType | ChangeMess
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(Dialogs))
 
 export default DialogsContainer;

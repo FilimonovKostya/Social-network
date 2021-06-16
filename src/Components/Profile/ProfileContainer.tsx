@@ -3,11 +3,12 @@ import {connect} from "react-redux";
 import Profile from "./Profile";
 import {getUsersTC, UserProfileType} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/reduxStore";
-import {withRouter, Redirect} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
+import WithAuthRedirect from "../../Hoc/WithAuthRedirect";
 
 
-const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, match, auth}) => {
+const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, match, auth, ...restProps}) => {
 
     let userId = !match.params.userId ? match.params.userId = '2' : match.params.userId
 
@@ -17,9 +18,7 @@ const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, match, 
 
     console.log('Auytg', auth)
 
-    if(!auth) return <Redirect to={'/login'} />
-
-    return <Profile userProfile={userProfile}/>
+    return <Profile userProfile={userProfile} {...restProps}/>
 }
 
 type MapStateToPropsType = {
@@ -47,5 +46,5 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 const WithUrlRouterContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {getUsersTC})(WithUrlRouterContainerComponent)
+export default WithAuthRedirect(connect(mapStateToProps, {getUsersTC})(WithUrlRouterContainerComponent))
 
