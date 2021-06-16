@@ -1,6 +1,7 @@
 import React from "react";
 import style from './ProfileInfo.module.css'
 import {UserProfileType} from "../../../Redux/profileReducer";
+import {Status} from "./Status";
 
 type ProfileInfoPropsType = {
     userProfile: UserProfileType | null
@@ -18,7 +19,7 @@ const ProfileInfo = ({userProfile}: ProfileInfoPropsType) => {
                  alt=""/>
             <div className={style.personalInfo}><h3>{userProfile?.fullName}</h3>
                 <p>Looking for a job: <span>{userProfile?.lookingForAJob ? 'Ищу работу за шаурму' : 'Ищу за деньги'}</span></p>
-                <p>Status : <span>{userProfile?.lookingForAJobDescription}</span></p>
+                <Status lookingForAJobDescription={userProfile?.lookingForAJobDescription} />
                 <p>Web Site: <span>{userProfile?.contacts.vk}</span></p>
             </div>
         </div>
