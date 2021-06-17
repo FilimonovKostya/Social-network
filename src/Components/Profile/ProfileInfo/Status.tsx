@@ -13,6 +13,6 @@ export const Status = ({status, changeStatus}: StatusPropsType) => {
     return <p>Status : {isEditable ? <input autoFocus onChange={onChangeStatusValue} onBlur={() => {
             setIsEditable(false)
             changeStatus(statusValue)
-        }} type="text" value={status}/> :
-        <span onDoubleClick={() => setIsEditable(true)}>{status}</span>}  </p>
+        }} type="text" value={statusValue}/> :
+        <span onDoubleClick={() => setIsEditable(true)}>{statusValue}</span>}  </p>
 }
