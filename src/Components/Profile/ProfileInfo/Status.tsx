@@ -1,11 +1,18 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 
 type StatusPropsType = {
-    lookingForAJobDescription?: string | null
+    status: string
+    changeStatus: (status: string) => void
 }
-export const Status = ({lookingForAJobDescription}: StatusPropsType) => {
+export const Status = ({status, changeStatus}: StatusPropsType) => {
     const [isEditable, setIsEditable] = useState<boolean>(false)
+    const [statusValue, setStatusValue] = useState<string>(status)
 
-    return <p>Status : {isEditable ? <input autoFocus onBlur={() => setIsEditable(false)} type="text" value={lookingForAJobDescription ? lookingForAJobDescription : ''}/> :
-        <span onDoubleClick={() => setIsEditable(true)}>{lookingForAJobDescription}</span>}  </p>
+    const onChangeStatusValue = (e: ChangeEvent<HTMLInputElement>) => setStatusValue(e.currentTarget.value)
+
+    return <p>Status : {isEditable ? <input autoFocus onChange={onChangeStatusValue} onBlur={() => {
+            setIsEditable(false)
+            changeStatus(statusValue)
+        }} type="text" value={status}/> :
+        <span onDoubleClick={() => setIsEditable(true)}>{status}</span>}  </p>
 }

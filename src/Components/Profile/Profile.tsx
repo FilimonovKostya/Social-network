@@ -6,11 +6,13 @@ import {UserProfileType} from "../../Redux/profileReducer";
 
 type UserProfilePropsType = {
     userProfile: UserProfileType | null
+    status:string
+    changeStatus: (status:string) => void
 }
 
-const Profile = ({userProfile}: UserProfilePropsType) => {
+const Profile = ({userProfile, status, changeStatus}: UserProfilePropsType) => {
     return <main className={style.profile}>
-        <ProfileInfo userProfile={userProfile}/>
+        <ProfileInfo userProfile={userProfile} changeStatus={changeStatus} status={status}/>
         <MyPostsContainer/>
     </main>
 }

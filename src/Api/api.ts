@@ -16,7 +16,7 @@ export const API = {
             .then(response => response.data)
     },
     setUsers(userId: string) {
-       return  instance.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        return instance.get<UserProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then((res) => res.data)
     },
     follow(id: number) {
@@ -29,5 +29,11 @@ export const API = {
     },
     getAuth() {
         return instance.get('auth/me')
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    changeStatus(status: string) {
+        return instance.put(`profile/status`, {status: status})
     }
 }
