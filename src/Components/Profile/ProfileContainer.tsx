@@ -11,7 +11,7 @@ import {compose} from "redux";
 
 const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC,changeStatusTC, match, getStatusTC, auth, status, ...restProps}) => {
 
-    let userId = !match.params.userId ? match.params.userId = '2' : match.params.userId
+    let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
 
     useEffect(() => {
         getUsersTC(userId)
