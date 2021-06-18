@@ -16,7 +16,7 @@ const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC,changeSt
     useEffect(() => {
         getUsersTC(userId)
         getStatusTC(+userId)
-    }, [])
+    }, [userId])
 
     console.log('Auytg', auth)
 

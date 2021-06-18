@@ -10,7 +10,6 @@ type ProfileInfoPropsType = {
 }
 
 const ProfileInfo = ({userProfile, status, changeStatus}: ProfileInfoPropsType) => {
-    console.log('userProfile', userProfile)
     return <>
         <div>
             <img className={style.backgroundImage}
