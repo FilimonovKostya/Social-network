@@ -1,12 +1,12 @@
 import React from "react";
 import style from './ProfileInfo.module.css'
 import {UserProfileType} from "../../../Redux/profileReducer";
-import {Status} from "./Status";
+import Status from "./Status";
 
 type ProfileInfoPropsType = {
     userProfile: UserProfileType | null
     status: string
-    changeStatus: (status:string) => void
+    changeStatus: (status: string) => void
 }
 
 const ProfileInfo = ({userProfile, status, changeStatus}: ProfileInfoPropsType) => {
@@ -28,4 +28,4 @@ const ProfileInfo = ({userProfile, status, changeStatus}: ProfileInfoPropsType) 
     </>
 }
 
-export default ProfileInfo
+export default React.memo(ProfileInfo)

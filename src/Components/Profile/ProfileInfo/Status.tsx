@@ -4,7 +4,7 @@ type StatusPropsType = {
     status: string
     changeStatus: (status: string) => void
 }
-export const Status = ({status, changeStatus}: StatusPropsType) => {
+ const Status = ({status, changeStatus}: StatusPropsType) => {
     const [isEditable, setIsEditable] = useState<boolean>(false)
     const [statusValue, setStatusValue] = useState<string>(status)
 
@@ -16,3 +16,5 @@ export const Status = ({status, changeStatus}: StatusPropsType) => {
         }} type="text" value={statusValue}/> :
         <span onDoubleClick={() => setIsEditable(true)}>{statusValue}</span>}  </p>
 }
+
+export default React.memo(Status)
