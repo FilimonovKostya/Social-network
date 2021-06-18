@@ -134,6 +134,7 @@ export const getUsersTC = (userId: string) => (dispatch: Dispatch) => {
 export const getStatusTC = (userId: number) => (dispatch: Dispatch) => {
     API.getStatus(userId)
         .then(res => {
+            debugger
             console.log('res status', res.data)
             dispatch(SetStatus(res.data))
         })
