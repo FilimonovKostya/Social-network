@@ -10,6 +10,13 @@ const instance = axios.create({
     },
 })
 
+export type LoginType = {
+    email:string
+    password:string
+    rememberMe?:boolean
+    captcha?:boolean
+}
+
 export const API = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<UsersType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -30,10 +37,15 @@ export const API = {
     getAuth() {
         return instance.get('auth/me')
     },
+    setLogin(authData:LoginType){
+        console.log('api')
+        return instance.post(`auth/login`, authData)
+    },
     getStatus(userId: number) {
         return instance.get(`profile/status/${userId}`)
     },
     changeStatus(status: string) {
         return instance.put(`profile/status`, {status: status})
     }
+
 }

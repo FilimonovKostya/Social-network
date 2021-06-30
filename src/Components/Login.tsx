@@ -1,25 +1,34 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
+import {setLoginDataTC} from "../Redux/authReducer";
+import {useDispatch} from "react-redux";
 
 type IFormInput = {
-    login: string;
+    email: string;
     password: string;
     rememberMe: boolean;
 }
 
 
 const Login = () => {
-    const { register, handleSubmit, formState: {errors} } = useForm<IFormInput>();
-    const onSubmit = handleSubmit((data) => console.log(data))
-    console.log('re',register)
+    const {register, handleSubmit, formState: {errors},} = useForm<IFormInput>({mode: 'onTouched'});
+    const dispatch = useDispatch()
+    const onSubmit = handleSubmit((data) =>{
+        console.log('Data', data)
+        dispatch(setLoginDataTC(data))
+    })
+
+
     return (
         <form onSubmit={onSubmit}>
-            <input {...register("login", { required: true, minLength: 3 })} />
-            {errors.login && 'Require'}
+            <input  {...register("email", {required: true,})} />
+            {errors.email && 'Require'}
 
-            <input type={'password'} {...register("password", {required: true, minLength: 5})} />
-            <input type="checkbox" {...register("rememberMe", {required: false })} />
-            <input type="submit" />
+            <input  type={'password'} {...register("password", {required: true, minLength: 5})} />
+            {errors.password && 'Require'}
+
+            <input type="checkbox" {...register("rememberMe", {required: false})} />
+            <input type="submit"/>
         </form>
     );
 };
