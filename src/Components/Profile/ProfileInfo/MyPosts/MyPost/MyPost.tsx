@@ -1,22 +1,23 @@
 import style from "./MyPost.module.css";
-import React, {ChangeEvent} from "react";
+import React from "react";
+import {useForm} from "react-hook-form";
 
 type MyPostPropsType = {
-    addPostMessage: () => void
-    changeText: (text: string) => void
-    newPostsText: string
+    addPostMessage: (message:string) => void
 }
-const MyPost = ({addPostMessage, changeText, newPostsText}: MyPostPropsType) => {
+const MyPost = ({addPostMessage}: MyPostPropsType) => {
+    const {register, handleSubmit,} = useForm<{ textarea: string }>();
+    const onSubmit = handleSubmit((data) => {
+        addPostMessage(data.textarea)
+    })
 
-    const onAddPostMessage = () => addPostMessage()
-    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => changeText(e.currentTarget.value)
 
     return <>
         <h4>My posts</h4>
         <label className={style.formInputContainer}>
-            <textarea className={style.formInput} id="word-count-input" value={newPostsText} onChange={onChangeText}/>
+            <textarea className={style.formInput} id="word-count-input" {...register('textarea')}/>
             <span className={style.formInputLabel}/>
-            <button className={style.button} onClick={onAddPostMessage}>Send</button>
+            <button className={style.button} onClick={onSubmit}>Send</button>
         </label>
     </>
 }

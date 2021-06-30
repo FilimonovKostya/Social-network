@@ -33,18 +33,13 @@ export type UserProfileType = {
 
 type InitialStateType = {
     posts: PostType[]
-    newPostText: string
     userProfile: UserProfileType | null
     status: string
 }
 
 export type AddPostActionType = {
     type: 'ADD-POST'
-}
-
-export type ChangePostTextActionType = {
-    type: 'CHANGE-POST-TEXT',
-    newPostMessage: string
+    message:string
 }
 
 export type SetUserProfileActionType = {
@@ -57,7 +52,7 @@ export type SetStatusActionType = {
     status: string
 }
 
-type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType  | SetUserProfileActionType | SetStatusActionType
+type ActionType = AddPostActionType  | AddMessageActionType  | SetUserProfileActionType | SetStatusActionType
 
 const initialState: InitialStateType = {
     posts: [
@@ -80,7 +75,7 @@ const initialState: InitialStateType = {
             id: 3,
         },
     ],
-    newPostText: '',
+
     userProfile: null,
     status: 'Samurai'
 }
@@ -89,17 +84,10 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
     switch (action.type) {
 
         case 'ADD-POST':
-            const newPostMessage: PostType = {message: state.newPostText, avatarImg: '', likes: 5, id: 4}
+            const newPostMessage: PostType = {message: action.message, avatarImg: '', likes: 5, id: 4}
             return {
                 ...state,
                 posts: [...state.posts, newPostMessage],
-                newPostText: ''
-            }
-
-        case 'CHANGE-POST-TEXT':
-            return {
-                ...state,
-                newPostText: action.newPostMessage
             }
 
         case "SET-USER-PROFILE":
@@ -119,8 +107,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
     }
 }
 
-export const AddPostAC = (): AddPostActionType => ({type: 'ADD-POST'})
-export const ChangePostTextAC = (newPostMessage: string): ChangePostTextActionType => ({type: 'CHANGE-POST-TEXT', newPostMessage})
+export const AddPostAC = (message:string): AddPostActionType => ({type: 'ADD-POST', message})
 export const SetUserProfile = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
 export const SetStatus = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
 

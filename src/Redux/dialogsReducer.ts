@@ -1,4 +1,4 @@
-import {AddPostActionType, ChangePostTextActionType} from "./profileReducer";
+import {AddPostActionType} from "./profileReducer";
 
 export type MessageItem = {
     id: number
@@ -19,7 +19,7 @@ export type AddMessageActionType = {
     message: string
 }
 
-type ActionType = AddMessageActionType | AddPostActionType | ChangePostTextActionType
+type ActionType = AddMessageActionType | AddPostActionType
 
 const initialState: DialogPageStateType = {
     dialogs: [

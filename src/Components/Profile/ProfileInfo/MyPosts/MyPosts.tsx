@@ -6,7 +6,6 @@ import MyPostContainer from "./MyPost/MyPostContainer";
 
 type MyPostsPropsType = {
     posts: PostType[]
-    newPostsText: string
 }
 const MyPosts = ({posts}: MyPostsPropsType) => {
 
