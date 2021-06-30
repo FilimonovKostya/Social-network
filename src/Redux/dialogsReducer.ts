@@ -11,19 +11,15 @@ export type DialogsItems = {
 export type DialogPageStateType = {
     dialogs: DialogsItems[]
     messages: MessageItem[]
-    newDialogMessage: string
 }
 
 
 export type AddMessageActionType = {
     type: 'ADD-MESSAGE'
-}
-export type ChangeMessageActionType = {
-    type: 'CHANGE-MESSAGE-TEXT'
     message: string
 }
 
-type ActionType = AddMessageActionType | ChangeMessageActionType | AddPostActionType | ChangePostTextActionType
+type ActionType = AddMessageActionType | AddPostActionType | ChangePostTextActionType
 
 const initialState: DialogPageStateType = {
     dialogs: [
@@ -50,23 +46,15 @@ const initialState: DialogPageStateType = {
         {id: 4, message: 'Do you heard about Vanila JS ?'},
         {id: 5, message: 'React awesome!!'}
     ],
-    newDialogMessage: ''
 }
 
 export const dialogsReducer = (state = initialState, action: ActionType): DialogPageStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE': {
-            const newMessageItem: MessageItem = {id: 6, message: state.newDialogMessage}
+            const newMessageItem: MessageItem = {id: 6, message: action.message}
             return {
                 ...state,
                 messages: [...state.messages, newMessageItem],
-                newDialogMessage: ''
-            }
-        }
-        case 'CHANGE-MESSAGE-TEXT': {
-            return {
-                ...state,
-                newDialogMessage: action.message
             }
         }
         default:
@@ -74,5 +62,4 @@ export const dialogsReducer = (state = initialState, action: ActionType): Dialog
     }
 }
 
-export const AddMessageAC = (): AddMessageActionType => ({type: 'ADD-MESSAGE'})
-export const ChangeMessageAC = (message: string): ChangeMessageActionType => ({type: "CHANGE-MESSAGE-TEXT", message})
+export const AddMessageAC = (message: string): AddMessageActionType => ({type: 'ADD-MESSAGE', message})

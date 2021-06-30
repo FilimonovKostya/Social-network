@@ -1,4 +1,4 @@
-import {AddMessageActionType, ChangeMessageActionType} from "./dialogsReducer";
+import {AddMessageActionType} from "./dialogsReducer";
 import {Dispatch} from "redux";
 import {API} from "../Api/api";
 
@@ -57,7 +57,7 @@ export type SetStatusActionType = {
     status: string
 }
 
-type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType | ChangeMessageActionType | SetUserProfileActionType | SetStatusActionType
+type ActionType = AddPostActionType | ChangePostTextActionType | AddMessageActionType  | SetUserProfileActionType | SetStatusActionType
 
 const initialState: InitialStateType = {
     posts: [
@@ -143,10 +143,10 @@ export const getStatusTC = (userId: number) => (dispatch: Dispatch) => {
 export const changeStatusTC = (status: string) => (dispatch: Dispatch) => {
     API.changeStatus(status)
         .then(res => {
-                if (res.data.resultCode === 0) {
-                    console.log('res change', res.data)
-                    dispatch(SetStatus(status))
-                }
+            if (res.data.resultCode === 0) {
+                console.log('res change', res.data)
+                dispatch(SetStatus(status))
+            }
 
         })
 }
