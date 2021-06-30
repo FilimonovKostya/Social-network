@@ -50,10 +50,10 @@ export const getAuthDataTC = () => (dispatch: Dispatch) => {
 }
 
 export const setLoginDataTC = (data:LoginType) => (dispatch: Dispatch) => {
-    console.log('tc', data)
+
     API.setLogin(data)
         .then(res=> {
-            console.log('LOGIN', res)
+
             dispatch(setAuthData())
         })
 }

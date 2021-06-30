@@ -122,7 +122,6 @@ export const getStatusTC = (userId: number) => (dispatch: Dispatch) => {
     API.getStatus(userId)
         .then(res => {
 
-            console.log('res status', res.data)
             dispatch(SetStatus(res.data))
         })
 }
@@ -131,7 +130,7 @@ export const changeStatusTC = (status: string) => (dispatch: Dispatch) => {
     API.changeStatus(status)
         .then(res => {
             if (res.data.resultCode === 0) {
-                console.log('res change', res.data)
+
                 dispatch(SetStatus(status))
             }
 

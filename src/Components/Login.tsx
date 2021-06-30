@@ -14,7 +14,7 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors},} = useForm<IFormInput>({mode: 'onTouched'});
     const dispatch = useDispatch()
     const onSubmit = handleSubmit((data) =>{
-        console.log('Data', data)
+
         dispatch(setLoginDataTC(data))
     })
 

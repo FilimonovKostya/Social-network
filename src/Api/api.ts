@@ -38,7 +38,7 @@ export const API = {
         return instance.get('auth/me')
     },
     setLogin(authData:LoginType){
-        console.log('api')
+
         return instance.post(`auth/login`, authData)
     },
     getStatus(userId: number) {

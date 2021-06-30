@@ -42,7 +42,7 @@ export const getUsersPageTC = (currentPage: number, pageSize: number) => {
                 dispatch(setDisabledButton(false))
             })
             .catch((err) => {
-                console.log('Err', err)
+
             })
     }
 }

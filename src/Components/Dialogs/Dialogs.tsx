@@ -17,11 +17,11 @@ const Dialogs = ({dialogsData, auth, AddMessageAC}: DialogsPropsType) => {
     const {register, handleSubmit} = useForm<{ textarea: string }>();
 
     const onSubmit = handleSubmit((data) => {
-        console.log('data', data)
+
         AddMessageAC(data.textarea)
     })
 
-    console.log('dia auth', auth)
+
 
 
     const dialogsItems = dialogsData.dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
