@@ -1,38 +1,34 @@
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.profil{
+.profil {
     width: 250px;
     height: 320px;
     border-radius: 10px;
-    color:white;
+    color: white;
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    background-color:#3b3b3b;
+    background-color: #3b3b3b;
 }
-#kap{
-    width: 100%;
-    height: 100%;
-    margin:auto;
-    display: flex;
-}
-.ikon{
+
+.ikon {
     width: 37px;
     float: left;
-    margin-top:10px;
-    margin-left:200px;
+    margin-top: 10px;
+    margin-left: 200px;
 }
-.arama{
+
+.arama {
     width: 250px;
     height: 27px;
     outline: none;
     margin-top: 10px;
     font-size: 13px;
-    border:none;
+    border: none;
     margin-left: 5px;
     border-radius: 3px;
     background-color: #eef3f8;
@@ -41,99 +37,115 @@
     background-size: 18px;
     background-position: 10px;
     padding-left: 35px;
-    padding-top:5px;
+    padding-top: 5px;
     padding-bottom: 5px;
     transition-property: padding-left, width, font-size, color;
     transition-duration: 0.3s;
 }
-.arama:focus{
+
+.arama:focus {
     padding-left: 55px;
-    color:grey;
+    color: grey;
     width: 330px;
     font-size: 16px;
-    border:0.3px solid lightgrey;
+    border: 0.3px solid lightgrey;
 }
-.kapak{
+
+.bgImage {
     width: 100%;
     height: 70px;
     background-image: url("https://marketplace.canva.com/EAD29gI7er8/2/0/800w/canva-swirling-stars-and-space-video-zoom-virtual-background-I_B0jpKq2ug.jpg");
-    background-size: 110%;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 }
-.devrim{
+
+
+.avatar {
+    transform: translate(0%, -50%);
     width: 100px;
-    position: relative;
+    height: 100px;
     border-radius: 50%;
-    top:-45px;
-    cursor: pointer;
-    left: 0px;
-    bottom: 0px;
-    margin-bottom: -35px;
-    right: 0px;
 }
-.isim{
+
+.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.isim {
     cursor: pointer;
     display: inline;
-    color:white;
+    color: white;
 }
-.isim:hover{
+
+.isim:hover {
     text-decoration: underline;
 }
-.turkej{
+
+.turkej {
     font-size: 12px;
     cursor: default;
-    color:lightgrey;
+    color: lightgrey;
 }
-.iletisim{
+
+.iletisim {
     width: auto;
-    height:100%;
-    background-color:#eef3f8;
-    margin-top:95px;
+    height: 100%;
+    background-color: #eef3f8;
+    margin-top: 95px;
     text-align: center;
 }
-.sayfalar{
+
+.sayfalar {
     width: 40px;
     border-radius: 50%;
     filter: drop-shadow(0px 0px 5px white) invert(50%);
     transition-property: filter;
     transition-duration: 0.4s;
 }
-.sayfalar:hover{
+
+.sayfalar:hover {
     filter: drop-shadow(0px 0px 5px white) invert(0%);
 }
-.pp{
+
+.pp {
     width: 50px;
     border-radius: 50%;
     float: left;
     cursor: pointer;
-    margin-top:10px;
+    margin-top: 10px;
     margin-left: 10px;
     margin-right: 20px;
 }
-.paylasim{
-    max-width:70%;
-    min-width:70%;
+
+.paylasim {
+    max-width: 70%;
+    min-width: 70%;
     margin-right: 20px;
     max-height: 20px;
-    border:1px solid #3333;
+    border: 1px solid #3333;
     min-height: 20px;
     border-radius: 40px;
     font-size: 15px;
     outline: none;
-    margin-top:10px;
+    margin-top: 10px;
     padding: 15px;
 }
-.no{
+
+.no {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    color:#eef3f8;
-    margin-top:400px;
+    color: #eef3f8;
+    margin-top: 400px;
 }
-#galiba{
+
+#galiba {
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    color:#eef3f8;
-    margin-top:800px;
-    cursor:pointer;
+    color: #eef3f8;
+    margin-top: 800px;
+    cursor: pointer;
 }
