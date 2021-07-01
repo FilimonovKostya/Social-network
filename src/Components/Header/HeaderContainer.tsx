@@ -2,16 +2,16 @@ import React, {useEffect} from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
-import {getAuthDataTC} from "../../Redux/authReducer";
+import {getAuthDataTC, logoutTC} from "../../Redux/authReducer";
 import {compose} from "redux";
 
-const HeaderContainer = ({login, getAuthDataTC}: MapDispatchToPropsType & MapStateToPropsType) => {
+const HeaderContainer = ({login, getAuthDataTC, logoutTC}: MapDispatchToPropsType & MapStateToPropsType) => {
 
     useEffect(() => {
         getAuthDataTC()
     }, [])
 
-    return <Header login={login}/>
+    return <Header logoutTC={logoutTC} login={login}/>
 }
 
 type MapStateToPropsType = {
@@ -20,6 +20,8 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
     getAuthDataTC: () => void
+    logoutTC:(isAuth:boolean) => void
+
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -30,5 +32,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getAuthDataTC})
+
+    connect(mapStateToProps, {getAuthDataTC, logoutTC})
 )(HeaderContainer)

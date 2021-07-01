@@ -38,8 +38,10 @@ export const API = {
         return instance.get('auth/me')
     },
     setLogin(authData:LoginType){
-
         return instance.post(`auth/login`, authData)
+    },
+    logout(){
+        return instance.delete('auth/login')
     },
     getStatus(userId: number) {
         return instance.get(`profile/status/${userId}`)

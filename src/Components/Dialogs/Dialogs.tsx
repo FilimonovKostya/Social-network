@@ -22,8 +22,6 @@ const Dialogs = ({dialogsData, auth, AddMessageAC}: DialogsPropsType) => {
     })
 
 
-
-
     const dialogsItems = dialogsData.dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
     const messagesItem = dialogsData.messages.map((el) => <MessageItem key={el.id} message={el.message}/>)
 

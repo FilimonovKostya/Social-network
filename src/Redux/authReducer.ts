@@ -12,7 +12,7 @@ export type InitialStateType = {
     }
 }
 
-type ActionType = ReturnType<typeof setLoginData> | ReturnType<typeof  setAuthData>
+type ActionType = ReturnType<typeof setLoginData> | ReturnType<typeof setAuthData>
 
 const initialState: InitialStateType = {isAuth: false, messages: [''], data: {id: 0, email: '', login: ''}, resultCode: 0}
 
@@ -22,14 +22,14 @@ export const authReducer = (state = initialState, action: ActionType): InitialSt
         case "SET-LOGIN":
             return {
                 ...state,
-                isAuth:true,
-               data: {...action.data}
+                isAuth: true,
+                data: {...action.data}
             }
 
         case "SET-AUTH":
             return {
                 ...state,
-                isAuth:true
+                isAuth: action.isAuth
             }
 
         default:
@@ -37,23 +37,30 @@ export const authReducer = (state = initialState, action: ActionType): InitialSt
     }
 }
 
-export const setLoginData = (data:{id: number, email:string, login:string }) => ({type: 'SET-LOGIN', data} as const)
-export const setAuthData = () => ({type: 'SET-AUTH'} as const)
+export const setLoginData = (data: { id: number, email: string, login: string }) => ({type: 'SET-LOGIN', data} as const)
+export const setAuthData = (isAuth: boolean) => ({type: 'SET-AUTH', isAuth} as const)
 
 export const getAuthDataTC = () => (dispatch: Dispatch) => {
     API.getAuth()
-        .then( res => {
-            if(res.data.resultCode === 0 ){
+        .then(res => {
+            if (res.data.resultCode === 0) {
                 dispatch(setLoginData(res.data.data))
             }
         })
 }
 
-export const setLoginDataTC = (data:LoginType) => (dispatch: Dispatch) => {
-
+export const setLoginDataTC = (data: LoginType) => (dispatch: Dispatch) => {
     API.setLogin(data)
-        .then(res=> {
+        .then(res => {
+            dispatch(setAuthData(true))
+        })
+}
 
-            dispatch(setAuthData())
+export const logoutTC = () => (dispatch: Dispatch) => {
+    API.logout()
+        .then(res => {
+            console.log('Logout', res)
+            dispatch(setLoginData({id: 0, email: '', login: ''}))
+            dispatch(setAuthData(false))
         })
 }

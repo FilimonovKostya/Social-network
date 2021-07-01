@@ -13,10 +13,8 @@ type IFormInput = {
 const Login = () => {
     const {register, handleSubmit, formState: {errors},} = useForm<IFormInput>({mode: 'onTouched'});
     const dispatch = useDispatch()
-    const onSubmit = handleSubmit((data) =>{
 
-        dispatch(setLoginDataTC(data))
-    })
+    const onSubmit = handleSubmit((data) => dispatch(setLoginDataTC(data)))
 
 
     return (
@@ -24,7 +22,7 @@ const Login = () => {
             <input  {...register("email", {required: true,})} />
             {errors.email && 'Require'}
 
-            <input  type={'password'} {...register("password", {required: true, minLength: 5})} />
+            <input type={'password'} {...register("password", {required: true, minLength: 5})} />
             {errors.password && 'Require'}
 
             <input type="checkbox" {...register("rememberMe", {required: false})} />
