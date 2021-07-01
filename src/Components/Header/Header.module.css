@@ -1,13 +1,50 @@
-.header{
+.header {
     grid-area: h;
     background-color: #845EC2;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 30px;
+    position: relative;
 }
 
 .header img {
     width: 100px;
     height: 100px;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 15px;
+}
+
+.avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid crimson;
+}
+
+.logo{
+    position: absolute;
+    transform: translate(-50%);
+    left: 50%;
+}
+
+.info {
+    margin: 0 10px;
+}
+
+.info h3 {
+    color: white;
+    font-family: Roboto, sans-serif;
 }
