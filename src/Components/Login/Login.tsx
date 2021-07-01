@@ -2,6 +2,7 @@ import React from "react";
 import {useForm} from "react-hook-form";
 import {setLoginDataTC} from "../../Redux/authReducer";
 import {useDispatch} from "react-redux";
+import style from './Login.module.css'
 
 type IFormInput = {
     email: string;
@@ -18,20 +19,14 @@ const Login = () => {
 
 
     return (
-        // <form onSubmit={onSubmit}>
-        //     <input  {...register("email", {required: true,})} />
-        //     {errors.email && 'Require'}
-        //
-        //     <input type={'password'} {...register("password", {required: true, minLength: 5})} />
-        //     {errors.password && 'Require'}
-        //
-        //     <input type="checkbox" {...register("rememberMe", {required: false})} />
-        //     <input type="submit"/>
-        // </form>
-        <div className={'wrapper-form'}>
-            <form className="login-form">
-                <input type="text" name="username" placeholder="Username" required/>
-                <input type="password" name="password" placeholder="Password" required/>
+        <div className={style.wrapperForm}>
+            <form className={style.loginForm} onSubmit={onSubmit}>
+                <input type="text" className={errors.email && 'Require' ? `${style.error}` : ''}
+                       placeholder={!errors.email ? 'Email' : 'Required field'} {...register("email", {required: true,})}/>
+
+                <input type="password" className={errors.password && 'Require' ? `${style.error}` : ''}
+                       placeholder={!errors.password ? 'Password' : 'Required field'} {...register("password", {required: true, minLength: 5})} />
+
                 <input type="submit" name="Login" value="Login"/>
 
             </form>
