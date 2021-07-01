@@ -22,7 +22,7 @@ const Header = ({login, logoutTC}: HeaderPropsType) => {
             </div>
 
         </div>
-        <div className={style.logo}> <img src="https://cdn.worldvectorlogo.com/logos/react-2.svg" alt="logo"/></div>
+        <div className={style.logo}><img src="https://cdn.worldvectorlogo.com/logos/react-2.svg" alt="logo"/></div>
 
         {/*{login ? <button onClick={() => logoutTC(false)}> Logout  </button> : <NavLink to={'/login'}> Name: {login}  Login </NavLink>}*/}
     </header>
