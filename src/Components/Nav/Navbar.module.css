@@ -12,6 +12,10 @@
     opacity: .7;
 }
 
+.nav li {
+    margin: 10px 0;
+}
+
 .activeLink {
     color: #1a73e8;
 }

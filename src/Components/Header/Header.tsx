@@ -17,7 +17,7 @@ const Header = ({login, logoutTC}: HeaderPropsType) => {
                 <img src="https://pm1.narvii.com/6802/b775c9e1266f61a61737324b45e0975ed22d7328v2_hq.jpg" alt="person"/>
                 <div className={style.info}>
                     <h3>Filimomov Kostya</h3>
-                    <button>Log out</button>
+                    <button className={style.btn}>Log out</button>
                 </div>
             </div>
 

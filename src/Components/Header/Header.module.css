@@ -34,7 +34,7 @@
     border: 1px solid crimson;
 }
 
-.logo{
+.logo {
     position: absolute;
     transform: translate(-50%);
     left: 50%;
@@ -47,4 +47,20 @@
 .info h3 {
     color: white;
     font-family: Roboto, sans-serif;
+}
+
+.btn {
+    background-color: #E0E0E0;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    width: 80%;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-family: 'Raleway', sans-seriff, serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 24px;
+    transition: 0.25s;
+    box-sizing: border-box;
 }
