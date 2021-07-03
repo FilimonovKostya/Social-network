@@ -28,14 +28,14 @@ const UserCard = ({name, status, followed, id, photos, followTC, isDisabled, unF
                 <div>
                     <p>Name : {name}</p>
                     <p>Status : {status}</p>
-                    <p>Follow : {followed}</p>
+                    <p>Follow : {followed ? 'subscribe' : 'not subscribe'}</p>
                 </div>
             </div>
             <div>
                 {
                     followed
-                        ? <button disabled={isDisabled} onClick={() => followTC(id)}> un follow</button>
-                        : <button disabled={isDisabled} onClick={() => unFollowTC(id)}> Follow</button>
+                        ? <button disabled={isDisabled} onClick={() => unFollowTC(id)}> un follow</button>
+                        : <button disabled={isDisabled} onClick={() => followTC(id)}> Follow</button>
                 }
 
             </div>
