@@ -33,8 +33,9 @@
     margin-bottom: 10px;
 }
 
-.info{
-
+.usersWrapper{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .btn{

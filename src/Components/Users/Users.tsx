@@ -4,6 +4,7 @@ import style from './Users.module.css'
 import axios from "axios";
 import {NavLink} from 'react-router-dom';
 import {API} from '../../Api/api';
+import UserCard from "./UserCard/UserCard";
 
 type UsersPropsType = {
     items: ItemsType[]
@@ -25,6 +26,9 @@ const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage
         pages.push(i)
     }
 
+    const usersCard = items.map(el => <UserCard isDisabled={isDisabled} followTC={followTC} unFollowTC={unFollowTC} key={el.id} name={el.name}
+                                                status={el.status} followed={el.followed} id={el.id} photos={el.photos as any}/>)
+
     return <div className={style.container}>
         <div className={style.pagination}> {
             pages.map((el, index) => <span className={el === currentPage ? style.active : ''}
@@ -32,25 +36,9 @@ const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage
                                            onClick={() => setCurrentPage(el)}>{el}</span>)
         }
         </div>
-        {
-            items.map(el => <>
-                <div className={style.avatarIcon} key={el.id}><NavLink to={`profile/${el.id}`}> <img
-                    src={el.photos.large != null ? el.photos.large : 'https://toppng.com/uploads/preview/batman-icon-jira-avatar-11562897771zvwv8r510z.png'}
-                    alt=""/> </NavLink>
-                    <div className={style.info}>
-                        <p>{el.name}</p>
-                        <p>{el.status}</p>
-                    </div>
-                </div>
-                <div className={style.btn}>
-                    {
-                        el.followed
-                            ? <button disabled={isDisabled} onClick={() => followTC(el.id)}> un follow</button>
-                            : <button disabled={isDisabled} onClick={() => unFollowTC(el.id)}> Follow</button>
-                    }
-                </div>
-            </>)
-        }
+        <div className={style.usersWrapper}>
+        {usersCard}
+        </div>
     </div>
 };
 
