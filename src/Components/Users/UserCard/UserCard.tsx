@@ -1,5 +1,6 @@
 import React from 'react';
 import style from "./UserCard.module.css";
+import {NavLink} from "react-router-dom";
 
 type UserCardPropsType = {
     name: string
@@ -20,7 +21,8 @@ const UserCard = ({name, status, followed, id, photos, followTC, isDisabled, unF
         <div className={style.profil}>
 
             <div className={style.bgImage}/>
-            <img className={style.avatar} src={photos.small ? photos.small : 'https://pm1.narvii.com/6802/b775c9e1266f61a61737324b45e0975ed22d7328v2_hq.jpg'}/>
+            <NavLink to={`profile/${id}`}> <img className={style.avatar}
+                           src={photos.small ? photos.small : 'https://pm1.narvii.com/6802/b775c9e1266f61a61737324b45e0975ed22d7328v2_hq.jpg'} alt={name}/> </NavLink>
 
             <div className={style.text}>
                 <div>
