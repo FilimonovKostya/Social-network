@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
 type StatusPropsType = {
     status: string
@@ -9,6 +9,10 @@ type StatusPropsType = {
     const [statusValue, setStatusValue] = useState<string>(status)
 
     const onChangeStatusValue = (e: ChangeEvent<HTMLInputElement>) => setStatusValue(e.currentTarget.value)
+
+     useEffect(() => {
+         setStatusValue(status)
+     },[status])
 
     return <p>Status : {isEditable ? <input autoFocus onChange={onChangeStatusValue} onBlur={() => {
             setIsEditable(false)
