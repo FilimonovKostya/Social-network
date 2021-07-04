@@ -40,13 +40,15 @@ export const authReducer = (state = initialState, action: ActionType): InitialSt
 export const setLoginData = (data: { id: number, email: string, login: string }) => ({type: 'SET-LOGIN', data} as const)
 export const setAuthData = (isAuth: boolean) => ({type: 'SET-AUTH', isAuth} as const)
 
+
 export const getAuthDataTC = () => (dispatch: Dispatch) => {
-    API.getAuth()
+    return API.getAuth()
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setLoginData(res.data.data))
             }
         })
+
 }
 
 export const setLoginDataTC = (data: LoginType) => (dispatch: Dispatch) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Navbar from "./Components/Nav/Navbar";
 import {Route} from 'react-router-dom';
@@ -10,16 +10,29 @@ import UsersAPIContainer from "./Components/Users/UsersAPIContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import Login from "./Components/Login/Login";
+import {AppStateType} from "./Redux/reduxStore";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {setInitializeAppTC} from "./Redux/appReducer";
+import Preloader from "./Components/Preloader/Preloader";
 
 
-function App() {
+function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
+
+
+    useEffect(() => {
+        setInitializeAppTC()
+    }, [])
+
+    if (!isInitialize) return <Preloader/>
+
     return (
         <div className={'app-wrapper'}>
             <HeaderContainer/>
             <Navbar/>
             <div className={'app-content'}>
                 <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                <Route path={'/dialogs'} render={() => <DialogsContainer />}/>
+                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
                 <Route path={'/users'} render={() => <UsersAPIContainer/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
@@ -30,4 +43,20 @@ function App() {
     );
 }
 
-export default App;
+type mapStatePropsType = {
+    isInitialize: boolean
+}
+
+const mapStateProps = (state: AppStateType): mapStatePropsType => {
+    return {
+        isInitialize: state.app.isInitialize
+    }
+}
+
+type mapDispatchToPropsType = {
+    setInitializeAppTC: () => void
+}
+
+export default compose(
+    connect(mapStateProps, {setInitializeAppTC})
+)(App);
