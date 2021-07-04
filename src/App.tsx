@@ -15,9 +15,10 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {setInitializeAppTC} from "./Redux/appReducer";
 import Preloader from "./Components/Preloader/Preloader";
+import LoginContainer from "./Components/Login/LoginContainer";
 
 
-function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
+function App({isInitialize, setInitializeAppTC, isAuth}: mapDispatchToPropsType & mapStatePropsType) {
 
 
     useEffect(() => {
@@ -37,7 +38,7 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
-                <Route path={'/login'} render={() => <Login/>}/>
+                <Route exact path={'/login'} render={() => <LoginContainer />}/>
             </div>
         </div>
     );
@@ -45,11 +46,13 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
 
 type mapStatePropsType = {
     isInitialize: boolean
+    isAuth:boolean
 }
 
 const mapStateProps = (state: AppStateType): mapStatePropsType => {
     return {
-        isInitialize: state.app.isInitialize
+        isInitialize: state.app.isInitialize,
+        isAuth:state.auth.isAuth
     }
 }
 

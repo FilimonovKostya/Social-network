@@ -5,33 +5,35 @@ import {AppStateType} from "../../Redux/reduxStore";
 import {getAuthDataTC, logoutTC} from "../../Redux/authReducer";
 import {compose} from "redux";
 
-const HeaderContainer = ({login, getAuthDataTC, logoutTC}: MapDispatchToPropsType & MapStateToPropsType) => {
+const HeaderContainer = ({login, logoutTC, isAuth, getAuthDataTC}: MapDispatchToPropsType & MapStateToPropsType) => {
 
-    useEffect(() => {
+    useEffect(() =>{
         getAuthDataTC()
-    }, [])
+    })
 
-    return <Header logoutTC={logoutTC} login={login}/>
+    return <Header isAuth={isAuth} logoutTC={logoutTC} login={login}/>
 }
 
 type MapStateToPropsType = {
     login: string
+    isAuth: boolean
+
 }
 
 type MapDispatchToPropsType = {
-    getAuthDataTC: () => void
     logoutTC:(isAuth:boolean) => void
-
+    getAuthDataTC:() => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        login: state.auth.data.login
+        login: state.auth.data.login,
+        isAuth: state.auth.isAuth
     }
 }
 
 
 export default compose<React.ComponentType>(
 
-    connect(mapStateToProps, {getAuthDataTC, logoutTC})
+    connect(mapStateToProps, {logoutTC,getAuthDataTC})
 )(HeaderContainer)
