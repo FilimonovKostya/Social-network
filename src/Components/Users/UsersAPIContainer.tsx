@@ -15,6 +15,7 @@ import {
 } from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import Preloader from "../Preloader/Preloader";
+import {getCurrentPage, getError, getIsDisabled, getIsLoading, getItems, getPageSize, getTotalCount} from "./selectors/selectors";
 
 const UsersAPIContainer = ({currentPage, getUsersTC, pageSize, totalCount, items, follow, unFollow, setCurrentPage, isLoading, isDisabled, setDisabledButton, followTC, unFollowTC}: UsersAPIContainerPropsType) => {
     useEffect(() => {
@@ -45,13 +46,13 @@ type mapStateToPropsType = {
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        items: state.usersPage.items,
-        currentPage: state.usersPage.currentPage,
-        totalCount: state.usersPage.totalCount,
-        error: state.usersPage.error,
-        pageSize: state.usersPage.pageSize,
-        isLoading: state.usersPage.isLoading,
-        isDisabled: state.usersPage.isDisabled,
+        items: getItems(state),
+        currentPage: getCurrentPage(state),
+        totalCount: getTotalCount(state),
+        error: getError(state),
+        pageSize: getPageSize(state),
+        isLoading: getIsLoading(state),
+        isDisabled: getIsDisabled(state),
     }
 }
 
