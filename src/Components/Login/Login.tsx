@@ -11,7 +11,6 @@ type IFormInput = {
 }
 
 
-
 const Login = () => {
     const {register, handleSubmit, formState: {errors},} = useForm<IFormInput>({mode: 'onTouched'});
     const dispatch = useDispatch()

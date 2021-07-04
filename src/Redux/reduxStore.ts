@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     profilePage: profileReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    app:appReducer
+    app: appReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>

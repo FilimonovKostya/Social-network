@@ -7,7 +7,7 @@ import {compose} from "redux";
 
 const HeaderContainer = ({login, logoutTC, isAuth, getAuthDataTC}: MapDispatchToPropsType & MapStateToPropsType) => {
 
-    useEffect(() =>{
+    useEffect(() => {
         getAuthDataTC()
     })
 
@@ -21,8 +21,8 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    logoutTC:(isAuth:boolean) => void
-    getAuthDataTC:() => void
+    logoutTC: (isAuth: boolean) => void
+    getAuthDataTC: () => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -34,6 +34,5 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 
 export default compose<React.ComponentType>(
-
-    connect(mapStateToProps, {logoutTC,getAuthDataTC})
+    connect(mapStateToProps, {logoutTC, getAuthDataTC})
 )(HeaderContainer)

@@ -1,6 +1,4 @@
-import {Dispatch} from "redux";
 import {getAuthDataTC} from "./authReducer";
-import {ThunkDispatch} from "redux-thunk";
 
 export type InitialStateType = {
     isInitialize: boolean
@@ -23,7 +21,6 @@ export const appReducer = (state = initialState, action: ActionType): InitialSta
     }
 
 }
-
 
 
 export const initializedApp = () => ({type: 'SET-INITIALIZE'} as const)

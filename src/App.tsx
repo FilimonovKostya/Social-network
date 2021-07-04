@@ -9,7 +9,6 @@ import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersAPIContainer from "./Components/Users/UsersAPIContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
-import Login from "./Components/Login/Login";
 import {AppStateType} from "./Redux/reduxStore";
 import {compose} from "redux";
 import {connect} from "react-redux";
@@ -38,7 +37,7 @@ function App({isInitialize, setInitializeAppTC, isAuth}: mapDispatchToPropsType 
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
-                <Route exact path={'/login'} render={() => <LoginContainer />}/>
+                <Route exact path={'/login'} render={() => <LoginContainer/>}/>
             </div>
         </div>
     );
@@ -46,13 +45,13 @@ function App({isInitialize, setInitializeAppTC, isAuth}: mapDispatchToPropsType 
 
 type mapStatePropsType = {
     isInitialize: boolean
-    isAuth:boolean
+    isAuth: boolean
 }
 
 const mapStateProps = (state: AppStateType): mapStatePropsType => {
     return {
         isInitialize: state.app.isInitialize,
-        isAuth:state.auth.isAuth
+        isAuth: state.auth.isAuth
     }
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import {NavLink, Redirect} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import style from './Header.module.css'
 
 type HeaderPropsType = {
@@ -10,10 +10,6 @@ type HeaderPropsType = {
 
 const Header = ({login, logoutTC, isAuth}: HeaderPropsType) => {
     console.log('login', login)
-
-
-
-    // if (isAuth) return <Redirect to={'/dialogs'}/>
 
     return <header className={style.header}>
         <div className={style.wrapper}>

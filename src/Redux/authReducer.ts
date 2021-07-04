@@ -44,7 +44,7 @@ export const setAuthData = (isAuth: boolean) => ({type: 'SET-AUTH', isAuth} as c
 export const getAuthDataTC = () => (dispatch: Dispatch) => {
     return API.getAuth()
         .then(res => {
-            console.log('res',res)
+            console.log('res', res)
             if (res.data.resultCode === 0) {
                 dispatch(setLoginData(res.data.data))
             }

@@ -11,10 +11,10 @@ const instance = axios.create({
 })
 
 export type LoginType = {
-    email:string
-    password:string
-    rememberMe?:boolean
-    captcha?:boolean
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
 }
 
 export const API = {
@@ -37,10 +37,10 @@ export const API = {
     getAuth() {
         return instance.get('auth/me')
     },
-    setLogin(authData:LoginType){
+    setLogin(authData: LoginType) {
         return instance.post(`auth/login`, authData)
     },
-    logout(){
+    logout() {
         return instance.delete('auth/login')
     },
     getStatus(userId: number) {
