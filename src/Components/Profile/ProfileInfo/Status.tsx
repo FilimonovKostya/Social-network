@@ -14,7 +14,7 @@ type StatusPropsType = {
             setIsEditable(false)
             changeStatus(statusValue)
         }} type="text" value={statusValue}/> :
-        <span onDoubleClick={() => setIsEditable(true)}>{statusValue}</span>}  </p>
+        <span onDoubleClick={() => setIsEditable(true)}>{status}</span>}  </p>
 }
 
 export default React.memo(Status)
