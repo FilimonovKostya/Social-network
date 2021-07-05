@@ -101,6 +101,7 @@ export const getUsersPageTC = (currentPage: number, pageSize: number) => {
         dispatch(setUsersAC(response.items))
         dispatch(setLoadingAC(false))
         dispatch(setDisabledButtonAC(false))
+
     }
 }
 

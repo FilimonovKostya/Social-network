@@ -1,6 +1,7 @@
-body{
+body {
     font-family: Roboto, sans-serif;
 }
+
 .app-wrapper {
     display: grid;
     grid-template-areas:

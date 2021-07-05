@@ -39,7 +39,7 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
             <div className={'app-content'}>
                 <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                 <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
-                <Route path={'/users'} render={() => <UsersAPIContainer />}/>
+                <Route path={'/users'} render={() => <UsersAPIContainer/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
                 <Route path={'/music'} render={() => <Music/>}/>
