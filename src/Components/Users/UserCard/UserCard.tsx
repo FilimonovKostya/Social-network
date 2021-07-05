@@ -17,12 +17,14 @@ type UserCardPropsType = {
 }
 
 const UserCard = ({name, status, followed, id, photos, followTC, isDisabled, unFollowTC}: UserCardPropsType) => {
+    console.log('followed', followed)
     return <div className={style.wrapper}>
         <div className={style.profil}>
 
             <div className={style.bgImage}/>
             <NavLink to={`profile/${id}`}> <img className={style.avatar}
-                           src={photos.small ? photos.small : 'https://pm1.narvii.com/6802/b775c9e1266f61a61737324b45e0975ed22d7328v2_hq.jpg'} alt={name}/> </NavLink>
+                                                src={photos.small ? photos.small : 'https://pm1.narvii.com/6802/b775c9e1266f61a61737324b45e0975ed22d7328v2_hq.jpg'}
+                                                alt={name}/> </NavLink>
 
             <div className={style.text}>
                 <div>
@@ -34,8 +36,8 @@ const UserCard = ({name, status, followed, id, photos, followTC, isDisabled, unF
             <div>
                 {
                     followed
-                        ? <button disabled={isDisabled} onClick={() => unFollowTC(id)}> un follow</button>
-                        : <button disabled={isDisabled} onClick={() => followTC(id)}> Follow</button>
+                        ?  <button disabled={isDisabled} onClick={() => unFollowTC(id)}> un Follow</button>
+                        : <button disabled={isDisabled} onClick={() => followTC(id)}>  Follow</button>
                 }
 
             </div>

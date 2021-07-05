@@ -123,7 +123,7 @@ export const followTC = (id: number) => {
 
         dispatch(setDisabledButtonAC(true))
 
-        await API.unFollow(id)
+        await API.follow(id)
 
         dispatch(setDisabledButtonAC(false))
         dispatch(followAC(id))
