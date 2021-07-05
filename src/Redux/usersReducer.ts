@@ -23,13 +23,13 @@ export type UsersType = {
 }
 
 type ActionType =
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalCount>
-    | ReturnType<typeof setLoading>
-    | ReturnType<typeof setDisabledButton>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalCountAC>
+    | ReturnType<typeof setLoadingAC>
+    | ReturnType<typeof setDisabledButtonAC>
 
 const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false, isDisabled: false}
 
@@ -81,24 +81,24 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
     }
 }
 
-export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
-export const unFollow = (userId: number) => ({type: 'UN-FOLLOW', userId} as const)
-export const setUsers = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
-export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
-export const setTotalCount = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
-export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
-export const setDisabledButton = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
+export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unFollowAC = (userId: number) => ({type: 'UN-FOLLOW', userId} as const)
+export const setUsersAC = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
+export const setCurrentPageAC = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
+export const setLoadingAC = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
+export const setDisabledButtonAC = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
 
 //Thunks
 export const getUsersPageTC = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
-        dispatch(setLoading(true))
+        dispatch(setLoadingAC(true))
         API.getUsers(currentPage, pageSize)
             .then((response) => {
-                dispatch(setTotalCount(Math.ceil(response.totalCount / pageSize)))
-                dispatch(setUsers(response.items))
-                dispatch(setLoading(false))
-                dispatch(setDisabledButton(false))
+                dispatch(setTotalCountAC(Math.ceil(response.totalCount / pageSize)))
+                dispatch(setUsersAC(response.items))
+                dispatch(setLoadingAC(false))
+                dispatch(setDisabledButtonAC(false))
             })
 
     }
@@ -106,20 +106,20 @@ export const getUsersPageTC = (currentPage: number, pageSize: number) => {
 
 export const unFollowTC = (id: number) => {
     return (dispatch: Dispatch) => {
-        dispatch(setDisabledButton(true))
+        dispatch(setDisabledButtonAC(true))
         API.unFollow(id).then(() => {
-            dispatch(setDisabledButton(false))
-            dispatch(unFollow(id))
+            dispatch(setDisabledButtonAC(false))
+            dispatch(unFollowAC(id))
         })
     }
 }
 
 export const followTC = (id: number) => {
     return (dispatch: Dispatch) => {
-        dispatch(setDisabledButton(true))
+        dispatch(setDisabledButtonAC(true))
         API.unFollow(id).then(() => {
-            dispatch(setDisabledButton(false))
-            dispatch(follow(id))
+            dispatch(setDisabledButtonAC(false))
+            dispatch(followAC(id))
         })
     }
 }
