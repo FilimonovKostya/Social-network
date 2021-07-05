@@ -18,6 +18,31 @@ import {AppStateType} from "../../Redux/reduxStore";
 import Preloader from "../Preloader/Preloader";
 import {getCurrentPage, getError, getIsDisabled, getIsLoading, getItems, getPageSize, getTotalCount} from "./selectors/selectors";
 
+type mapDispatchToPropsType = {
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    setUsers: (users: ItemsType[]) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalCount: (totalCount: number) => void
+    setLoading: (isLoading: boolean) => void
+    setDisabledButton: (isDisabled: boolean) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (id: number) => void
+    unFollowTC: (id: number) => void
+}
+
+type mapStateToPropsType = {
+    items: ItemsType[]
+    currentPage: number
+    totalCount: number
+    pageSize: number
+    error: string[] | null
+    isLoading: boolean
+    isDisabled: boolean
+}
+
+type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
+
 const UsersAPIContainer = ({
                                currentPage, getUsersTC, pageSize, totalCount,
                                items, follow, unFollow, setCurrentPage, isLoading,
@@ -40,16 +65,6 @@ const UsersAPIContainer = ({
                  setCurrentPage={setCurrentPage}/>
 }
 
-type mapStateToPropsType = {
-    items: ItemsType[]
-    currentPage: number
-    totalCount: number
-    pageSize: number
-    error: string[] | null
-    isLoading: boolean
-    isDisabled: boolean
-}
-
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         items: getItems(state),
@@ -61,22 +76,6 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         isDisabled: getIsDisabled(state),
     }
 }
-
-type mapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    setUsers: (users: ItemsType[]) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalCount: (totalCount: number) => void
-    setLoading: (isLoading: boolean) => void
-    setDisabledButton: (isDisabled: boolean) => void
-    getUsersTC: (currentPage: number, pageSize: number) => void
-    followTC: (id: number) => void
-    unFollowTC: (id: number) => void
-}
-
-type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
-
 
 export default connect(mapStateToProps, {
     follow,

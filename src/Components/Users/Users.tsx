@@ -19,7 +19,6 @@ type UsersPropsType = {
 
 const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage, isDisabled, setDisabledButton, followTC, unFollowTC}: UsersPropsType) => {
 
-
     const usersCard = items.map(el => <UserCard isDisabled={isDisabled} followTC={followTC} unFollowTC={unFollowTC} key={el.id} name={el.name}
                                                 status={el.status} followed={el.followed} id={el.id} photos={el.photos as any}/>)
 
