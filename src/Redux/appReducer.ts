@@ -10,6 +10,7 @@ const initialState: InitialStateType = {isInitialize: false}
 
 export const appReducer = (state = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
+
         case "SET-INITIALIZE":
             return {
                 ...state,
@@ -22,14 +23,12 @@ export const appReducer = (state = initialState, action: ActionType): InitialSta
 
 }
 
-
 export const initializedApp = () => ({type: 'SET-INITIALIZE'} as const)
 
-export const setInitializeAppTC = () => (dispatch: any) => {
+export const setInitializeAppTC = () => async (dispatch: any) => {
 
-    const promise = dispatch(getAuthDataTC())
-    promise.then(() => {
-        console.log('tutut')
-        dispatch(initializedApp())
-    })
+    await dispatch(getAuthDataTC())
+
+    dispatch(initializedApp())
+
 }
