@@ -106,33 +106,35 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
     }
 }
 
-export const AddPostAC = (message: string): AddPostActionType => ({type: 'ADD-POST', message})
-export const SetUserProfile = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
-export const SetStatus = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
+export const addPostAC = (message: string): AddPostActionType => ({type: 'ADD-POST', message})
+export const setUserProfileAC = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
+export const setStatusAC = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
 
-export const getUsersTC = (userId: string) => (dispatch: Dispatch) => {
-    API.setUsers(userId)
-        .then(res => {
-            dispatch(SetUserProfile(res))
-        })
+export const getUsersTC = (userId: string) => async (dispatch: Dispatch) => {
+
+    const res = await API.setUsers(userId)
+
+    dispatch(setUserProfileAC(res))
+
 }
 
-export const getStatusTC = (userId: number) => (dispatch: Dispatch) => {
-    API.getStatus(userId)
-        .then(res => {
+export const getStatusTC = (userId: number) => async (dispatch: Dispatch) => {
 
-            dispatch(SetStatus(res.data))
-        })
+    const res = await API.getStatus(userId)
+
+    dispatch(setStatusAC(res.data))
+
 }
 
-export const changeStatusTC = (status: string) => (dispatch: Dispatch) => {
-    API.changeStatus(status)
-        .then(res => {
-            if (res.data.resultCode === 0) {
+export const changeStatusTC = (status: string) => async (dispatch: Dispatch) => {
 
-                dispatch(SetStatus(status))
-            }
+    const res = await API.changeStatus(status)
 
-        })
+    if (res.data.resultCode === 0) {
+
+        dispatch(setStatusAC(status))
+
+    }
+
 }
 

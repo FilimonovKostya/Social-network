@@ -1,8 +1,8 @@
 import MyPost from "./MyPost";
-import {AddPostAC} from "../../../../../Redux/profileReducer";
+import {addPostAC} from "../../../../../Redux/profileReducer";
 import {connect} from "react-redux";
 
 
-const MyPostContainer = connect(null, {AddPostAC})(MyPost)
+const MyPostContainer = connect(null, {AddPostAC: addPostAC})(MyPost)
 
 export default MyPostContainer;

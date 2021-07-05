@@ -89,37 +89,43 @@ export const setTotalCountAC = (totalCount: number) => ({type: 'SET-TOTAL-COUNT'
 export const setLoadingAC = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
 export const setDisabledButtonAC = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
 
-//Thunks
-export const getUsersPageTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setLoadingAC(true))
-        API.getUsers(currentPage, pageSize)
-            .then((response) => {
-                dispatch(setTotalCountAC(Math.ceil(response.totalCount / pageSize)))
-                dispatch(setUsersAC(response.items))
-                dispatch(setLoadingAC(false))
-                dispatch(setDisabledButtonAC(false))
-            })
 
+export const getUsersPageTC = (currentPage: number, pageSize: number) => {
+    return async (dispatch: Dispatch) => {
+
+        dispatch(setLoadingAC(true))
+
+        const response = await API.getUsers(currentPage, pageSize)
+
+        dispatch(setTotalCountAC(Math.ceil(response.totalCount / pageSize)))
+        dispatch(setUsersAC(response.items))
+        dispatch(setLoadingAC(false))
+        dispatch(setDisabledButtonAC(false))
     }
 }
 
 export const unFollowTC = (id: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
+
         dispatch(setDisabledButtonAC(true))
-        API.unFollow(id).then(() => {
-            dispatch(setDisabledButtonAC(false))
-            dispatch(unFollowAC(id))
-        })
+
+        await API.unFollow(id)
+
+        dispatch(setDisabledButtonAC(false))
+        dispatch(unFollowAC(id))
+
     }
 }
 
 export const followTC = (id: number) => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
+
         dispatch(setDisabledButtonAC(true))
-        API.unFollow(id).then(() => {
-            dispatch(setDisabledButtonAC(false))
-            dispatch(followAC(id))
-        })
+
+        await API.unFollow(id)
+
+        dispatch(setDisabledButtonAC(false))
+        dispatch(followAC(id))
+
     }
 }
