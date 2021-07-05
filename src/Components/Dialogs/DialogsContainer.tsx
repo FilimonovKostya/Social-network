@@ -8,15 +8,12 @@ import React from "react";
 
 
 type mapStateToPropsType = {
-
     dialogsData: DialogPageStateType
-    auth: boolean
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         dialogsData: state.dialogsPage,
-        auth: state.auth.isAuth
     }
 }
 

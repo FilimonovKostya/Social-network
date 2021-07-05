@@ -3,14 +3,13 @@ import React from "react";
 import {useForm} from "react-hook-form";
 
 type MyPostPropsType = {
-    addPostMessage: (message:string) => void
+    AddPostAC: (message: string) => void
 }
-const MyPost = ({addPostMessage}: MyPostPropsType) => {
-    const {register, handleSubmit,} = useForm<{ textarea: string }>();
-    const onSubmit = handleSubmit((data) => {
-        addPostMessage(data.textarea)
-    })
 
+const MyPost = ({AddPostAC}: MyPostPropsType) => {
+
+    const {register, handleSubmit,} = useForm<{ textarea: string }>();
+    const onSubmit = handleSubmit((data) => AddPostAC(data.textarea))
 
     return <>
         <h4>My posts</h4>

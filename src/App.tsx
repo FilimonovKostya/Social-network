@@ -16,9 +16,15 @@ import {setInitializeAppTC} from "./Redux/appReducer";
 import Preloader from "./Components/Preloader/Preloader";
 import LoginContainer from "./Components/Login/LoginContainer";
 
+type mapStatePropsType = {
+    isInitialize: boolean
+}
 
-function App({isInitialize, setInitializeAppTC, isAuth}: mapDispatchToPropsType & mapStatePropsType) {
+type mapDispatchToPropsType = {
+    setInitializeAppTC: () => void
+}
 
+function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
 
     useEffect(() => {
         setInitializeAppTC()
@@ -43,20 +49,10 @@ function App({isInitialize, setInitializeAppTC, isAuth}: mapDispatchToPropsType 
     );
 }
 
-type mapStatePropsType = {
-    isInitialize: boolean
-    isAuth: boolean
-}
-
 const mapStateProps = (state: AppStateType): mapStatePropsType => {
     return {
         isInitialize: state.app.isInitialize,
-        isAuth: state.auth.isAuth
     }
-}
-
-type mapDispatchToPropsType = {
-    setInitializeAppTC: () => void
 }
 
 export default compose(

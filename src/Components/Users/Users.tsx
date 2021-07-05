@@ -37,7 +37,7 @@ const Users = ({items, follow, unFollow, currentPage, totalCount, setCurrentPage
         }
         </div>
         <div className={style.usersWrapper}>
-        {usersCard}
+            {usersCard}
         </div>
     </div>
 };

@@ -11,6 +11,7 @@ type UserProfilePropsType = {
 }
 
 const Profile = ({userProfile, status, changeStatus}: UserProfilePropsType) => {
+
     return <main className={style.profile}>
         <ProfileInfo userProfile={userProfile} changeStatus={changeStatus} status={status}/>
         <MyPostsContainer/>

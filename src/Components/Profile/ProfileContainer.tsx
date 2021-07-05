@@ -8,31 +8,10 @@ import {RouteComponentProps} from "react-router";
 import WithAuthRedirect from "../../Hoc/WithAuthRedirect";
 import {compose} from "redux";
 
-
-const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC,changeStatusTC, match, getStatusTC, auth, status, ...restProps}) => {
-
-    let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
-
-    useEffect(() => {
-        getUsersTC(userId)
-        getStatusTC(+userId)
-    }, [userId])
-
-
-
-    return <Profile userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
-}
-
-type MapStateToPropsType = {
-    userProfile: UserProfileType | null
-    auth: boolean
-    status: string
-}
-
 type MapDispatchToPropsType = {
     getUsersTC: (userId: string) => void
     getStatusTC: (userId: number) => void
-    changeStatusTC: (status:string) => void
+    changeStatusTC: (status: string) => void
 }
 
 type ParamsType = {
@@ -42,6 +21,26 @@ type ParamsType = {
 type CommonType = MapDispatchToPropsType & MapStateToPropsType
 type PropsType = RouteComponentProps<ParamsType> & CommonType
 
+
+type MapStateToPropsType = {
+    userProfile: UserProfileType | null
+    auth: boolean
+    status: string
+}
+
+const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, changeStatusTC, match, getStatusTC, auth, status, ...restProps}) => {
+
+    let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
+
+    useEffect(() => {
+        getUsersTC(userId)
+        getStatusTC(+userId)
+    }, [userId])
+
+
+    return <Profile userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
+}
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         userProfile: state.profilePage.userProfile,
@@ -49,7 +48,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         status: state.profilePage.status
     }
 }
-
 
 export default compose<React.ComponentType>(
     WithAuthRedirect,

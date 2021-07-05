@@ -9,7 +9,7 @@ type MyPostsPropsType = {
 }
 const MyPosts = ({posts}: MyPostsPropsType) => {
 
-    const postsElements = posts.map((el) => <Post key={el.id} message={el.message} avatarImg={el.avatarImg} likes={el.likes}/>)
+    const postsElements = posts.map((el) => <Post key={el.id} message={el.message}/>)
 
     return <div className={style.myPosts}>
         <MyPostContainer/>

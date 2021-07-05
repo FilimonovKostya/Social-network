@@ -3,6 +3,7 @@ import style from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 
 const Navbar = () => {
+
     return <nav className={style.nav}>
         <ul>
             <li><NavLink to="/profile" className={style.link} activeClassName={style.activeLink}>Profile</NavLink></li>
