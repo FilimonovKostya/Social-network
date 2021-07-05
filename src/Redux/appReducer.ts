@@ -4,7 +4,7 @@ export type InitialStateType = {
     isInitialize: boolean
 }
 
-type ActionType = ReturnType<typeof initializedApp>
+type ActionType = ReturnType<typeof initializedAppAC>
 
 const initialState: InitialStateType = {isInitialize: false}
 
@@ -23,12 +23,12 @@ export const appReducer = (state = initialState, action: ActionType): InitialSta
 
 }
 
-export const initializedApp = () => ({type: 'SET-INITIALIZE'} as const)
+export const initializedAppAC = () => ({type: 'SET-INITIALIZE'} as const)
 
 export const setInitializeAppTC = () => async (dispatch: any) => {
 
     await dispatch(getAuthDataTC())
 
-    dispatch(initializedApp())
+    dispatch(initializedAppAC())
 
 }

@@ -7,17 +7,17 @@ import {useForm} from "react-hook-form";
 
 type DialogsPropsType = {
     dialogsData: DialogPageStateType
-    AddMessageAC: (message: string) => void
+    addMessageAC: (message: string) => void
 }
 
-const Dialogs = ({dialogsData, AddMessageAC}: DialogsPropsType) => {
+const Dialogs = ({dialogsData, addMessageAC}: DialogsPropsType) => {
 
     const {register, handleSubmit} = useForm<{ textarea: string }>();
 
     const dialogsItems = dialogsData.dialogs.map((el) => <DialogItem key={el.id} id={el.id} name={el.name}/>)
     const messagesItem = dialogsData.messages.map((el) => <MessageItem key={el.id} message={el.message}/>)
 
-    const onSubmit = handleSubmit((data) => AddMessageAC(data.textarea))
+    const onSubmit = handleSubmit((data) => addMessageAC(data.textarea))
 
     return <div className={style.wrapper}>
         <div className={style.dialogs}>

@@ -12,7 +12,7 @@ export type InitialStateType = {
     }
 }
 
-type ActionType = ReturnType<typeof setLoginData> | ReturnType<typeof setAuthData>
+type ActionType = ReturnType<typeof setLoginDataAC> | ReturnType<typeof setAuthDataAC>
 
 const initialState: InitialStateType = {isAuth: false, messages: [''], data: {id: 0, email: '', login: ''}, resultCode: 0}
 
@@ -37,15 +37,15 @@ export const authReducer = (state = initialState, action: ActionType): InitialSt
     }
 }
 
-export const setLoginData = (data: { id: number, email: string, login: string }) => ({type: 'SET-LOGIN', data} as const)
-export const setAuthData = (isAuth: boolean) => ({type: 'SET-AUTH', isAuth} as const)
+export const setLoginDataAC = (data: { id: number, email: string, login: string }) => ({type: 'SET-LOGIN', data} as const)
+export const setAuthDataAC = (isAuth: boolean) => ({type: 'SET-AUTH', isAuth} as const)
 
 export const getAuthDataTC = () => async (dispatch: Dispatch) => {
 
     const res = await API.getAuth()
 
     if (res.data.resultCode === 0) {
-        dispatch(setLoginData(res.data.data))
+        dispatch(setLoginDataAC(res.data.data))
     }
 
 }
@@ -54,7 +54,7 @@ export const setLoginDataTC = (data: LoginType) => async (dispatch: Dispatch) =>
 
     await API.setLogin(data)
 
-    dispatch(setAuthData(true))
+    dispatch(setAuthDataAC(true))
 
 }
 
@@ -62,8 +62,8 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
 
     await API.logout()
 
-    dispatch(setLoginData({id: 0, email: '', login: ''}))
+    dispatch(setLoginDataAC({id: 0, email: '', login: ''}))
 
-    dispatch(setAuthData(false))
+    dispatch(setAuthDataAC(false))
 
 }

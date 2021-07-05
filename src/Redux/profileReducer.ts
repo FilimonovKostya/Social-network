@@ -1,4 +1,3 @@
-import {AddMessageActionType} from "./dialogsReducer";
 import {Dispatch} from "redux";
 import {API} from "../Api/api";
 
@@ -39,7 +38,7 @@ type InitialStateType = {
 
 export type AddPostActionType = {
     type: 'ADD-POST'
-    message:string
+    message: string
 }
 
 export type SetUserProfileActionType = {
@@ -52,7 +51,7 @@ export type SetStatusActionType = {
     status: string
 }
 
-type ActionType = AddPostActionType  | AddMessageActionType  | SetUserProfileActionType | SetStatusActionType
+type ActionType = AddPostActionType | SetUserProfileActionType | SetStatusActionType
 
 const initialState: InitialStateType = {
     posts: [
@@ -107,7 +106,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
     }
 }
 
-export const AddPostAC = (message:string): AddPostActionType => ({type: 'ADD-POST', message})
+export const AddPostAC = (message: string): AddPostActionType => ({type: 'ADD-POST', message})
 export const SetUserProfile = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
 export const SetStatus = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
 

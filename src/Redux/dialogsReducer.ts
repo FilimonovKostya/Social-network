@@ -1,25 +1,19 @@
-import {AddPostActionType} from "./profileReducer";
-
 export type MessageItem = {
     id: number
     message: string
 }
+
 export type DialogsItems = {
     id: number
     name: string
 }
+
 export type DialogPageStateType = {
     dialogs: DialogsItems[]
     messages: MessageItem[]
 }
 
-
-export type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-    message: string
-}
-
-type ActionType = AddMessageActionType | AddPostActionType
+type ActionType = ReturnType<typeof addMessageAC>
 
 const initialState: DialogPageStateType = {
     dialogs: [
@@ -50,6 +44,7 @@ const initialState: DialogPageStateType = {
 
 export const dialogsReducer = (state = initialState, action: ActionType): DialogPageStateType => {
     switch (action.type) {
+
         case 'ADD-MESSAGE': {
             const newMessageItem: MessageItem = {id: 6, message: action.message}
             return {
@@ -57,9 +52,10 @@ export const dialogsReducer = (state = initialState, action: ActionType): Dialog
                 messages: [...state.messages, newMessageItem],
             }
         }
+
         default:
             return state
     }
 }
 
-export const AddMessageAC = (message: string): AddMessageActionType => ({type: 'ADD-MESSAGE', message})
+export const addMessageAC = (message: string) => ({type: 'ADD-MESSAGE', message} as const)

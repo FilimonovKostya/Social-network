@@ -22,53 +22,8 @@ export type UsersType = {
     isDisabled: boolean
 }
 
-export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
-export const unFollow = (userId: number) => ({type: 'UN-FOLLOW', userId} as const)
-export const setUsers = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
-export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
-export const setTotalCount = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
-export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
-export const setDisabledButton = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
-
-//Thunks
-export const getUsersPageTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setLoading(true))
-        API.getUsers(currentPage, pageSize)
-            .then((response) => {
-                dispatch(setTotalCount(Math.ceil(response.totalCount / pageSize)))
-                dispatch(setUsers(response.items))
-                dispatch(setLoading(false))
-                dispatch(setDisabledButton(false))
-            })
-            .catch((err) => {
-
-            })
-    }
-}
-
-export const unFollowTC = (id: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setDisabledButton(true))
-        API.unFollow(id).then(() => {
-            dispatch(setDisabledButton(false))
-            dispatch(unFollow(id))
-        })
-    }
-}
-
-export const followTC = (id: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setDisabledButton(true))
-        API.unFollow(id).then(() => {
-            dispatch(setDisabledButton(false))
-            dispatch(follow(id))
-        })
-    }
-}
-
 type ActionType =
-    ReturnType<typeof follow>
+    | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
@@ -80,6 +35,7 @@ const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCo
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
     switch (action.type) {
+
         case "FOLLOW":
             return {
                 ...state,
@@ -122,5 +78,48 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
 
         default:
             return state
+    }
+}
+
+export const follow = (userId: number) => ({type: 'FOLLOW', userId} as const)
+export const unFollow = (userId: number) => ({type: 'UN-FOLLOW', userId} as const)
+export const setUsers = (users: ItemsType[]) => ({type: 'SET-USERS', users} as const)
+export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalCount = (totalCount: number) => ({type: 'SET-TOTAL-COUNT', totalCount} as const)
+export const setLoading = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS', isLoading} as const)
+export const setDisabledButton = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
+
+//Thunks
+export const getUsersPageTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setLoading(true))
+        API.getUsers(currentPage, pageSize)
+            .then((response) => {
+                dispatch(setTotalCount(Math.ceil(response.totalCount / pageSize)))
+                dispatch(setUsers(response.items))
+                dispatch(setLoading(false))
+                dispatch(setDisabledButton(false))
+            })
+
+    }
+}
+
+export const unFollowTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setDisabledButton(true))
+        API.unFollow(id).then(() => {
+            dispatch(setDisabledButton(false))
+            dispatch(unFollow(id))
+        })
+    }
+}
+
+export const followTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setDisabledButton(true))
+        API.unFollow(id).then(() => {
+            dispatch(setDisabledButton(false))
+            dispatch(follow(id))
+        })
     }
 }
