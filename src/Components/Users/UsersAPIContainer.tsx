@@ -1,16 +1,15 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followTC, ItemsType, setCurrentPageAC, unFollowTC} from "../../Redux/usersReducer";
+import {followTC, getUsersPageTC, ItemsType, setCurrentPageAC, unFollowTC} from "../../Redux/usersReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import Preloader from "../Preloader/Preloader";
 import {getCurrentPage, getIsDisabled, getIsLoading, getItems, getPageSize, getTotalCount} from "./selectors/selectors";
 import {compose} from "redux";
-import {getUsersTC} from "../../Redux/profileReducer";
 
 type mapDispatchToPropsType = {
     setCurrentPageAC: (currentPage: number) => void
-    getUsersTC: (userId: string) => void
+    getUsersPageTC: (currentPage: number, pageSize: number) => void
     followTC: (id: number) => void
     unFollowTC: (id: number) => void
 }
@@ -27,12 +26,11 @@ type mapStateToPropsType = {
 type UsersAPIContainerPropsType = mapDispatchToPropsType & mapStateToPropsType
 
 const UsersAPIContainer = ({
-                               items, currentPage, totalCount, setCurrentPageAC, isDisabled, followTC, unFollowTC,
-                               pageSize, isLoading, getUsersTC
+                               items, currentPage, totalCount, setCurrentPageAC, isDisabled, followTC, unFollowTC, pageSize, isLoading, getUsersPageTC
                            }: UsersAPIContainerPropsType) => {
 
     useEffect(() => {
-        getUsersTC('1')
+        getUsersPageTC(currentPage, pageSize)
     }, [currentPage, pageSize])
 
     return isLoading
@@ -58,5 +56,5 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 
 export default compose(
-    connect(mapStateToProps, {setCurrentPageAC, getUsersTC, followTC, unFollowTC}))
+    connect(mapStateToProps, {setCurrentPageAC, getUsersPageTC, followTC, unFollowTC}))
 (UsersAPIContainer)
