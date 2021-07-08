@@ -9,17 +9,18 @@ type PaginatorPropsType = {
 const Paginator = ({totalCount, currentPage, setCurrentPage}: PaginatorPropsType) => {
 
 
-    let pagesCount = Math.ceil(totalCount / 10)
-    let pages = [];
+    const pagesCount = Math.ceil(totalCount / 10)
+    const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    let portionCount = Math.ceil(pagesCount / 10)
-    let [portionNumber, setPortionNumber] = useState<number>(1)
-    let leftPortionPageNumber = (portionNumber - 1) * 10 + 1
-    let rightPortionPageNumber = portionNumber * 10
+    const portionCount = Math.ceil(pagesCount / 10)
+    const [portionNumber, setPortionNumber] = useState<number>(1)
+    const leftPortionPageNumber = (portionNumber - 1) * 10 + 1
+    const rightPortionPageNumber = portionNumber * 10
 
     return <>
+
         {
             portionNumber > 1 && <button onClick={() => {
                 setPortionNumber(portionNumber - 1)
