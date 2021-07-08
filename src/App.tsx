@@ -5,9 +5,7 @@ import {Route} from 'react-router-dom';
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
-import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersAPIContainer from "./Components/Users/UsersAPIContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {AppStateType} from "./Redux/reduxStore";
 import {compose} from "redux";
@@ -15,6 +13,8 @@ import {connect} from "react-redux";
 import {setInitializeAppTC} from "./Redux/appReducer";
 import Preloader from "./Components/Preloader/Preloader";
 import LoginContainer from "./Components/Login/LoginContainer";
+import WithLazyLoading from "./Hoc/WithLazyLoading"
+
 
 type mapStatePropsType = {
     isInitialize: boolean
@@ -23,6 +23,10 @@ type mapStatePropsType = {
 type mapDispatchToPropsType = {
     setInitializeAppTC: () => void
 }
+
+const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+
 
 function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
 
@@ -37,8 +41,8 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
             <HeaderContainer/>
             <Navbar/>
             <div className={'app-content'}>
-                <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
-                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                <Route path={'/profile/:userId?'} render={() => WithLazyLoading(ProfileContainer)}/>
+                <Route path={'/dialogs'} render={() => WithLazyLoading(DialogsContainer )}/>
                 <Route path={'/users'} render={() => <UsersAPIContainer/>}/>
                 <Route path={'/news'} render={() => <News/>}/>
                 <Route path={'/settings'} render={() => <Settings/>}/>
