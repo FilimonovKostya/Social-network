@@ -33,6 +33,9 @@ const UsersAPIContainer = ({
         getUsersPageTC(currentPage, pageSize)
     }, [currentPage, pageSize])
 
+
+
+
     return isLoading
         ? <Preloader/>
         : <Users items={items} currentPage={currentPage}

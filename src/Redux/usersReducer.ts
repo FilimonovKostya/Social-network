@@ -31,7 +31,7 @@ type ActionType =
     | ReturnType<typeof setLoadingAC>
     | ReturnType<typeof setDisabledButtonAC>
 
-const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 20, isLoading: false, isDisabled: false}
+const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 10, isLoading: false, isDisabled: false}
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
     switch (action.type) {
