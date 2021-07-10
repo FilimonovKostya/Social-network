@@ -155,8 +155,8 @@ export const updatePhotoTC = (photos: File) => async (dispatch: Dispatch) => {
     const res = await API.updatePhoto(photos)
 
     if (res.data.resultCode === 0) {
-
-        dispatch(updatePhotoAC(res.data.data))
+        console.log('res',res.data)
+        dispatch(updatePhotoAC(res.data.data.photos))
 
     }
 }
