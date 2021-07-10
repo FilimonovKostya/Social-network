@@ -51,7 +51,12 @@ export type SetStatusActionType = {
     status: string
 }
 
-type ActionType = AddPostActionType | SetUserProfileActionType | SetStatusActionType
+export type UpdatePhotoActionType = {
+    type: 'UPDATE-PHOTO',
+    photos: { small: string, large: string }
+}
+
+type ActionType = AddPostActionType | SetUserProfileActionType | SetStatusActionType | UpdatePhotoActionType
 
 const initialState: InitialStateType = {
     posts: [
@@ -101,6 +106,12 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
                 status: action.status
             }
 
+        case "UPDATE-PHOTO":
+            return {
+                ...state,
+                userProfile: {...state.userProfile, photos: action.photos} as UserProfileType
+            }
+
         default:
             return state
     }
@@ -109,6 +120,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
 export const addPostAC = (message: string): AddPostActionType => ({type: 'ADD-POST', message})
 export const setUserProfileAC = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
 export const setStatusAC = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
+export const updatePhotoAC = (photos: { small: string, large: string }): UpdatePhotoActionType => ({type: "UPDATE-PHOTO", photos})
 
 export const getUsersTC = (userId: string) => async (dispatch: Dispatch) => {
 
@@ -136,5 +148,16 @@ export const changeStatusTC = (status: string) => async (dispatch: Dispatch) => 
 
     }
 
+}
+
+export const updatePhotoTC = (photos: File) => async (dispatch: Dispatch) => {
+
+    const res = await API.updatePhoto(photos)
+
+    if (res.data.resultCode === 0) {
+
+        dispatch(updatePhotoAC(res.data.data))
+
+    }
 }
 

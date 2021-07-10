@@ -8,12 +8,13 @@ type UserProfilePropsType = {
     userProfile: UserProfileType | null
     status: string
     changeStatus: (status: string) => void
+    updatePhoto: (photos:File) => void
 }
 
-const Profile = ({userProfile, status, changeStatus}: UserProfilePropsType) => {
+const Profile = ({userProfile, status, changeStatus, updatePhoto}: UserProfilePropsType) => {
 
     return <main className={style.profile}>
-        <ProfileInfo userProfile={userProfile} changeStatus={changeStatus} status={status}/>
+        <ProfileInfo userProfile={userProfile} changeStatus={changeStatus} status={status} updatePhoto={updatePhoto}/>
         <MyPostsContainer/>
     </main>
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import {changeStatusTC, getStatusTC, getUsersTC, UserProfileType} from "../../Redux/profileReducer";
+import {changeStatusTC, getStatusTC, getUsersTC, updatePhotoTC, UserProfileType} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -12,6 +12,7 @@ type MapDispatchToPropsType = {
     getUsersTC: (userId: string) => void
     getStatusTC: (userId: number) => void
     changeStatusTC: (status: string) => void
+    updatePhotoTC: (photos: File) => void
 }
 
 type ParamsType = {
@@ -28,7 +29,7 @@ type MapStateToPropsType = {
     status: string
 }
 
-const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, changeStatusTC, match, getStatusTC, auth, status, ...restProps}) => {
+const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, updatePhotoTC, changeStatusTC, match, getStatusTC, auth, status, ...restProps}) => {
 
     let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
 
@@ -38,7 +39,7 @@ const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, changeS
     }, [userId])
 
 
-    return <Profile userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
+    return <Profile updatePhoto={updatePhotoTC} userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -51,6 +52,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default compose<React.ComponentType>(
     WithAuthRedirect,
-    connect(mapStateToProps, {getUsersTC, getStatusTC, changeStatusTC}),
+    connect(mapStateToProps, {getUsersTC, getStatusTC, changeStatusTC, updatePhotoTC}),
     withRouter
 )(ProfileContainer)
