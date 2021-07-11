@@ -7,19 +7,22 @@ export type PostType = {
     avatarImg: string
     likes: number
 }
+ type ContactsType = {
+    facebook: string,
+    website: string,
+    vk: string,
+    twitter: string,
+    instagram: string,
+    youtube: string,
+    github: string,
+    mainLink: string
+}
+
+export type SocialMediaType = 'facebook' | 'website' |  'vk' | 'twitter' | 'instagram' | 'youtube' | 'github' | 'mainLink'
 
 export type UserProfileType = {
     aboutMe: string,
-    contacts: {
-        facebook: null | string,
-        website: null | string,
-        vk: null | string,
-        twitter: null | string,
-        instagram: null | string,
-        youtube: null | string,
-        github: null | string,
-        mainLink: null | string
-    },
+    contacts:ContactsType ,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
@@ -32,7 +35,7 @@ export type UserProfileType = {
 
 type InitialStateType = {
     posts: PostType[]
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType
     status: string
 }
 
@@ -80,7 +83,7 @@ const initialState: InitialStateType = {
         },
     ],
 
-    userProfile: null,
+    userProfile: {} as UserProfileType,
     status: 'Samurai'
 }
 
