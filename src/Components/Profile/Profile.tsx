@@ -5,7 +5,7 @@ import MyPostsContainer from "./ProfileInfo/MyPosts/MyPostsContainer";
 import {UserProfileType} from "../../Redux/profileReducer";
 
 type UserProfilePropsType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType
     status: string
     changeStatus: (status: string) => void
     updatePhoto: (photos:File) => void

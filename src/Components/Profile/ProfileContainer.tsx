@@ -24,7 +24,7 @@ type PropsType = RouteComponentProps<ParamsType> & CommonType
 
 
 type MapStateToPropsType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType
     auth: boolean
     status: string
 }

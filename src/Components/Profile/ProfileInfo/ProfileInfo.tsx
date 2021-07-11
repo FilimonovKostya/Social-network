@@ -4,7 +4,7 @@ import {UserProfileType} from "../../../Redux/profileReducer";
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
 
 type ProfileInfoPropsType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType
     status: string
     changeStatus: (status: string) => void
     updatePhoto: (photos: File) => void
