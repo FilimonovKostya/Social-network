@@ -1,6 +1,6 @@
 import axios from "axios";
 import {UsersType} from "../Redux/usersReducer";
-import {UserProfileType} from "../Redux/profileReducer";
+import {ContactsType, UserProfileType} from "../Redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -58,6 +58,9 @@ export const API = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    updateProfile(socialMedia: ContactsType) {
+        return instance.put(`/profile`, {contacts: socialMedia})
     }
 
 }

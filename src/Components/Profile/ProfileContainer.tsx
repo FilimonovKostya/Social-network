@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import {changeStatusTC, getStatusTC, getUsersTC, updatePhotoTC, UserProfileType} from "../../Redux/profileReducer";
+import {changeStatusTC, ContactsType, getStatusTC, getUsersTC, updatePhotoTC, updateProfileTC, UserProfileType} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -13,6 +13,7 @@ type MapDispatchToPropsType = {
     getStatusTC: (userId: number) => void
     changeStatusTC: (status: string) => void
     updatePhotoTC: (photos: File) => void
+    updateProfileTC: (contacts: ContactsType) => void
 }
 
 type ParamsType = {
@@ -29,7 +30,7 @@ type MapStateToPropsType = {
     status: string
 }
 
-const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, updatePhotoTC, changeStatusTC, match, getStatusTC, auth, status, ...restProps}) => {
+const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, updatePhotoTC, changeStatusTC, match, getStatusTC, auth, status, updateProfileTC, ...restProps}) => {
 
     let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
 
@@ -39,7 +40,7 @@ const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, updateP
     }, [userId])
 
 
-    return <Profile updatePhoto={updatePhotoTC} userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
+    return <Profile updatePhoto={updatePhotoTC} updateProfile={updateProfileTC} userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -52,6 +53,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default compose<React.ComponentType>(
     WithAuthRedirect,
-    connect(mapStateToProps, {getUsersTC, getStatusTC, changeStatusTC, updatePhotoTC}),
+    connect(mapStateToProps, {getUsersTC, getStatusTC, changeStatusTC, updatePhotoTC, updateProfileTC}),
     withRouter
 )(ProfileContainer)
