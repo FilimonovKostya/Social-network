@@ -2,6 +2,7 @@ import style from "../ProfileInfo.module.css";
 import React, {ChangeEvent, useState} from "react";
 import {ContactsType, SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer";
 import Status from "../Status";
+import {SubmitHandler, useForm} from "react-hook-form";
 
 type PersonalInfoPropsType = {
     userProfile: UserProfileType
@@ -28,40 +29,49 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
             <p>Web Site: <span>{userProfile.contacts && ''}</span></p>
             <p>Description for Job: {userProfile.lookingForAJobDescription}</p>
 
-            {userProfileContacts.map((key) => <Contact updateProfile={updateProfile} contactTitle={key} titleValue={userProfile.contacts[key as SocialMediaType]}/>)}
+            {userProfileContacts.map((key) => <Contact updateProfile={updateProfile} contactTitle={key as SocialMediaType}
+                                                       titleValue={userProfile.contacts[key as SocialMediaType]}/>)}
         </div>
     </div>
 }
 
 type ContactPropsType = {
     titleValue: string
-    contactTitle: string
+    contactTitle: SocialMediaType
     updateProfile: (contacts: ContactsType) => void
 }
 
-const Contact = ({titleValue, contactTitle}: ContactPropsType) => {
+
+const Contact = ({titleValue, contactTitle, updateProfile}: ContactPropsType) => {
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<any>();
+    const onSubmit: SubmitHandler<any> = data => console.log(data);
+
     const [isEditable, setIsEditable] = useState<boolean>(false)
     const [statusValue, setStatusValue] = useState<string>(contactTitle)
+
     console.log('Cont', contactTitle)
 
-    const onChangeStatusValue = (e: ChangeEvent<HTMLInputElement>) => setStatusValue(e.currentTarget.value)
+    // const onChangeStatusValue = (e: ChangeEvent<HTMLInputElement>) => setStatusValue(e.currentTarget.value)
+    //
+    // const onBlurHandler = () => setIsEditable(false)
 
-    const onBlurHandler = () => {
-        setIsEditable(false)
-    }
-
-
+    const onSubmitHandler = () => updateProfile({...register as any})
 
     const onEditMode = () => setIsEditable(true)
 
-    return <div>
+    return <form onSubmit={handleSubmit(onSubmitHandler)   }>
         <button onClick={onEditMode}>Edit</button>
         {
             isEditable
-                ? <p> {contactTitle} : <input autoFocus onChange={onChangeStatusValue} onBlur={onBlurHandler} type="text" value={statusValue}/></p>
+                ? <p> {contactTitle} : <input  autoFocus
+                                              type="text"
+                                              value={statusValue}
+                                              {...register(contactTitle)}
+                /></p>
+
                 : <p><b>{contactTitle}</b> : {titleValue}</p>
         }
-    </div>
+    </form>
 }
 
 export default PersonalInfo
