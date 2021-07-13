@@ -14,6 +14,9 @@ type PersonalInfoPropsType = {
 
 const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updatePhoto}: PersonalInfoPropsType) => {
 
+    const {register, handleSubmit} = useForm<any>();
+    const onSubmit: SubmitHandler<any> = handleSubmit((data) => updateProfile({data} as any));
+
     const onUpdatePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.files && updatePhoto(e.target.files[0])
     }
@@ -29,49 +32,48 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
             <p>Web Site: <span>{userProfile.contacts && ''}</span></p>
             <p>Description for Job: {userProfile.lookingForAJobDescription}</p>
 
-            {userProfileContacts.map((key) => <Contact updateProfile={updateProfile} contactTitle={key as SocialMediaType}
-                                                       titleValue={userProfile.contacts[key as SocialMediaType]}/>)}
+            {userProfileContacts.map((key) => {
+                return <form onSubmit={onSubmit}>
+
+                    <Contact register={register} handleSubmit={handleSubmit} updateProfile={updateProfile} contactTitle={key as SocialMediaType}
+                             titleValue={userProfile.contacts[key as SocialMediaType]}/>
+
+                             <button>Send</button>
+
+                </form>
+
+            })}
+
+
         </div>
     </div>
 }
 
 type ContactPropsType = {
+    register: any
+    handleSubmit: any
     titleValue: string
     contactTitle: SocialMediaType
     updateProfile: (contacts: ContactsType) => void
 }
 
 
-const Contact = ({titleValue, contactTitle, updateProfile}: ContactPropsType) => {
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<any>();
-    const onSubmit: SubmitHandler<any> = data => console.log(data);
-
+const Contact = ({titleValue, contactTitle, handleSubmit, register, updateProfile}: ContactPropsType) => {
     const [isEditable, setIsEditable] = useState<boolean>(false)
-    const [statusValue, setStatusValue] = useState<string>(contactTitle)
 
-    console.log('Cont', contactTitle)
+    return <>
 
-    // const onChangeStatusValue = (e: ChangeEvent<HTMLInputElement>) => setStatusValue(e.currentTarget.value)
-    //
-    // const onBlurHandler = () => setIsEditable(false)
-
-    const onSubmitHandler = () => updateProfile({...register as any})
-
-    const onEditMode = () => setIsEditable(true)
-
-    return <form onSubmit={handleSubmit(onSubmitHandler)   }>
-        <button onClick={onEditMode}>Edit</button>
         {
             isEditable
-                ? <p> {contactTitle} : <input  autoFocus
+                ? <p> {contactTitle} : <input autoFocus
                                               type="text"
-                                              value={statusValue}
                                               {...register(contactTitle)}
                 /></p>
 
-                : <p><b>{contactTitle}</b> : {titleValue}</p>
+                : <p onDoubleClick={() => setIsEditable(!isEditable)}><b>{contactTitle}</b> : {titleValue}</p>
         }
-    </form>
+
+    </>
 }
 
 export default PersonalInfo
