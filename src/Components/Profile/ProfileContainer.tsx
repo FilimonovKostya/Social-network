@@ -7,13 +7,14 @@ import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import WithAuthRedirect from "../../Hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {updateProfile} from "../../Api/api";
 
 type MapDispatchToPropsType = {
     getUsersTC: (userId: string) => void
     getStatusTC: (userId: number) => void
     changeStatusTC: (status: string) => void
     updatePhotoTC: (photos: File) => void
-    updateProfileTC: (contacts: ContactsType) => void
+    updateProfileTC: (contacts: updateProfile) => void
 }
 
 type ParamsType = {

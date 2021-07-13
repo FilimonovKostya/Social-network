@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {API} from "../Api/api";
+import {API, updateProfile} from "../Api/api";
 
 export type PostType = {
     id: number
@@ -61,7 +61,7 @@ export type UpdatePhotoActionType = {
 
 export type UpdateProfileActionType = {
     type: 'UPDATE-PROFILE',
-    contacts: ContactsType
+    contacts: updateProfile
 }
 
 type ActionType = AddPostActionType | SetUserProfileActionType | SetStatusActionType | UpdatePhotoActionType | UpdateProfileActionType
@@ -123,7 +123,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
         case "UPDATE-PROFILE":
             return {
                 ...state,
-                userProfile: {...state.userProfile, contacts: action.contacts}
+                userProfile: {...state.userProfile, contacts: action.contacts.contacts}
             }
 
         default:
@@ -135,7 +135,7 @@ export const addPostAC = (message: string): AddPostActionType => ({type: 'ADD-PO
 export const setUserProfileAC = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
 export const setStatusAC = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
 export const updatePhotoAC = (photos: { small: string, large: string }): UpdatePhotoActionType => ({type: "UPDATE-PHOTO", photos})
-export const updateProfileAC = (contacts: ContactsType): UpdateProfileActionType => ({type: "UPDATE-PROFILE", contacts})
+export const updateProfileAC = (contacts: updateProfile): UpdateProfileActionType => ({type: "UPDATE-PROFILE", contacts})
 
 export const getUsersTC = (userId: string) => async (dispatch: Dispatch) => {
 
@@ -176,13 +176,19 @@ export const updatePhotoTC = (photos: File) => async (dispatch: Dispatch) => {
     }
 }
 
-export const updateProfileTC = (contacts: ContactsType) => async (dispatch: Dispatch) => {
+export const updateProfileTC = (contacts: updateProfile) => async (dispatch: Dispatch) => {
 
     const res = await API.updateProfile(contacts)
 
     if (res.data.resultCode === 0) {
         console.log('res in profile', res.data)
-        dispatch(updateProfileAC(contacts))
+        dispatch(updateProfileAC({
+            aboutMe: 'Test About me',
+            fullName: 'Test Full Name',
+            lookingForAJob: false,
+            lookingForAJobDescription: 'test job',
+            contacts: contacts.contacts
+        }))
 
     }
 }

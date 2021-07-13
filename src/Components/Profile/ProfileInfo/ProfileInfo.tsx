@@ -2,13 +2,14 @@ import React from "react";
 import style from './ProfileInfo.module.css'
 import {ContactsType, UserProfileType} from "../../../Redux/profileReducer";
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
+import { updateProfile } from "../../../Api/api";
 
 type ProfileInfoPropsType = {
     userProfile: UserProfileType
     status: string
     changeStatus: (status: string) => void
     updatePhoto: (photos: File) => void
-    updateProfile: (contacts: ContactsType) => void
+    updateProfile: (contacts: updateProfile) => void
 }
 
 const ProfileInfo = ({userProfile, updateProfile, status, changeStatus, updatePhoto}: ProfileInfoPropsType) => {

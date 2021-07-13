@@ -3,19 +3,30 @@ import React, {ChangeEvent, useState} from "react";
 import {ContactsType, SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer";
 import Status from "../Status";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {updateProfile} from "../../../../Api/api";
 
 type PersonalInfoPropsType = {
     userProfile: UserProfileType
     changeStatus: (status: string) => void
     status: string
     updatePhoto: (photos: File) => void
-    updateProfile: (contacts: ContactsType) => void
+    updateProfile: (contacts: updateProfile) => void
 }
 
 const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updatePhoto}: PersonalInfoPropsType) => {
+    console.log('userPr', userProfile.contacts)
 
     const {register, handleSubmit} = useForm<any>();
-    const onSubmit: SubmitHandler<any> = handleSubmit((data) => updateProfile({data} as any));
+    const onSubmit: SubmitHandler<any> = handleSubmit((data) => {
+        console.log('data', data)
+        updateProfile({
+            aboutMe: 'Test About me',
+            fullName: 'Test Full Name',
+            lookingForAJob: false,
+            lookingForAJobDescription: 'test job',
+            contacts: data
+        })
+    });
 
     const onUpdatePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         e.target.files && updatePhoto(e.target.files[0])
@@ -35,10 +46,10 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
             {userProfileContacts.map((key) => {
                 return <form onSubmit={onSubmit}>
 
-                    <Contact register={register} handleSubmit={handleSubmit} updateProfile={updateProfile} contactTitle={key as SocialMediaType}
+                    <Contact register={register} handleSubmit={handleSubmit} contactTitle={key as SocialMediaType}
                              titleValue={userProfile.contacts[key as SocialMediaType]}/>
 
-                             <button>Send</button>
+                    <button>Send</button>
 
                 </form>
 
@@ -54,11 +65,10 @@ type ContactPropsType = {
     handleSubmit: any
     titleValue: string
     contactTitle: SocialMediaType
-    updateProfile: (contacts: ContactsType) => void
 }
 
 
-const Contact = ({titleValue, contactTitle, handleSubmit, register, updateProfile}: ContactPropsType) => {
+const Contact = ({titleValue, contactTitle, handleSubmit, register}: ContactPropsType) => {
     const [isEditable, setIsEditable] = useState<boolean>(false)
 
     return <>
