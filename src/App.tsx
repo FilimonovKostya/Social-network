@@ -27,6 +27,7 @@ type mapDispatchToPropsType = {
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
+console.log('test commit')
 
 function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
 
