@@ -60,30 +60,18 @@ export const API = {
         })
     },
     updateProfile(socialMedia: updateProfile) {
-        return instance.put(`/profile`, {
-            aboutMe: 'Test About me',
-            fullName: 'Test Full Name',
-            lookingForAJob: false,
-            lookingForAJobDescription: 'test job',
-            contacts: {...socialMedia}
-        })
+        return instance.put(`/profile`, socialMedia)
     }
 
 }
 
 export type updateProfile = {
-    "aboutMe": string,
-    "contacts": {
-        facebook: string
-        github: string
-        instagram: string
-        mainLink: string
-        twitter: string
-        vk: string
-        website: string
-        youtube: string
-    },
-    "lookingForAJob": boolean
-    "lookingForAJobDescription": string
-    "fullName": string
+    facebook: string
+    github: string
+    instagram: string
+    mainLink: string
+    twitter: string
+    vk: string
+    website: string
+    youtube: string
 }

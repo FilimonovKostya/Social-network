@@ -19,13 +19,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
     const {register, handleSubmit} = useForm<any>();
     const onSubmit: SubmitHandler<any> = handleSubmit((data) => {
         console.log('data', data)
-        updateProfile({
-            aboutMe: 'Test About me',
-            fullName: 'Test Full Name',
-            lookingForAJob: false,
-            lookingForAJobDescription: 'test job',
-            contacts: data
-        })
+        updateProfile({ ...data})
     });
 
     const onUpdatePhoto = (e: ChangeEvent<HTMLInputElement>) => {

@@ -136,7 +136,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
         case "UPDATE-PROFILE":
             return {
                 ...state,
-                userProfile: {...state.userProfile, contacts: {...action.contacts.contacts}}
+                userProfile: {...state.userProfile, contacts: {...action.contacts}}
             }
 
         default:
@@ -204,13 +204,7 @@ export const updateProfileTC = (contacts: updateProfile) => async (dispatch: Dis
 
     if (res.data.resultCode === 0) {
         console.log('res in profile', res.data)
-        dispatch(updateProfileAC({
-            aboutMe: 'Test About me',
-            fullName: 'Test Full Name',
-            lookingForAJob: false,
-            lookingForAJobDescription: 'test job',
-            contacts: contacts.contacts
-        }))
+        dispatch(updateProfileAC(contacts))
 
     }
 }
