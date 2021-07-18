@@ -18,7 +18,15 @@ export type ContactsType = {
     mainLink: string
 }
 
-export type SocialMediaType = 'facebook' | 'website' | 'vk' | 'twitter' | 'instagram' | 'youtube' | 'github' | 'mainLink'
+export type SocialMediaType =
+    'facebook'
+    | 'website'
+    | 'vk'
+    | 'twitter'
+    | 'instagram'
+    | 'youtube'
+    | 'github'
+    | 'mainLink'
 
 export type UserProfileType = {
     aboutMe: string,
@@ -64,7 +72,12 @@ export type UpdateProfileActionType = {
     contacts: updateProfile
 }
 
-type ActionType = AddPostActionType | SetUserProfileActionType | SetStatusActionType | UpdatePhotoActionType | UpdateProfileActionType
+type ActionType =
+    AddPostActionType
+    | SetUserProfileActionType
+    | SetStatusActionType
+    | UpdatePhotoActionType
+    | UpdateProfileActionType
 
 const initialState: InitialStateType = {
     posts: [
@@ -123,7 +136,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
         case "UPDATE-PROFILE":
             return {
                 ...state,
-                userProfile: {...state.userProfile, contacts: action.contacts.contacts}
+                userProfile: {...state.userProfile, contacts: {...action.contacts.contacts}}
             }
 
         default:
@@ -132,10 +145,19 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
 }
 
 export const addPostAC = (message: string): AddPostActionType => ({type: 'ADD-POST', message})
-export const setUserProfileAC = (userProfile: UserProfileType): SetUserProfileActionType => ({type: "SET-USER-PROFILE", userProfile})
+export const setUserProfileAC = (userProfile: UserProfileType): SetUserProfileActionType => ({
+    type: "SET-USER-PROFILE",
+    userProfile
+})
 export const setStatusAC = (status: string): SetStatusActionType => ({type: "SET-STATUS", status})
-export const updatePhotoAC = (photos: { small: string, large: string }): UpdatePhotoActionType => ({type: "UPDATE-PHOTO", photos})
-export const updateProfileAC = (contacts: updateProfile): UpdateProfileActionType => ({type: "UPDATE-PROFILE", contacts})
+export const updatePhotoAC = (photos: { small: string, large: string }): UpdatePhotoActionType => ({
+    type: "UPDATE-PHOTO",
+    photos
+})
+export const updateProfileAC = (contacts: updateProfile): UpdateProfileActionType => ({
+    type: "UPDATE-PROFILE",
+    contacts
+})
 
 export const getUsersTC = (userId: string) => async (dispatch: Dispatch) => {
 

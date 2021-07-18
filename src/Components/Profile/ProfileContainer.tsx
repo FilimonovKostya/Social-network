@@ -1,7 +1,15 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import {changeStatusTC, ContactsType, getStatusTC, getUsersTC, updatePhotoTC, updateProfileTC, UserProfileType} from "../../Redux/profileReducer";
+import {
+    changeStatusTC,
+    ContactsType,
+    getStatusTC,
+    getUsersTC,
+    updatePhotoTC,
+    updateProfileTC,
+    UserProfileType
+} from "../../Redux/profileReducer";
 import {AppStateType} from "../../Redux/reduxStore";
 import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -31,7 +39,18 @@ type MapStateToPropsType = {
     status: string
 }
 
-const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, updatePhotoTC, changeStatusTC, match, getStatusTC, auth, status, updateProfileTC, ...restProps}) => {
+const ProfileContainer: React.FC<PropsType> = ({
+                                                   userProfile,
+                                                   getUsersTC,
+                                                   updatePhotoTC,
+                                                   changeStatusTC,
+                                                   match,
+                                                   getStatusTC,
+                                                   auth,
+                                                   status,
+                                                   updateProfileTC,
+                                                   ...restProps
+                                               }) => {
 
     let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
 
@@ -41,10 +60,12 @@ const ProfileContainer: React.FC<PropsType> = ({userProfile, getUsersTC, updateP
     }, [userId])
 
 
-    return <Profile updatePhoto={updatePhotoTC} updateProfile={updateProfileTC} userProfile={userProfile} changeStatus={changeStatusTC} status={status} {...restProps}/>
+    return <Profile updatePhoto={updatePhotoTC} updateProfile={updateProfileTC} userProfile={userProfile}
+                    changeStatus={changeStatusTC} status={status} {...restProps}/>
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    console.log('userPrf', state.profilePage.userProfile.contacts)
     return {
         userProfile: state.profilePage.userProfile,
         auth: state.auth.isAuth,
