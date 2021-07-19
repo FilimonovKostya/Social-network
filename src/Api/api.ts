@@ -59,10 +59,20 @@ export const API = {
             }
         })
     },
-    updateProfile(socialMedia: updateProfile) {
-        return instance.put(`/profile`, socialMedia)
+    updateProfile(contactsss: updateProfile) {
+        return instance.put(`/profile`, contacts)
     }
 
+}
+
+const contacts =  {
+    lookingForAJob: false,
+    AboutMe: 'ssssss',
+    lookingForAJobDescription: '123123',
+    fullName: 'test full name',
+    contacts: {
+        facebook: 'https://www.facebook.com/'
+    },
 }
 
 export type updateProfile = {
