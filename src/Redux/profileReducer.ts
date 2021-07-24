@@ -136,7 +136,7 @@ export const profileReducer = (state = initialState, action: ActionType): Initia
         case "UPDATE-PROFILE":
             return {
                 ...state,
-                userProfile: {...state.userProfile, contacts: {...action.contacts}}
+                userProfile: {...state.userProfile, ...action.contacts}
             }
 
         default:

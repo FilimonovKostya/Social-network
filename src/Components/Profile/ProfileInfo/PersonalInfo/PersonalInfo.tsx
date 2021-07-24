@@ -1,6 +1,6 @@
 import style from "../ProfileInfo.module.css";
-import React, {ChangeEvent, useState} from "react";
-import {ContactsType, SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer";
+import React, {ChangeEvent, useState, KeyboardEvent, useEffect} from "react";
+import {SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer";
 import Status from "../Status";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {updateProfile} from "../../../../Api/api";
@@ -19,7 +19,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
     const {register, handleSubmit} = useForm<any>();
     const onSubmit: SubmitHandler<any> = handleSubmit((data) => {
         console.log('data', data)
-        updateProfile({ ...data})
+        updateProfile({...data})
     });
 
     const onUpdatePhoto = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,8 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
         <img className={style.avatarProfile} src={userProfile?.photos?.large} alt=""/>
         <input type="file" onChange={onUpdatePhoto}/>
         <div className={style.personalInfo}><h3>{userProfile?.fullName}</h3>
-            <p>Looking for a job: <span>{userProfile?.lookingForAJob ? 'Ищу работу за шаурму' : 'Ищу за деньги'}</span></p>
+            <p>Looking for a job: <span>{userProfile?.lookingForAJob ? 'Ищу работу за шаурму' : 'Ищу за деньги'}</span>
+            </p>
             <Status status={status} changeStatus={changeStatus}/>
             <p>Web Site: <span>{userProfile.contacts && ''}</span></p>
             <p>Description for Job: {userProfile.lookingForAJobDescription}</p>
@@ -65,13 +66,23 @@ type ContactPropsType = {
 const Contact = ({titleValue, contactTitle, handleSubmit, register}: ContactPropsType) => {
     const [isEditable, setIsEditable] = useState<boolean>(false)
 
+    useEffect(() => {
+        const keyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+            event.key === 'Escape' && setIsEditable(false)
+        }
+        document.addEventListener('keypress', (e) => {
+            console.log(e.key)
+            e.key === 'Escape' && setIsEditable(false)
+        })
+    })
+
     return <>
 
         {
             isEditable
-                ? <p> {contactTitle} : <input autoFocus
-                                              type="text"
-                                              {...register(contactTitle)}
+                ? <p> {contactTitle} : <input
+                    type="text"
+                    {...register(contactTitle)}
                 /></p>
 
                 : <p onDoubleClick={() => setIsEditable(!isEditable)}><b>{contactTitle}</b> : {titleValue}</p>
