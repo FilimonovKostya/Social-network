@@ -4,6 +4,7 @@ import {SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer
 import Status from "../Status";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {updateProfile} from "../../../../Api/api";
+import {ReactComponent as Camera} from "../../../../assets/camera.svg";
 
 type PersonalInfoPropsType = {
     userProfile: UserProfileType
@@ -29,8 +30,13 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
     const userProfileContacts = Object.keys(userProfile.contacts ?? {})
 
     return <div className={style.wrapperPersonalInfo}>
-        <img className={style.avatarProfile} src={userProfile?.photos?.large} alt=""/>
-        <input type="file" onChange={onUpdatePhoto}/>
+        <div className={style.wrapperPhotoProfile}>
+            <img className={style.avatarProfile} src={userProfile?.photos?.large} alt=""/>
+            <label htmlFor="updatePhoto">
+                <div id={'test'} className={style.camera}><Camera className={style.icon}/></div>
+                <input className={style.input} type="file" id={'updatePhoto'} onChange={onUpdatePhoto}/>
+            </label>
+        </div>
         <div className={style.personalInfo}><h3>{userProfile?.fullName}</h3>
             <p>Looking for a job: <span>{userProfile?.lookingForAJob ? 'Ищу работу за шаурму' : 'Ищу за деньги'}</span>
             </p>
@@ -38,17 +44,17 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
             <p>Web Site: <span>{userProfile.contacts && ''}</span></p>
             <p>Description for Job: {userProfile.lookingForAJobDescription}</p>
 
-            {userProfileContacts.map((key) => {
-                return <form onSubmit={onSubmit}>
+            {/*{userProfileContacts.map((key) => {*/}
+            {/*    return <form onSubmit={onSubmit}>*/}
 
-                    <Contact register={register} handleSubmit={handleSubmit} contactTitle={key as SocialMediaType}
-                             titleValue={userProfile.contacts[key as SocialMediaType]}/>
+            {/*        <Contact register={register} handleSubmit={handleSubmit} contactTitle={key as SocialMediaType}*/}
+            {/*                 titleValue={userProfile.contacts[key as SocialMediaType]}/>*/}
 
-                    <button>Send</button>
+            {/*        <button>Send</button>*/}
 
-                </form>
+            {/*    </form>*/}
 
-            })}
+            {/*})} */}
 
 
         </div>

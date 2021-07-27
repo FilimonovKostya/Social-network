@@ -1,14 +1,14 @@
-.backgroundImage{
+.backgroundImage {
     width: 100%;
     height: 200px;
 }
 
-.wrapperPersonalInfo{
+.wrapperPersonalInfo {
     display: flex;
     margin: 10px;
 }
 
-.avatarProfile{
+.avatarProfile {
     width: 185px;
     height: 185px;
     border-radius: 15%;
@@ -16,6 +16,38 @@
     background: #845ec2;
 }
 
-.personalInfo{
+.personalInfo {
     margin: 0 10px;
+}
+
+.wrapperPhotoProfile {
+    margin-right: 20px;
+    position: relative;
+}
+
+.input{
+    display: none;
+}
+
+.camera {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: auto;
+    transform: translate(38%, 39%);
+    border: 2px solid;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background: #b39cd0;
+}
+
+.icon {
+    height: 100%;
+    border-radius: 50%;
+    width: 100%;
+    cursor: pointer;
 }
