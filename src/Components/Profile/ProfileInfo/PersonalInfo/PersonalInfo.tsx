@@ -30,6 +30,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
     console.log('userProfileContacts', userProfileContacts)
 
     return <div className={style.wrapperPersonalInfo}>
+
         <div className={style.wrapperPhotoProfile}>
             <img className={style.avatarProfile} src={userProfile?.photos?.large} alt=""/>
             <label htmlFor="updatePhoto">
@@ -37,6 +38,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
                 <input className={style.input} type="file" id={'updatePhoto'} onChange={onUpdatePhoto}/>
             </label>
         </div>
+
         <form onSubmit={onSubmit} className={style.wrapperContacts}>
             <div className={style.leftInfo}>
                 <p>Looking for a job : <span>{userProfile?.lookingForAJob ? 'В поиске работы' : 'Не рассматриваю' +
@@ -53,6 +55,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
                              titleValue={userProfile.contacts[key as SocialMediaType]}/>
                 </>)}
             </div>
+            <button> Send</button>
         </form>
     </div>
 }
