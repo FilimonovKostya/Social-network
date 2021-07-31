@@ -1,6 +1,6 @@
 import axios from "axios";
 import {UsersType} from "../Redux/usersReducer";
-import {ContactsType, UserProfileType} from "../Redux/profileReducer";
+import { UserProfileType} from "../Redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
