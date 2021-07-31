@@ -41,6 +41,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
 
         <form onSubmit={onSubmit} className={style.wrapperContacts}>
             <div className={style.leftInfo}>
+
                 <p>Looking for a job : <span>{userProfile?.lookingForAJob ? 'В поиске работы' : 'Не рассматриваю' +
                     ' предложения'}</span>
                 </p>
@@ -55,7 +56,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
                              titleValue={userProfile.contacts[key as SocialMediaType]}/>
                 </>)}
             </div>
-            <button> Send</button>
+           <div className={style.btn}> <button> Send</button> </div>
         </form>
     </div>
 }

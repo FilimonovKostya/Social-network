@@ -60,26 +60,20 @@ export const API = {
         })
     },
     updateProfile(contacts: updateProfile) {
-        return instance.put(`/profile`, contacts)
+        return instance.put(`/profile`, {AboutMe: 'Test', lookingForAJobDescription: 'Test', fullName: 'Test', contacts})
     }
 
 }
 
 
 export type updateProfile = {
-    lookingForAJob: boolean,
-    aboutMe: string,
-    lookingForAJobDescription: string,
-    fullName: string,
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    },
 
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
 }

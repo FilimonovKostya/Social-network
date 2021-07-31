@@ -63,3 +63,7 @@
     margin-right: 15px;
 
 }
+
+.btn{
+    align-self: flex-end;
+}
