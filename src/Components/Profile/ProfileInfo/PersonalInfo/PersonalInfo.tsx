@@ -1,5 +1,5 @@
 import style from "../ProfileInfo.module.css";
-import React, {ChangeEvent, useState, KeyboardEvent, useEffect} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer";
 import Status from "../Status";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -18,7 +18,7 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
 
     const {register, handleSubmit} = useForm<any>();
     const onSubmit: SubmitHandler<any> = handleSubmit((data) => {
-        console.log('data', data)
+
         updateProfile({...data})
     });
 
@@ -56,7 +56,9 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
                              titleValue={userProfile.contacts[key as SocialMediaType]}/>
                 </>)}
             </div>
-           <div className={style.btn}> <button> Send</button> </div>
+            <div className={style.btn}>
+                <button> Send</button>
+            </div>
         </form>
     </div>
 }
@@ -69,13 +71,10 @@ type ContactPropsType = {
 }
 
 
-const Contact = ({titleValue, contactTitle, handleSubmit, register}: ContactPropsType) => {
+const Contact = ({titleValue, contactTitle, register}: ContactPropsType) => {
     const [isEditable, setIsEditable] = useState<boolean>(false)
 
     useEffect(() => {
-        const keyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-            event.key === 'Escape' && setIsEditable(false)
-        }
         document.addEventListener('keypress', (e) => {
             console.log(e.key)
             e.key === 'Escape' && setIsEditable(false)
