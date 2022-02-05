@@ -4,7 +4,7 @@ import {SocialMediaType, UserProfileType} from "../../../../Redux/profileReducer
 import Status from "../Status";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {updateProfile} from "../../../../Api/api";
-import {ReactComponent as Camera} from "../../../../assets/camera.svg";
+import {ReactComponent as Camera} from "../../../../assests/camera.svg";
 
 type PersonalInfoPropsType = {
     userProfile: UserProfileType

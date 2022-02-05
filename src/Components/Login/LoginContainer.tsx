@@ -3,7 +3,7 @@ import {compose} from "redux";
 import Login from "./Login";
 import {AppStateType} from "../../Redux/reduxStore";
 import {connect} from "react-redux";
-import {Redirect} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 type mapStatePropsType = {
     isAuth: boolean
@@ -11,7 +11,7 @@ type mapStatePropsType = {
 
 const LoginContainer = ({isAuth}: mapStatePropsType) => {
 
-    if (isAuth) return <Redirect to={'/profile'}/>
+    if (isAuth) return <Navigate to={'/profile'}/>
 
     return <Login/>
 };

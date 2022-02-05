@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import Navbar from "./Components/Nav/Navbar";
-import {Route} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import Settings from "./Components/Settings/Settings";
 import Music from "./Components/Music/Music";
 import News from "./Components/News/News";
@@ -13,8 +13,7 @@ import {connect} from "react-redux";
 import {setInitializeAppTC} from "./Redux/appReducer";
 import Preloader from "./Components/Preloader/Preloader";
 import LoginContainer from "./Components/Login/LoginContainer";
-import WithLazyLoading from "./Hoc/WithLazyLoading"
-
+import WithLazyLoading from "./Hoc/WithLazyLoading";
 
 type mapStatePropsType = {
     isInitialize: boolean
@@ -26,7 +25,6 @@ type mapDispatchToPropsType = {
 
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
-
 
 
 function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
@@ -42,13 +40,15 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
             <HeaderContainer/>
             <Navbar/>
             <div className={'app-content'}>
-                <Route path={'/profile/:userId?'} render={() => WithLazyLoading(ProfileContainer)}/>
-                <Route path={'/dialogs'} render={() => WithLazyLoading(DialogsContainer )}/>
-                <Route path={'/users'} render={() => <UsersAPIContainer/>}/>
-                <Route path={'/news'} render={() => <News/>}/>
-                <Route path={'/settings'} render={() => <Settings/>}/>
-                <Route path={'/music'} render={() => <Music/>}/>
-                <Route exact path={'/login'} render={() => <LoginContainer/>}/>
+                <Routes>
+                    <Route path={'/profile/:userId?'} element={() => WithLazyLoading(ProfileContainer)}/>
+                    <Route path={'/dialogs'} element={() => WithLazyLoading(DialogsContainer)}/>
+                    <Route path={'/users'} element={() => <UsersAPIContainer/>}/>
+                    <Route path={'/news'} element={() => <News/>}/>
+                    <Route path={'/settings'} element={() => <Settings/>}/>
+                    <Route path={'/music'} element={() => <Music/>}/>
+                    <Route path={'/login'} element={() => <LoginContainer/>}/>
+                </Routes>
             </div>
         </div>
     );
