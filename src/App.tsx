@@ -14,6 +14,7 @@ import {setInitializeAppTC} from "./Redux/appReducer";
 import Preloader from "./Components/Preloader/Preloader";
 import LoginContainer from "./Components/Login/LoginContainer";
 import WithLazyLoading from "./Hoc/WithLazyLoading";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 type mapStatePropsType = {
     isInitialize: boolean
@@ -24,14 +25,13 @@ type mapDispatchToPropsType = {
 }
 
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
-const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+
+// const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
 
 function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
 
-    useEffect(() => {
-        setInitializeAppTC()
-    }, [])
+    useEffect(() => setInitializeAppTC(), [])
 
     if (!isInitialize) return <Preloader/>
 
@@ -41,13 +41,15 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
             <Navbar/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path={'/profile/:userId?'} element={() => WithLazyLoading(ProfileContainer)}/>
-                    <Route path={'/dialogs'} element={() => WithLazyLoading(DialogsContainer)}/>
-                    <Route path={'/users'} element={() => <UsersAPIContainer/>}/>
-                    <Route path={'/news'} element={() => <News/>}/>
-                    <Route path={'/settings'} element={() => <Settings/>}/>
-                    <Route path={'/music'} element={() => <Music/>}/>
-                    <Route path={'/login'} element={() => <LoginContainer/>}/>
+                    <Route path="profile" element={<ProfileContainer/>}>
+                        <Route path=":userId" element={<ProfileContainer/>}/>
+                    </Route>
+                    <Route path={'/dialogs'} element={WithLazyLoading(DialogsContainer)}/>
+                    <Route path={'/users'} element={<UsersAPIContainer/>}/>
+                    <Route path={'/news'} element={<News/>}/>
+                    <Route path={'/settings'} element={<Settings/>}/>
+                    <Route path={'/music'} element={<Music/>}/>
+                    <Route path={'/login'} element={<LoginContainer/>}/>
                 </Routes>
             </div>
         </div>

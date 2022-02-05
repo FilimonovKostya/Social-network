@@ -6,6 +6,7 @@ import {AppStateType} from "../../Redux/reduxStore";
 import WithAuthRedirect from "../../Hoc/WithAuthRedirect";
 import {compose} from "redux";
 import {updateProfile} from "../../Api/api";
+import {useParams} from "react-router-dom";
 
 type MapDispatchToPropsType = {
     getUsersTC: (userId: string) => void
@@ -38,9 +39,10 @@ const ProfileContainer: React.FC<CommonType> = (props) => {
         ...restProps
     } = props
 
-    const match = {} as any
 
-    let userId = !match.params.userId ? match.params.userId = '11899' : match.params.userId
+    const {userId = '11899'} = useParams<{ userId: string }>()
+    console.log('userId', userId)
+
 
     useEffect(() => {
         getUsersTC(userId)
@@ -53,7 +55,6 @@ const ProfileContainer: React.FC<CommonType> = (props) => {
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    console.log('userPrf', state.profilePage.userProfile.contacts)
     return {
         userProfile: state.profilePage.userProfile,
         auth: state.auth.isAuth,

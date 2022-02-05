@@ -27,7 +27,6 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
     }
 
     const userProfileContacts = Object.keys(userProfile.contacts ?? {})
-    console.log('userProfileContacts', userProfileContacts)
 
     return <div className={style.wrapperPersonalInfo}>
 
@@ -50,9 +49,9 @@ const PersonalInfo = ({userProfile, updateProfile, status, changeStatus, updateP
                 <p>Description for Job: {userProfile.lookingForAJobDescription}</p>
             </div>
             <div style={{color: 'black'}}>
-                {userProfileContacts.map((key) => <>
+                {userProfileContacts.map((key, index) => <>
 
-                    <Contact register={register} handleSubmit={handleSubmit} contactTitle={key as SocialMediaType}
+                    <Contact key={index} register={register} handleSubmit={handleSubmit} contactTitle={key as SocialMediaType}
                              titleValue={userProfile.contacts[key as SocialMediaType]}/>
                 </>)}
             </div>
@@ -76,7 +75,6 @@ const Contact = ({titleValue, contactTitle, register}: ContactPropsType) => {
 
     useEffect(() => {
         document.addEventListener('keypress', (e) => {
-            console.log(e.key)
             e.key === 'Escape' && setIsEditable(false)
         })
     })

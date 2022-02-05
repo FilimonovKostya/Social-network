@@ -192,7 +192,6 @@ export const updatePhotoTC = (photos: File) => async (dispatch: Dispatch) => {
     const res = await API.updatePhoto(photos)
 
     if (res.data.resultCode === 0) {
-        console.log('res', res.data)
         dispatch(updatePhotoAC(res.data.data.photos))
 
     }
@@ -203,7 +202,6 @@ export const updateProfileTC = (contacts: updateProfile) => async (dispatch: Dis
     const res = await API.updateProfile(contacts)
 
     if (res.data.resultCode === 0) {
-        console.log('res in profile', res.data)
         dispatch(updateProfileAC(contacts))
 
     }

@@ -1,7 +1,7 @@
 import * as serviceWorker from './serviceWorker';
 import ReactDOM from "react-dom";
 import React from "react";
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import App from "./App";
 import {Provider} from "react-redux";
 import {reduxStore} from "./Redux/reduxStore";
@@ -9,11 +9,11 @@ import {reduxStore} from "./Redux/reduxStore";
 
 ReactDOM.render(
     <React.StrictMode>
-        <HashRouter>
+        <BrowserRouter>
             <Provider store={reduxStore}>
                 <App/>
             </Provider>
-        </HashRouter>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );
