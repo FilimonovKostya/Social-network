@@ -14,7 +14,6 @@ import {setInitializeAppTC} from "./Redux/appReducer";
 import Preloader from "./Components/Preloader/Preloader";
 import LoginContainer from "./Components/Login/LoginContainer";
 import WithLazyLoading from "./Hoc/WithLazyLoading";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 type mapStatePropsType = {
     isInitialize: boolean
@@ -26,7 +25,7 @@ type mapDispatchToPropsType = {
 
 const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'));
 
-// const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'));
 
 
 function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapStatePropsType) {
@@ -41,8 +40,8 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
             <Navbar/>
             <div className={'app-content'}>
                 <Routes>
-                    <Route path="profile" element={<ProfileContainer/>}>
-                        <Route path=":userId" element={<ProfileContainer/>}/>
+                    <Route path="profile" element={WithLazyLoading(ProfileContainer)}>
+                        <Route path=":userId" element={WithLazyLoading(ProfileContainer)}/>
                     </Route>
                     <Route path={'/dialogs'} element={WithLazyLoading(DialogsContainer)}/>
                     <Route path={'/users'} element={<UsersAPIContainer/>}/>
@@ -56,11 +55,9 @@ function App({isInitialize, setInitializeAppTC}: mapDispatchToPropsType & mapSta
     );
 }
 
-const mapStateProps = (state: AppStateType): mapStatePropsType => {
-    return {
-        isInitialize: state.app.isInitialize,
-    }
-}
+const mapStateProps = (state: AppStateType): mapStatePropsType => ({
+    isInitialize: state.app.isInitialize,
+})
 
 export default compose(
     connect(mapStateProps, {setInitializeAppTC})

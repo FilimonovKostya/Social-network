@@ -19,7 +19,6 @@ type MapDispatchToPropsType = {
 
 type CommonType = MapDispatchToPropsType & MapStateToPropsType
 
-
 type MapStateToPropsType = {
     userProfile: UserProfileType
     auth: boolean

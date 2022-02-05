@@ -31,7 +31,15 @@ type ActionType =
     | ReturnType<typeof setLoadingAC>
     | ReturnType<typeof setDisabledButtonAC>
 
-const initialState: UsersType = {items: [], currentPage: 1, error: null, totalCount: 0, pageSize: 10, isLoading: false, isDisabled: false}
+const initialState: UsersType = {
+    items: [],
+    currentPage: 1,
+    error: null,
+    totalCount: 0,
+    pageSize: 10,
+    isLoading: false,
+    isDisabled: false
+}
 
 export const usersReducer = (state = initialState, action: ActionType): UsersType => {
     switch (action.type) {
@@ -59,7 +67,7 @@ export const usersReducer = (state = initialState, action: ActionType): UsersTyp
             }
 
         case "SET-USERS":
-            return {...state, items: [...action.users, ...state.items]}
+            return {...state, items: [...action.users]}
 
         case "SET-CURRENT-PAGE":
             return {...state, currentPage: action.currentPage}
@@ -90,14 +98,18 @@ export const setLoadingAC = (isLoading: boolean) => ({type: 'SET-LOADING-STATUS'
 export const setDisabledButtonAC = (isDisabled: boolean) => ({type: 'SET-DISABLED-STATUS', isDisabled} as const)
 
 
-export const getUsersPageTC = (currentPage: number, pageSize: number) => {
-    return async (dispatch: Dispatch) => {
+export const getUsersPageTC = () => {
+    return async (dispatch: Dispatch, getState: () => UsersType) => {
+
+        console.log('state', getState().currentPage)
+
+        const currentPage = Number(localStorage.getItem('currentPage')) || getState().currentPage
 
         dispatch(setLoadingAC(true))
 
-        const response = await API.getUsers(currentPage, pageSize)
+        const response = await API.getUsers(currentPage, 10)
 
-        dispatch(setTotalCountAC(Math.ceil(response.totalCount / pageSize)))
+        dispatch(setTotalCountAC(Math.ceil(response.totalCount / 10)))
         dispatch(setUsersAC(response.items))
         dispatch(setLoadingAC(false))
         dispatch(setDisabledButtonAC(false))

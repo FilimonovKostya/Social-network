@@ -9,22 +9,44 @@ type PaginatorPropsType = {
 const Paginator = ({totalCount, currentPage, setCurrentPage}: PaginatorPropsType) => {
 
 
+    const [portionNumber, setPortionNumber] = useState(Number(localStorage.getItem('portionNumber')) || 1)
+    const leftPortionPageNumber = (portionNumber - 1) * 10 + 1
+    const rightPortionPageNumber = portionNumber * 10
     const pagesCount = Math.ceil(totalCount / 10)
+    const portionCount = Math.ceil(pagesCount / 10)
+
     const pages = [];
+
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    const portionCount = Math.ceil(pagesCount / 10)
-    const [portionNumber, setPortionNumber] = useState<number>(1)
-    const leftPortionPageNumber = (portionNumber - 1) * 10 + 1
-    const rightPortionPageNumber = portionNumber * 10
+
+    console.log('pages', pages)
+    console.log('pagesCount', pagesCount)
+    console.log('portionCount', portionCount)
+    console.log('portionNumber', portionNumber)
+
+    const savePlusPortionNumber = () => {
+        const portion = portionNumber + 1
+        setPortionNumber(portion)
+        localStorage.setItem('portionNumber', portion.toString())
+    }
+
+    const saveMinusPortionNumber = () => {
+        const portion = portionNumber - 1
+        setPortionNumber(portion)
+        localStorage.setItem('portionNumber', portion.toString())
+    }
+
+    const saveCurrentPage = (page: number) => {
+        setCurrentPage(page)
+        localStorage.setItem('currentPage', page.toString())
+    }
 
     return <>
 
         {
-            portionNumber > 1 && <button onClick={() => {
-                setPortionNumber(portionNumber - 1)
-            }}>PREV</button>
+            portionNumber > 1 && <button onClick={saveMinusPortionNumber}>PREV</button>
         }
 
 
@@ -33,12 +55,10 @@ const Paginator = ({totalCount, currentPage, setCurrentPage}: PaginatorPropsType
             .map(el => {
                 return <span className={el === currentPage ? style.active : ''}
                              key={el}
-                             onClick={() => setCurrentPage(el)}>{el}</span>
+                             onClick={() => saveCurrentPage(el)}>{el}</span>
             })}
         {
-            portionCount > portionNumber && <button onClick={() => {
-                setPortionNumber(portionNumber + 1)
-            }}>NEXT</button>
+            portionCount > portionNumber && <button onClick={savePlusPortionNumber}>NEXT</button>
         }
     </>
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 import {UsersType} from "../Redux/usersReducer";
-import { UserProfileType} from "../Redux/profileReducer";
+import {UserProfileType} from "../Redux/profileReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -67,7 +67,6 @@ export const API = {
 
 
 export type updateProfile = {
-
     github: string
     vk: string
     facebook: string
