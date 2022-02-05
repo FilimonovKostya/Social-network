@@ -30,6 +30,8 @@ const UsersAPIContainer = ({
                            }: UsersAPIContainerPropsType) => {
 
     useEffect(() => {
+        console.log('tut')
+
         getUsersPageTC(currentPage, pageSize)
     }, [currentPage, pageSize])
 

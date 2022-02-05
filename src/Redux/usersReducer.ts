@@ -103,9 +103,10 @@ export const getUsersPageTC = () => {
 
         console.log('state', getState().currentPage)
 
-        const currentPage = Number(localStorage.getItem('currentPage')) || getState().currentPage
-
+        const currentPage = Number(localStorage.getItem('currentPage')) || 1
+        dispatch(setCurrentPageAC(currentPage))
         dispatch(setLoadingAC(true))
+        console.log('current page in thunk =======>', currentPage)
 
         const response = await API.getUsers(currentPage, 10)
 

@@ -21,6 +21,8 @@ const Paginator = ({totalCount, currentPage, setCurrentPage}: PaginatorPropsType
         pages.push(i)
     }
 
+    console.log('curerent page --->', currentPage)
+
     console.log('pages', pages)
     console.log('pagesCount', pagesCount)
     console.log('portionCount', portionCount)
